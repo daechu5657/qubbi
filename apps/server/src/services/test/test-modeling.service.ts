@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { TestModel } from "../..//models/test/test.model";
-import { TestDocument } from "../../schemas/test.schema";
+import { TestDocument } from "../../schemas/test/test.schema";
 
 @Injectable()
 export class TestModelingService {

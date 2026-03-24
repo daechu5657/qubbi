@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { TestDocument } from "../../schemas/test.schema";
+import { TestDocument } from "../../schemas/test/test.schema";
 
 export class TestModel {
   @ApiProperty()
