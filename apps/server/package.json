@@ -6,9 +6,10 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "openapi:emit": "pnpm exec ts-node scripts/emit-openapi.ts",
     "dev": "nest start --watch",
     "dev:watch": "nest start --watch",
-    "build": "nest build",
+    "build": "nest build && pnpm run openapi:emit",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -31,8 +32,7 @@
     "class-validator": "^0.15.1",
     "mongoose": "^9.3.0",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1",
-    "@qubbi/contract": "workspace:*"
+    "rxjs": "^7.8.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -58,7 +58,8 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.20.0"
+    "typescript-eslint": "^8.20.0",
+    "@qubbi/contract": "workspace:*"
   },
   "jest": {
     "moduleFileExtensions": [

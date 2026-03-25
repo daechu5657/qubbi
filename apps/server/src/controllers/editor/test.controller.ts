@@ -8,7 +8,7 @@ import {
   Put,
 } from "@nestjs/common";
 import { CreateTestDto } from "../../models/test/create-test.dto";
-import { ApiResponse } from "@nestjs/swagger";
+import { ApiOkResponse } from "@nestjs/swagger";
 import { UpdateTestDto } from "../../models/test/update-test.dto";
 import { TestModel } from "../../models/test/test.model";
 import { TestModelingService } from "../../services/test/test-modeling.service";
@@ -23,7 +23,7 @@ export class TestController {
   ) {}
 
   @Get("")
-  @ApiResponse({
+  @ApiOkResponse({
     type: TestModel,
     isArray: true,
   })
@@ -34,7 +34,7 @@ export class TestController {
   }
 
   @Get(":id")
-  @ApiResponse({
+  @ApiOkResponse({
     type: TestModel,
   })
   async single(@Param("id") id: string) {
@@ -48,7 +48,7 @@ export class TestController {
   }
 
   @Put("")
-  @ApiResponse({
+  @ApiOkResponse({
     type: TestModel,
   })
   async create(@Body() createTestDto: CreateTestDto) {
@@ -58,7 +58,7 @@ export class TestController {
   }
 
   @Post("")
-  @ApiResponse({
+  @ApiOkResponse({
     type: TestModel,
   })
   async update(@Body() updateTestDto: UpdateTestDto) {

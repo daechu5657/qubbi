@@ -1,0 +1,18 @@
+{
+  "name": "@qubbi/openapi",
+  "private": true,
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "generate": "pnpm dlx openapi-typescript ../../apps/server/openapi.json -o src/generated.ts",
+    "dev": "pnpm run generate && tsc -p tsconfig.json",
+    "build": "pnpm run generate && tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0"
+  },
+  "dependencies": {
+    "openapi-fetch": "^0.17.0"
+  }
+}

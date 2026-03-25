@@ -1,0 +1,235 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/editor/test": {
+      "get": {
+        "operationId": "TestController_list",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestModel"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Test"
+        ]
+      },
+      "put": {
+        "operationId": "TestController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestModel"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Test"
+        ]
+      },
+      "post": {
+        "operationId": "TestController_update",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestModel"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Test"
+        ]
+      }
+    },
+    "/editor/test/{id}": {
+      "get": {
+        "operationId": "TestController_single",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestModel"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Test"
+        ]
+      },
+      "delete": {
+        "operationId": "TestController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Test"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "API",
+    "description": "The API description",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "TestModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "number"
+          },
+          "email": {
+            "type": "string"
+          },
+          "deletedTime": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "email",
+          "deletedTime"
+        ]
+      },
+      "CreateTestDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "number"
+          },
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "email"
+        ]
+      },
+      "UpdateTestDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "number"
+          },
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "email"
+        ]
+      },
+      "ExceptionResponseDto": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "statusCode": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "statusCode",
+          "message",
+          "path",
+          "timestamp"
+        ]
+      }
+    }
+  }
+}

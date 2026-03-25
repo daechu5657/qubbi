@@ -1,18 +1,22 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
-  "globalEnv": ["NODE_ENV"],
+  "globalDependencies": [".env", ".env*"],
+  "globalEnv": ["NODE_ENV", "MONGO_URI", "SERVER_PORT", "API_BASE_URL"],
   "tasks": {
-    "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "env": ["MONGO_URI", "SERVER_PORT"],
-      "outputs": ["dist/**"]
-    },
     "dev": {
       "cache": false,
-      "persistent": true,
-      "interruptible": true
+      "persistent": true
     },
+
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "@qubbi/openapi#build": {
+      "dependsOn": ["server#build", "^build"],
+      "outputs": ["dist/**", "src/generated.ts"]
+    },
+
     "lint": {}
   }
 }
