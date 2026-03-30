@@ -5,12 +5,18 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "generate": "pnpm dlx openapi-typescript ../../apps/server/openapi.json -o src/generated.ts",
-    "dev": "pnpm run generate && tsc -p tsconfig.json",
-    "build": "pnpm run generate && tsc -p tsconfig.json"
+    "model:generate": "pnpm dlx openapi-typescript@latest ../../apps/server/openapi.json -o src/generated.ts",
+    "model:extract": "pnpm exec ts-node scripts/extract-model.ts",
+    "prettier": "prettier --write src/generated.ts",
+    "dev": "pnpm run model:generate && pnpm run model:extract && pnpm run prettier && tsc -p tsconfig.json",
+    "build": "pnpm run model:generate && pnpm run model:extract && pnpm run prettier && tsc -p tsconfig.json"
   },
   "devDependencies": {
-    "typescript": "^5.9.0"
+    "@types/node": "^25.5.0",
+    "ts-morph": "^27.0.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.0",
+    "prettier": "^3.8.1"
   },
   "dependencies": {
     "openapi-fetch": "^0.17.0"

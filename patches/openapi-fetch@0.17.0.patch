@@ -1,0 +1,1156 @@
+diff --git a/dist/index.d.cts b/dist/index.d.cts
+index bfd34224ce42901a4eef99c2fb2318a64aa4c51c..cb963a00b161c1e70a40b239ea6ea20236a3af6c 100644
+--- a/dist/index.d.cts
++++ b/dist/index.d.cts
+@@ -1,4 +1,15 @@
+-import { OperationRequestBodyContent, MediaType, HttpMethod, PathsWithMethod, RequiredKeysOf, Writable, IsOperationRequestBodyOptional, FilterKeys, Readable, SuccessResponse, ResponseObjectMap, ErrorResponse } from 'openapi-typescript-helpers';
++import {
++  OperationRequestBodyContent,
++  MediaType,
++  HttpMethod,
++  PathsWithMethod,
++  RequiredKeysOf,
++  IsOperationRequestBodyOptional,
++  FilterKeys,
++  SuccessResponse,
++  ResponseObjectMap,
++  ErrorResponse,
++} from "openapi-typescript-helpers";
+ 
+ /** Options for each client instance */
+ interface ClientOptions extends Omit<RequestInit, "headers"> {
+@@ -21,10 +32,20 @@ interface ClientOptions extends Omit<RequestInit, "headers"> {
+ 
+ type HeadersOptions =
+   | Required<RequestInit>["headers"]
+-  | Record<string, string | number | boolean | (string | number | boolean)[] | null | undefined>;
++  | Record<
++      string,
++      | string
++      | number
++      | boolean
++      | (string | number | boolean)[]
++      | null
++      | undefined
++    >;
+ 
+ type QuerySerializer<T> = (
+-  query: T extends { parameters: any } ? NonNullable<T["parameters"]["query"]> : Record<string, unknown>,
++  query: T extends { parameters: any }
++    ? NonNullable<T["parameters"]["query"]>
++    : Record<string, unknown>,
+ ) => string;
+ 
+ /** @see https://swagger.io/docs/specification/serialization/#query */
+@@ -55,7 +76,10 @@ type QuerySerializerOptions = {
+ 
+ type BodySerializer<T> = (body: OperationRequestBodyContent<T>) => any;
+ 
+-type PathSerializer = (pathname: string, pathParams: Record<string, unknown>) => string;
++type PathSerializer = (
++  pathname: string,
++  pathParams: Record<string, unknown>,
++) => string;
+ 
+ type BodyType<T = unknown> = {
+   json: T;
+@@ -87,24 +111,32 @@ type ParamsOption<T> = T extends {
+ 
+ // Writable<T> strips $Read markers (readOnly properties excluded from request body)
+ type RequestBodyOption<T> =
+-  Writable<OperationRequestBodyContent<T>> extends never
++  OperationRequestBodyContent<T> extends never
+     ? { body?: never }
+     : IsOperationRequestBodyOptional<T> extends true
+-      ? { body?: Writable<OperationRequestBodyContent<T>> }
+-      : { body: Writable<OperationRequestBodyContent<T>> };
++      ? { body?: OperationRequestBodyContent<T> }
++      : { body: OperationRequestBodyContent<T> };
+ 
+-type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body" | "headers">;
++type FetchOptions<T> = RequestOptions<T> &
++  Omit<RequestInit, "body" | "headers">;
+ 
+ // Readable<T> strips $Write markers (writeOnly properties excluded from response)
+-type FetchResponse<T extends Record<string | number, any>, Options, Media extends MediaType> =
++type FetchResponse<
++  T extends Record<string | number, any>,
++  Options,
++  Media extends MediaType,
++> =
+   | {
+-      data: ParseAsResponse<Readable<SuccessResponse<ResponseObjectMap<T>, Media>>, Options>;
++      data: ParseAsResponse<
++        SuccessResponse<ResponseObjectMap<T>, Media>,
++        Options
++      >;
+       error?: never;
+       response: Response;
+     }
+   | {
+       data?: never;
+-      error: Readable<ErrorResponse<ResponseObjectMap<T>, Media>>;
++      error: ErrorResponse<ResponseObjectMap<T>, Media>;
+       response: Response;
+     };
+ 
+@@ -151,7 +183,12 @@ interface MiddlewareCallbackParams {
+ 
+ type MiddlewareOnRequest = (
+   options: MiddlewareCallbackParams,
+-) => void | Request | Response | undefined | Promise<Request | Response | undefined | void>;
++) =>
++  | void
++  | Request
++  | Response
++  | undefined
++  | Promise<Request | Response | undefined | void>;
+ type MiddlewareOnResponse = (
+   options: MiddlewareCallbackParams & { response: Response },
+ ) => void | Response | undefined | Promise<Response | undefined | void>;
+@@ -187,18 +224,26 @@ type MaybeOptionalInit<Params, Location extends keyof Params> =
+ // - Performs arbitrary [key: string] addition.
+ // Note: the addition MUST happen after all the inference happens (otherwise TS can’t infer if init is required or not).
+ type InitParam<Init> =
+-  RequiredKeysOf<Init> extends never ? [(Init & { [key: string]: unknown })?] : [Init & { [key: string]: unknown }];
++  RequiredKeysOf<Init> extends never
++    ? [(Init & { [key: string]: unknown })?]
++    : [Init & { [key: string]: unknown }];
+ 
+ type ClientMethod<
+   Paths extends Record<string, Record<HttpMethod, {}>>,
+   Method extends HttpMethod,
+   Media extends MediaType,
+-> = <Path extends PathsWithMethod<Paths, Method>, Init extends MaybeOptionalInit<Paths[Path], Method>>(
++> = <
++  Path extends PathsWithMethod<Paths, Method>,
++  Init extends MaybeOptionalInit<Paths[Path], Method>,
++>(
+   url: Path,
+   ...init: InitParam<Init>
+ ) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
+ 
+-type ClientRequestMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
++type ClientRequestMethod<
++  Paths extends Record<string, Record<HttpMethod, {}>>,
++  Media extends MediaType,
++> = <
+   Method extends HttpMethod,
+   Path extends PathsWithMethod<Paths, Method>,
+   Init extends MaybeOptionalInit<Paths[Path], Method>,
+@@ -208,8 +253,13 @@ type ClientRequestMethod<Paths extends Record<string, Record<HttpMethod, {}>>, M
+   ...init: InitParam<Init>
+ ) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
+ 
+-type ClientForPath<PathInfo extends Record<string | number, any>, Media extends MediaType> = {
+-  [Method in keyof PathInfo as Uppercase<string & Method>]: <Init extends MaybeOptionalInit<PathInfo, Method>>(
++type ClientForPath<
++  PathInfo extends Record<string | number, any>,
++  Media extends MediaType,
++> = {
++  [Method in keyof PathInfo as Uppercase<string & Method>]: <
++    Init extends MaybeOptionalInit<PathInfo, Method>,
++  >(
+     ...init: InitParam<Init>
+   ) => Promise<FetchResponse<PathInfo[Method], Init, Media>>;
+ };
+@@ -238,8 +288,13 @@ interface Client<Paths extends {}, Media extends MediaType = MediaType> {
+   eject(...middleware: Middleware[]): void;
+ }
+ 
+-type ClientPathsWithMethod<CreatedClient extends Client<any, any>, Method extends HttpMethod> =
+-  CreatedClient extends Client<infer Paths, infer _Media> ? PathsWithMethod<Paths, Method> : never;
++type ClientPathsWithMethod<
++  CreatedClient extends Client<any, any>,
++  Method extends HttpMethod,
++> =
++  CreatedClient extends Client<infer Paths, infer _Media>
++    ? PathsWithMethod<Paths, Method>
++    : never;
+ 
+ type MethodResponse<
+   CreatedClient extends Client<any, any>,
+@@ -247,25 +302,34 @@ type MethodResponse<
+   Path extends ClientPathsWithMethod<CreatedClient, Method>,
+   Options = {},
+ > =
+-  CreatedClient extends Client<infer Paths extends { [key: string]: any }, infer Media extends MediaType>
++  CreatedClient extends Client<
++    infer Paths extends { [key: string]: any },
++    infer Media extends MediaType
++  >
+     ? NonNullable<FetchResponse<Paths[Path][Method], Options, Media>["data"]>
+     : never;
+ 
+-declare function createClient<Paths extends {}, Media extends MediaType = MediaType>(
+-  clientOptions?: ClientOptions,
+-): Client<Paths, Media>;
++declare function createClient<
++  Paths extends {},
++  Media extends MediaType = MediaType,
++>(clientOptions?: ClientOptions): Client<Paths, Media>;
+ 
+-type PathBasedClient<Paths extends Record<string | number, any>, Media extends MediaType = MediaType> = {
++type PathBasedClient<
++  Paths extends Record<string | number, any>,
++  Media extends MediaType = MediaType,
++> = {
+   [Path in keyof Paths]: ClientForPath<Paths[Path], Media>;
+ };
+ 
+-declare function wrapAsPathBasedClient<Paths extends {}, Media extends MediaType = MediaType>(
+-  client: Client<Paths, Media>,
+-): PathBasedClient<Paths, Media>;
++declare function wrapAsPathBasedClient<
++  Paths extends {},
++  Media extends MediaType = MediaType,
++>(client: Client<Paths, Media>): PathBasedClient<Paths, Media>;
+ 
+-declare function createPathBasedClient<Paths extends {}, Media extends MediaType = MediaType>(
+-  clientOptions?: ClientOptions,
+-): PathBasedClient<Paths, Media>;
++declare function createPathBasedClient<
++  Paths extends {},
++  Media extends MediaType = MediaType,
++>(clientOptions?: ClientOptions): PathBasedClient<Paths, Media>;
+ 
+ /** Serialize primitive params to string */
+ declare function serializePrimitiveParam(
+@@ -290,7 +354,13 @@ declare function serializeArrayParam(
+   name: string,
+   value: unknown[],
+   options: {
+-    style: "simple" | "label" | "matrix" | "form" | "spaceDelimited" | "pipeDelimited";
++    style:
++      | "simple"
++      | "label"
++      | "matrix"
++      | "form"
++      | "spaceDelimited"
++      | "pipeDelimited";
+     explode: boolean;
+     allowReserved?: boolean;
+   },
+@@ -306,7 +376,10 @@ declare function createQuerySerializer<T = unknown>(
+  * @type {import("./index.js").defaultPathSerializer}
+  * @see https://swagger.io/docs/specification/serialization/#path
+  */
+-declare function defaultPathSerializer(pathname: string, pathParams: Record<string, unknown>): string;
++declare function defaultPathSerializer(
++  pathname: string,
++  pathParams: Record<string, unknown>,
++): string;
+ 
+ /** Serialize body object to string */
+ declare function defaultBodySerializer<T>(body: T): string;
+@@ -326,12 +399,53 @@ declare function createFinalURL<O>(
+ ): string;
+ 
+ /** Merge headers a and b, with b taking priority */
+-declare function mergeHeaders(...allHeaders: (HeadersOptions | undefined)[]): Headers;
++declare function mergeHeaders(
++  ...allHeaders: (HeadersOptions | undefined)[]
++): Headers;
+ 
+ /** Remove trailing slash from url */
+ declare function removeTrailingSlash(url: string): string;
+ 
+ // @ts-ignore
+ export = createClient;
+-export { createFinalURL, createPathBasedClient, createQuerySerializer, defaultBodySerializer, defaultPathSerializer, mergeHeaders, removeTrailingSlash, serializeArrayParam, serializeObjectParam, serializePrimitiveParam, wrapAsPathBasedClient };
+-export type { BodySerializer, Client, ClientForPath, ClientMethod, ClientOptions, ClientPathsWithMethod, ClientRequestMethod, DefaultParamsOption, FetchOptions, FetchResponse, HeadersOptions, MaybeOptionalInit, MergedOptions, MethodResponse, Middleware, MiddlewareCallbackParams, MiddlewareRequestParams, ParamsOption, ParseAs, ParseAsResponse, PathBasedClient, PathSerializer, QuerySerializer, QuerySerializerOptions, RequestBodyOption, RequestOptions };
++export {
++  createFinalURL,
++  createPathBasedClient,
++  createQuerySerializer,
++  defaultBodySerializer,
++  defaultPathSerializer,
++  mergeHeaders,
++  removeTrailingSlash,
++  serializeArrayParam,
++  serializeObjectParam,
++  serializePrimitiveParam,
++  wrapAsPathBasedClient,
++};
++export type {
++  BodySerializer,
++  Client,
++  ClientForPath,
++  ClientMethod,
++  ClientOptions,
++  ClientPathsWithMethod,
++  ClientRequestMethod,
++  DefaultParamsOption,
++  FetchOptions,
++  FetchResponse,
++  HeadersOptions,
++  MaybeOptionalInit,
++  MergedOptions,
++  MethodResponse,
++  Middleware,
++  MiddlewareCallbackParams,
++  MiddlewareRequestParams,
++  ParamsOption,
++  ParseAs,
++  ParseAsResponse,
++  PathBasedClient,
++  PathSerializer,
++  QuerySerializer,
++  QuerySerializerOptions,
++  RequestBodyOption,
++  RequestOptions,
++};
+diff --git a/dist/index.d.mts b/dist/index.d.mts
+index d34e1a26b850ac6f3521cac305bc3ef0e7ed609b..ca152b2b6c9136f59675b73b7f60ce35b4e07509 100644
+--- a/dist/index.d.mts
++++ b/dist/index.d.mts
+@@ -1,4 +1,15 @@
+-import { OperationRequestBodyContent, MediaType, HttpMethod, PathsWithMethod, RequiredKeysOf, Writable, IsOperationRequestBodyOptional, FilterKeys, Readable, SuccessResponse, ResponseObjectMap, ErrorResponse } from 'openapi-typescript-helpers';
++import {
++  OperationRequestBodyContent,
++  MediaType,
++  HttpMethod,
++  PathsWithMethod,
++  RequiredKeysOf,
++  IsOperationRequestBodyOptional,
++  FilterKeys,
++  SuccessResponse,
++  ResponseObjectMap,
++  ErrorResponse,
++} from "openapi-typescript-helpers";
+ 
+ /** Options for each client instance */
+ interface ClientOptions extends Omit<RequestInit, "headers"> {
+@@ -21,10 +32,20 @@ interface ClientOptions extends Omit<RequestInit, "headers"> {
+ 
+ type HeadersOptions =
+   | Required<RequestInit>["headers"]
+-  | Record<string, string | number | boolean | (string | number | boolean)[] | null | undefined>;
++  | Record<
++      string,
++      | string
++      | number
++      | boolean
++      | (string | number | boolean)[]
++      | null
++      | undefined
++    >;
+ 
+ type QuerySerializer<T> = (
+-  query: T extends { parameters: any } ? NonNullable<T["parameters"]["query"]> : Record<string, unknown>,
++  query: T extends { parameters: any }
++    ? NonNullable<T["parameters"]["query"]>
++    : Record<string, unknown>,
+ ) => string;
+ 
+ /** @see https://swagger.io/docs/specification/serialization/#query */
+@@ -55,7 +76,10 @@ type QuerySerializerOptions = {
+ 
+ type BodySerializer<T> = (body: OperationRequestBodyContent<T>) => any;
+ 
+-type PathSerializer = (pathname: string, pathParams: Record<string, unknown>) => string;
++type PathSerializer = (
++  pathname: string,
++  pathParams: Record<string, unknown>,
++) => string;
+ 
+ type BodyType<T = unknown> = {
+   json: T;
+@@ -87,24 +111,32 @@ type ParamsOption<T> = T extends {
+ 
+ // Writable<T> strips $Read markers (readOnly properties excluded from request body)
+ type RequestBodyOption<T> =
+-  Writable<OperationRequestBodyContent<T>> extends never
++  OperationRequestBodyContent<T> extends never
+     ? { body?: never }
+     : IsOperationRequestBodyOptional<T> extends true
+-      ? { body?: Writable<OperationRequestBodyContent<T>> }
+-      : { body: Writable<OperationRequestBodyContent<T>> };
++      ? { body?: OperationRequestBodyContent<T> }
++      : { body: OperationRequestBodyContent<T> };
+ 
+-type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body" | "headers">;
++type FetchOptions<T> = RequestOptions<T> &
++  Omit<RequestInit, "body" | "headers">;
+ 
+ // Readable<T> strips $Write markers (writeOnly properties excluded from response)
+-type FetchResponse<T extends Record<string | number, any>, Options, Media extends MediaType> =
++type FetchResponse<
++  T extends Record<string | number, any>,
++  Options,
++  Media extends MediaType,
++> =
+   | {
+-      data: ParseAsResponse<Readable<SuccessResponse<ResponseObjectMap<T>, Media>>, Options>;
++      data: ParseAsResponse<
++        SuccessResponse<ResponseObjectMap<T>, Media>,
++        Options
++      >;
+       error?: never;
+       response: Response;
+     }
+   | {
+       data?: never;
+-      error: Readable<ErrorResponse<ResponseObjectMap<T>, Media>>;
++      error: ErrorResponse<ResponseObjectMap<T>, Media>;
+       response: Response;
+     };
+ 
+@@ -151,7 +183,12 @@ interface MiddlewareCallbackParams {
+ 
+ type MiddlewareOnRequest = (
+   options: MiddlewareCallbackParams,
+-) => void | Request | Response | undefined | Promise<Request | Response | undefined | void>;
++) =>
++  | void
++  | Request
++  | Response
++  | undefined
++  | Promise<Request | Response | undefined | void>;
+ type MiddlewareOnResponse = (
+   options: MiddlewareCallbackParams & { response: Response },
+ ) => void | Response | undefined | Promise<Response | undefined | void>;
+@@ -187,18 +224,26 @@ type MaybeOptionalInit<Params, Location extends keyof Params> =
+ // - Performs arbitrary [key: string] addition.
+ // Note: the addition MUST happen after all the inference happens (otherwise TS can’t infer if init is required or not).
+ type InitParam<Init> =
+-  RequiredKeysOf<Init> extends never ? [(Init & { [key: string]: unknown })?] : [Init & { [key: string]: unknown }];
++  RequiredKeysOf<Init> extends never
++    ? [(Init & { [key: string]: unknown })?]
++    : [Init & { [key: string]: unknown }];
+ 
+ type ClientMethod<
+   Paths extends Record<string, Record<HttpMethod, {}>>,
+   Method extends HttpMethod,
+   Media extends MediaType,
+-> = <Path extends PathsWithMethod<Paths, Method>, Init extends MaybeOptionalInit<Paths[Path], Method>>(
++> = <
++  Path extends PathsWithMethod<Paths, Method>,
++  Init extends MaybeOptionalInit<Paths[Path], Method>,
++>(
+   url: Path,
+   ...init: InitParam<Init>
+ ) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
+ 
+-type ClientRequestMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
++type ClientRequestMethod<
++  Paths extends Record<string, Record<HttpMethod, {}>>,
++  Media extends MediaType,
++> = <
+   Method extends HttpMethod,
+   Path extends PathsWithMethod<Paths, Method>,
+   Init extends MaybeOptionalInit<Paths[Path], Method>,
+@@ -208,8 +253,13 @@ type ClientRequestMethod<Paths extends Record<string, Record<HttpMethod, {}>>, M
+   ...init: InitParam<Init>
+ ) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
+ 
+-type ClientForPath<PathInfo extends Record<string | number, any>, Media extends MediaType> = {
+-  [Method in keyof PathInfo as Uppercase<string & Method>]: <Init extends MaybeOptionalInit<PathInfo, Method>>(
++type ClientForPath<
++  PathInfo extends Record<string | number, any>,
++  Media extends MediaType,
++> = {
++  [Method in keyof PathInfo as Uppercase<string & Method>]: <
++    Init extends MaybeOptionalInit<PathInfo, Method>,
++  >(
+     ...init: InitParam<Init>
+   ) => Promise<FetchResponse<PathInfo[Method], Init, Media>>;
+ };
+@@ -238,8 +288,13 @@ interface Client<Paths extends {}, Media extends MediaType = MediaType> {
+   eject(...middleware: Middleware[]): void;
+ }
+ 
+-type ClientPathsWithMethod<CreatedClient extends Client<any, any>, Method extends HttpMethod> =
+-  CreatedClient extends Client<infer Paths, infer _Media> ? PathsWithMethod<Paths, Method> : never;
++type ClientPathsWithMethod<
++  CreatedClient extends Client<any, any>,
++  Method extends HttpMethod,
++> =
++  CreatedClient extends Client<infer Paths, infer _Media>
++    ? PathsWithMethod<Paths, Method>
++    : never;
+ 
+ type MethodResponse<
+   CreatedClient extends Client<any, any>,
+@@ -247,25 +302,34 @@ type MethodResponse<
+   Path extends ClientPathsWithMethod<CreatedClient, Method>,
+   Options = {},
+ > =
+-  CreatedClient extends Client<infer Paths extends { [key: string]: any }, infer Media extends MediaType>
++  CreatedClient extends Client<
++    infer Paths extends { [key: string]: any },
++    infer Media extends MediaType
++  >
+     ? NonNullable<FetchResponse<Paths[Path][Method], Options, Media>["data"]>
+     : never;
+ 
+-declare function createClient<Paths extends {}, Media extends MediaType = MediaType>(
+-  clientOptions?: ClientOptions,
+-): Client<Paths, Media>;
++declare function createClient<
++  Paths extends {},
++  Media extends MediaType = MediaType,
++>(clientOptions?: ClientOptions): Client<Paths, Media>;
+ 
+-type PathBasedClient<Paths extends Record<string | number, any>, Media extends MediaType = MediaType> = {
++type PathBasedClient<
++  Paths extends Record<string | number, any>,
++  Media extends MediaType = MediaType,
++> = {
+   [Path in keyof Paths]: ClientForPath<Paths[Path], Media>;
+ };
+ 
+-declare function wrapAsPathBasedClient<Paths extends {}, Media extends MediaType = MediaType>(
+-  client: Client<Paths, Media>,
+-): PathBasedClient<Paths, Media>;
++declare function wrapAsPathBasedClient<
++  Paths extends {},
++  Media extends MediaType = MediaType,
++>(client: Client<Paths, Media>): PathBasedClient<Paths, Media>;
+ 
+-declare function createPathBasedClient<Paths extends {}, Media extends MediaType = MediaType>(
+-  clientOptions?: ClientOptions,
+-): PathBasedClient<Paths, Media>;
++declare function createPathBasedClient<
++  Paths extends {},
++  Media extends MediaType = MediaType,
++>(clientOptions?: ClientOptions): PathBasedClient<Paths, Media>;
+ 
+ /** Serialize primitive params to string */
+ declare function serializePrimitiveParam(
+@@ -290,7 +354,13 @@ declare function serializeArrayParam(
+   name: string,
+   value: unknown[],
+   options: {
+-    style: "simple" | "label" | "matrix" | "form" | "spaceDelimited" | "pipeDelimited";
++    style:
++      | "simple"
++      | "label"
++      | "matrix"
++      | "form"
++      | "spaceDelimited"
++      | "pipeDelimited";
+     explode: boolean;
+     allowReserved?: boolean;
+   },
+@@ -306,7 +376,10 @@ declare function createQuerySerializer<T = unknown>(
+  * @type {import("./index.js").defaultPathSerializer}
+  * @see https://swagger.io/docs/specification/serialization/#path
+  */
+-declare function defaultPathSerializer(pathname: string, pathParams: Record<string, unknown>): string;
++declare function defaultPathSerializer(
++  pathname: string,
++  pathParams: Record<string, unknown>,
++): string;
+ 
+ /** Serialize body object to string */
+ declare function defaultBodySerializer<T>(body: T): string;
+@@ -326,10 +399,52 @@ declare function createFinalURL<O>(
+ ): string;
+ 
+ /** Merge headers a and b, with b taking priority */
+-declare function mergeHeaders(...allHeaders: (HeadersOptions | undefined)[]): Headers;
++declare function mergeHeaders(
++  ...allHeaders: (HeadersOptions | undefined)[]
++): Headers;
+ 
+ /** Remove trailing slash from url */
+ declare function removeTrailingSlash(url: string): string;
+ 
+-export { createFinalURL, createPathBasedClient, createQuerySerializer, createClient as default, defaultBodySerializer, defaultPathSerializer, mergeHeaders, removeTrailingSlash, serializeArrayParam, serializeObjectParam, serializePrimitiveParam, wrapAsPathBasedClient };
+-export type { BodySerializer, Client, ClientForPath, ClientMethod, ClientOptions, ClientPathsWithMethod, ClientRequestMethod, DefaultParamsOption, FetchOptions, FetchResponse, HeadersOptions, MaybeOptionalInit, MergedOptions, MethodResponse, Middleware, MiddlewareCallbackParams, MiddlewareRequestParams, ParamsOption, ParseAs, ParseAsResponse, PathBasedClient, PathSerializer, QuerySerializer, QuerySerializerOptions, RequestBodyOption, RequestOptions };
++export {
++  createFinalURL,
++  createPathBasedClient,
++  createQuerySerializer,
++  createClient as default,
++  defaultBodySerializer,
++  defaultPathSerializer,
++  mergeHeaders,
++  removeTrailingSlash,
++  serializeArrayParam,
++  serializeObjectParam,
++  serializePrimitiveParam,
++  wrapAsPathBasedClient,
++};
++export type {
++  BodySerializer,
++  Client,
++  ClientForPath,
++  ClientMethod,
++  ClientOptions,
++  ClientPathsWithMethod,
++  ClientRequestMethod,
++  DefaultParamsOption,
++  FetchOptions,
++  FetchResponse,
++  HeadersOptions,
++  MaybeOptionalInit,
++  MergedOptions,
++  MethodResponse,
++  Middleware,
++  MiddlewareCallbackParams,
++  MiddlewareRequestParams,
++  ParamsOption,
++  ParseAs,
++  ParseAsResponse,
++  PathBasedClient,
++  PathSerializer,
++  QuerySerializer,
++  QuerySerializerOptions,
++  RequestBodyOption,
++  RequestOptions,
++};
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+index bfd34224ce42901a4eef99c2fb2318a64aa4c51c..cb963a00b161c1e70a40b239ea6ea20236a3af6c 100644
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -1,4 +1,15 @@
+-import { OperationRequestBodyContent, MediaType, HttpMethod, PathsWithMethod, RequiredKeysOf, Writable, IsOperationRequestBodyOptional, FilterKeys, Readable, SuccessResponse, ResponseObjectMap, ErrorResponse } from 'openapi-typescript-helpers';
++import {
++  OperationRequestBodyContent,
++  MediaType,
++  HttpMethod,
++  PathsWithMethod,
++  RequiredKeysOf,
++  IsOperationRequestBodyOptional,
++  FilterKeys,
++  SuccessResponse,
++  ResponseObjectMap,
++  ErrorResponse,
++} from "openapi-typescript-helpers";
+ 
+ /** Options for each client instance */
+ interface ClientOptions extends Omit<RequestInit, "headers"> {
+@@ -21,10 +32,20 @@ interface ClientOptions extends Omit<RequestInit, "headers"> {
+ 
+ type HeadersOptions =
+   | Required<RequestInit>["headers"]
+-  | Record<string, string | number | boolean | (string | number | boolean)[] | null | undefined>;
++  | Record<
++      string,
++      | string
++      | number
++      | boolean
++      | (string | number | boolean)[]
++      | null
++      | undefined
++    >;
+ 
+ type QuerySerializer<T> = (
+-  query: T extends { parameters: any } ? NonNullable<T["parameters"]["query"]> : Record<string, unknown>,
++  query: T extends { parameters: any }
++    ? NonNullable<T["parameters"]["query"]>
++    : Record<string, unknown>,
+ ) => string;
+ 
+ /** @see https://swagger.io/docs/specification/serialization/#query */
+@@ -55,7 +76,10 @@ type QuerySerializerOptions = {
+ 
+ type BodySerializer<T> = (body: OperationRequestBodyContent<T>) => any;
+ 
+-type PathSerializer = (pathname: string, pathParams: Record<string, unknown>) => string;
++type PathSerializer = (
++  pathname: string,
++  pathParams: Record<string, unknown>,
++) => string;
+ 
+ type BodyType<T = unknown> = {
+   json: T;
+@@ -87,24 +111,32 @@ type ParamsOption<T> = T extends {
+ 
+ // Writable<T> strips $Read markers (readOnly properties excluded from request body)
+ type RequestBodyOption<T> =
+-  Writable<OperationRequestBodyContent<T>> extends never
++  OperationRequestBodyContent<T> extends never
+     ? { body?: never }
+     : IsOperationRequestBodyOptional<T> extends true
+-      ? { body?: Writable<OperationRequestBodyContent<T>> }
+-      : { body: Writable<OperationRequestBodyContent<T>> };
++      ? { body?: OperationRequestBodyContent<T> }
++      : { body: OperationRequestBodyContent<T> };
+ 
+-type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body" | "headers">;
++type FetchOptions<T> = RequestOptions<T> &
++  Omit<RequestInit, "body" | "headers">;
+ 
+ // Readable<T> strips $Write markers (writeOnly properties excluded from response)
+-type FetchResponse<T extends Record<string | number, any>, Options, Media extends MediaType> =
++type FetchResponse<
++  T extends Record<string | number, any>,
++  Options,
++  Media extends MediaType,
++> =
+   | {
+-      data: ParseAsResponse<Readable<SuccessResponse<ResponseObjectMap<T>, Media>>, Options>;
++      data: ParseAsResponse<
++        SuccessResponse<ResponseObjectMap<T>, Media>,
++        Options
++      >;
+       error?: never;
+       response: Response;
+     }
+   | {
+       data?: never;
+-      error: Readable<ErrorResponse<ResponseObjectMap<T>, Media>>;
++      error: ErrorResponse<ResponseObjectMap<T>, Media>;
+       response: Response;
+     };
+ 
+@@ -151,7 +183,12 @@ interface MiddlewareCallbackParams {
+ 
+ type MiddlewareOnRequest = (
+   options: MiddlewareCallbackParams,
+-) => void | Request | Response | undefined | Promise<Request | Response | undefined | void>;
++) =>
++  | void
++  | Request
++  | Response
++  | undefined
++  | Promise<Request | Response | undefined | void>;
+ type MiddlewareOnResponse = (
+   options: MiddlewareCallbackParams & { response: Response },
+ ) => void | Response | undefined | Promise<Response | undefined | void>;
+@@ -187,18 +224,26 @@ type MaybeOptionalInit<Params, Location extends keyof Params> =
+ // - Performs arbitrary [key: string] addition.
+ // Note: the addition MUST happen after all the inference happens (otherwise TS can’t infer if init is required or not).
+ type InitParam<Init> =
+-  RequiredKeysOf<Init> extends never ? [(Init & { [key: string]: unknown })?] : [Init & { [key: string]: unknown }];
++  RequiredKeysOf<Init> extends never
++    ? [(Init & { [key: string]: unknown })?]
++    : [Init & { [key: string]: unknown }];
+ 
+ type ClientMethod<
+   Paths extends Record<string, Record<HttpMethod, {}>>,
+   Method extends HttpMethod,
+   Media extends MediaType,
+-> = <Path extends PathsWithMethod<Paths, Method>, Init extends MaybeOptionalInit<Paths[Path], Method>>(
++> = <
++  Path extends PathsWithMethod<Paths, Method>,
++  Init extends MaybeOptionalInit<Paths[Path], Method>,
++>(
+   url: Path,
+   ...init: InitParam<Init>
+ ) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
+ 
+-type ClientRequestMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
++type ClientRequestMethod<
++  Paths extends Record<string, Record<HttpMethod, {}>>,
++  Media extends MediaType,
++> = <
+   Method extends HttpMethod,
+   Path extends PathsWithMethod<Paths, Method>,
+   Init extends MaybeOptionalInit<Paths[Path], Method>,
+@@ -208,8 +253,13 @@ type ClientRequestMethod<Paths extends Record<string, Record<HttpMethod, {}>>, M
+   ...init: InitParam<Init>
+ ) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
+ 
+-type ClientForPath<PathInfo extends Record<string | number, any>, Media extends MediaType> = {
+-  [Method in keyof PathInfo as Uppercase<string & Method>]: <Init extends MaybeOptionalInit<PathInfo, Method>>(
++type ClientForPath<
++  PathInfo extends Record<string | number, any>,
++  Media extends MediaType,
++> = {
++  [Method in keyof PathInfo as Uppercase<string & Method>]: <
++    Init extends MaybeOptionalInit<PathInfo, Method>,
++  >(
+     ...init: InitParam<Init>
+   ) => Promise<FetchResponse<PathInfo[Method], Init, Media>>;
+ };
+@@ -238,8 +288,13 @@ interface Client<Paths extends {}, Media extends MediaType = MediaType> {
+   eject(...middleware: Middleware[]): void;
+ }
+ 
+-type ClientPathsWithMethod<CreatedClient extends Client<any, any>, Method extends HttpMethod> =
+-  CreatedClient extends Client<infer Paths, infer _Media> ? PathsWithMethod<Paths, Method> : never;
++type ClientPathsWithMethod<
++  CreatedClient extends Client<any, any>,
++  Method extends HttpMethod,
++> =
++  CreatedClient extends Client<infer Paths, infer _Media>
++    ? PathsWithMethod<Paths, Method>
++    : never;
+ 
+ type MethodResponse<
+   CreatedClient extends Client<any, any>,
+@@ -247,25 +302,34 @@ type MethodResponse<
+   Path extends ClientPathsWithMethod<CreatedClient, Method>,
+   Options = {},
+ > =
+-  CreatedClient extends Client<infer Paths extends { [key: string]: any }, infer Media extends MediaType>
++  CreatedClient extends Client<
++    infer Paths extends { [key: string]: any },
++    infer Media extends MediaType
++  >
+     ? NonNullable<FetchResponse<Paths[Path][Method], Options, Media>["data"]>
+     : never;
+ 
+-declare function createClient<Paths extends {}, Media extends MediaType = MediaType>(
+-  clientOptions?: ClientOptions,
+-): Client<Paths, Media>;
++declare function createClient<
++  Paths extends {},
++  Media extends MediaType = MediaType,
++>(clientOptions?: ClientOptions): Client<Paths, Media>;
+ 
+-type PathBasedClient<Paths extends Record<string | number, any>, Media extends MediaType = MediaType> = {
++type PathBasedClient<
++  Paths extends Record<string | number, any>,
++  Media extends MediaType = MediaType,
++> = {
+   [Path in keyof Paths]: ClientForPath<Paths[Path], Media>;
+ };
+ 
+-declare function wrapAsPathBasedClient<Paths extends {}, Media extends MediaType = MediaType>(
+-  client: Client<Paths, Media>,
+-): PathBasedClient<Paths, Media>;
++declare function wrapAsPathBasedClient<
++  Paths extends {},
++  Media extends MediaType = MediaType,
++>(client: Client<Paths, Media>): PathBasedClient<Paths, Media>;
+ 
+-declare function createPathBasedClient<Paths extends {}, Media extends MediaType = MediaType>(
+-  clientOptions?: ClientOptions,
+-): PathBasedClient<Paths, Media>;
++declare function createPathBasedClient<
++  Paths extends {},
++  Media extends MediaType = MediaType,
++>(clientOptions?: ClientOptions): PathBasedClient<Paths, Media>;
+ 
+ /** Serialize primitive params to string */
+ declare function serializePrimitiveParam(
+@@ -290,7 +354,13 @@ declare function serializeArrayParam(
+   name: string,
+   value: unknown[],
+   options: {
+-    style: "simple" | "label" | "matrix" | "form" | "spaceDelimited" | "pipeDelimited";
++    style:
++      | "simple"
++      | "label"
++      | "matrix"
++      | "form"
++      | "spaceDelimited"
++      | "pipeDelimited";
+     explode: boolean;
+     allowReserved?: boolean;
+   },
+@@ -306,7 +376,10 @@ declare function createQuerySerializer<T = unknown>(
+  * @type {import("./index.js").defaultPathSerializer}
+  * @see https://swagger.io/docs/specification/serialization/#path
+  */
+-declare function defaultPathSerializer(pathname: string, pathParams: Record<string, unknown>): string;
++declare function defaultPathSerializer(
++  pathname: string,
++  pathParams: Record<string, unknown>,
++): string;
+ 
+ /** Serialize body object to string */
+ declare function defaultBodySerializer<T>(body: T): string;
+@@ -326,12 +399,53 @@ declare function createFinalURL<O>(
+ ): string;
+ 
+ /** Merge headers a and b, with b taking priority */
+-declare function mergeHeaders(...allHeaders: (HeadersOptions | undefined)[]): Headers;
++declare function mergeHeaders(
++  ...allHeaders: (HeadersOptions | undefined)[]
++): Headers;
+ 
+ /** Remove trailing slash from url */
+ declare function removeTrailingSlash(url: string): string;
+ 
+ // @ts-ignore
+ export = createClient;
+-export { createFinalURL, createPathBasedClient, createQuerySerializer, defaultBodySerializer, defaultPathSerializer, mergeHeaders, removeTrailingSlash, serializeArrayParam, serializeObjectParam, serializePrimitiveParam, wrapAsPathBasedClient };
+-export type { BodySerializer, Client, ClientForPath, ClientMethod, ClientOptions, ClientPathsWithMethod, ClientRequestMethod, DefaultParamsOption, FetchOptions, FetchResponse, HeadersOptions, MaybeOptionalInit, MergedOptions, MethodResponse, Middleware, MiddlewareCallbackParams, MiddlewareRequestParams, ParamsOption, ParseAs, ParseAsResponse, PathBasedClient, PathSerializer, QuerySerializer, QuerySerializerOptions, RequestBodyOption, RequestOptions };
++export {
++  createFinalURL,
++  createPathBasedClient,
++  createQuerySerializer,
++  defaultBodySerializer,
++  defaultPathSerializer,
++  mergeHeaders,
++  removeTrailingSlash,
++  serializeArrayParam,
++  serializeObjectParam,
++  serializePrimitiveParam,
++  wrapAsPathBasedClient,
++};
++export type {
++  BodySerializer,
++  Client,
++  ClientForPath,
++  ClientMethod,
++  ClientOptions,
++  ClientPathsWithMethod,
++  ClientRequestMethod,
++  DefaultParamsOption,
++  FetchOptions,
++  FetchResponse,
++  HeadersOptions,
++  MaybeOptionalInit,
++  MergedOptions,
++  MethodResponse,
++  Middleware,
++  MiddlewareCallbackParams,
++  MiddlewareRequestParams,
++  ParamsOption,
++  ParseAs,
++  ParseAsResponse,
++  PathBasedClient,
++  PathSerializer,
++  QuerySerializer,
++  QuerySerializerOptions,
++  RequestBodyOption,
++  RequestOptions,
++};
+diff --git a/src/index.d.ts b/src/index.d.ts
+index 5bca810755401b61b4ab2e58b9ebff1747097892..db1dc7ed2ede813b99a2eefec3b8a841ffc5df08 100644
+--- a/src/index.d.ts
++++ b/src/index.d.ts
+@@ -6,11 +6,9 @@ import type {
+   MediaType,
+   OperationRequestBodyContent,
+   PathsWithMethod,
+-  Readable,
+   RequiredKeysOf,
+   ResponseObjectMap,
+   SuccessResponse,
+-  Writable,
+ } from "openapi-typescript-helpers";
+ 
+ /** Options for each client instance */
+@@ -34,10 +32,20 @@ export interface ClientOptions extends Omit<RequestInit, "headers"> {
+ 
+ export type HeadersOptions =
+   | Required<RequestInit>["headers"]
+-  | Record<string, string | number | boolean | (string | number | boolean)[] | null | undefined>;
++  | Record<
++      string,
++      | string
++      | number
++      | boolean
++      | (string | number | boolean)[]
++      | null
++      | undefined
++    >;
+ 
+ export type QuerySerializer<T> = (
+-  query: T extends { parameters: any } ? NonNullable<T["parameters"]["query"]> : Record<string, unknown>,
++  query: T extends { parameters: any }
++    ? NonNullable<T["parameters"]["query"]>
++    : Record<string, unknown>,
+ ) => string;
+ 
+ /** @see https://swagger.io/docs/specification/serialization/#query */
+@@ -68,7 +76,10 @@ export type QuerySerializerOptions = {
+ 
+ export type BodySerializer<T> = (body: OperationRequestBodyContent<T>) => any;
+ 
+-export type PathSerializer = (pathname: string, pathParams: Record<string, unknown>) => string;
++export type PathSerializer = (
++  pathname: string,
++  pathParams: Record<string, unknown>,
++) => string;
+ 
+ type BodyType<T = unknown> = {
+   json: T;
+@@ -100,24 +111,32 @@ export type ParamsOption<T> = T extends {
+ 
+ // Writable<T> strips $Read markers (readOnly properties excluded from request body)
+ export type RequestBodyOption<T> =
+-  Writable<OperationRequestBodyContent<T>> extends never
++  OperationRequestBodyContent<T> extends never
+     ? { body?: never }
+     : IsOperationRequestBodyOptional<T> extends true
+-      ? { body?: Writable<OperationRequestBodyContent<T>> }
+-      : { body: Writable<OperationRequestBodyContent<T>> };
++      ? { body?: OperationRequestBodyContent<T> }
++      : { body: OperationRequestBodyContent<T> };
+ 
+-export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body" | "headers">;
++export type FetchOptions<T> = RequestOptions<T> &
++  Omit<RequestInit, "body" | "headers">;
+ 
+ // Readable<T> strips $Write markers (writeOnly properties excluded from response)
+-export type FetchResponse<T extends Record<string | number, any>, Options, Media extends MediaType> =
++export type FetchResponse<
++  T extends Record<string | number, any>,
++  Options,
++  Media extends MediaType,
++> =
+   | {
+-      data: ParseAsResponse<Readable<SuccessResponse<ResponseObjectMap<T>, Media>>, Options>;
++      data: ParseAsResponse<
++        SuccessResponse<ResponseObjectMap<T>, Media>,
++        Options
++      >;
+       error?: never;
+       response: Response;
+     }
+   | {
+       data?: never;
+-      error: Readable<ErrorResponse<ResponseObjectMap<T>, Media>>;
++      error: ErrorResponse<ResponseObjectMap<T>, Media>;
+       response: Response;
+     };
+ 
+@@ -164,7 +183,12 @@ export interface MiddlewareCallbackParams {
+ 
+ type MiddlewareOnRequest = (
+   options: MiddlewareCallbackParams,
+-) => void | Request | Response | undefined | Promise<Request | Response | undefined | void>;
++) =>
++  | void
++  | Request
++  | Response
++  | undefined
++  | Promise<Request | Response | undefined | void>;
+ type MiddlewareOnResponse = (
+   options: MiddlewareCallbackParams & { response: Response },
+ ) => void | Response | undefined | Promise<Response | undefined | void>;
+@@ -200,18 +224,26 @@ export type MaybeOptionalInit<Params, Location extends keyof Params> =
+ // - Performs arbitrary [key: string] addition.
+ // Note: the addition MUST happen after all the inference happens (otherwise TS can’t infer if init is required or not).
+ type InitParam<Init> =
+-  RequiredKeysOf<Init> extends never ? [(Init & { [key: string]: unknown })?] : [Init & { [key: string]: unknown }];
++  RequiredKeysOf<Init> extends never
++    ? [(Init & { [key: string]: unknown })?]
++    : [Init & { [key: string]: unknown }];
+ 
+ export type ClientMethod<
+   Paths extends Record<string, Record<HttpMethod, {}>>,
+   Method extends HttpMethod,
+   Media extends MediaType,
+-> = <Path extends PathsWithMethod<Paths, Method>, Init extends MaybeOptionalInit<Paths[Path], Method>>(
++> = <
++  Path extends PathsWithMethod<Paths, Method>,
++  Init extends MaybeOptionalInit<Paths[Path], Method>,
++>(
+   url: Path,
+   ...init: InitParam<Init>
+ ) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
+ 
+-export type ClientRequestMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
++export type ClientRequestMethod<
++  Paths extends Record<string, Record<HttpMethod, {}>>,
++  Media extends MediaType,
++> = <
+   Method extends HttpMethod,
+   Path extends PathsWithMethod<Paths, Method>,
+   Init extends MaybeOptionalInit<Paths[Path], Method>,
+@@ -221,8 +253,13 @@ export type ClientRequestMethod<Paths extends Record<string, Record<HttpMethod,
+   ...init: InitParam<Init>
+ ) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
+ 
+-export type ClientForPath<PathInfo extends Record<string | number, any>, Media extends MediaType> = {
+-  [Method in keyof PathInfo as Uppercase<string & Method>]: <Init extends MaybeOptionalInit<PathInfo, Method>>(
++export type ClientForPath<
++  PathInfo extends Record<string | number, any>,
++  Media extends MediaType,
++> = {
++  [Method in keyof PathInfo as Uppercase<string & Method>]: <
++    Init extends MaybeOptionalInit<PathInfo, Method>,
++  >(
+     ...init: InitParam<Init>
+   ) => Promise<FetchResponse<PathInfo[Method], Init, Media>>;
+ };
+@@ -251,8 +288,13 @@ export interface Client<Paths extends {}, Media extends MediaType = MediaType> {
+   eject(...middleware: Middleware[]): void;
+ }
+ 
+-export type ClientPathsWithMethod<CreatedClient extends Client<any, any>, Method extends HttpMethod> =
+-  CreatedClient extends Client<infer Paths, infer _Media> ? PathsWithMethod<Paths, Method> : never;
++export type ClientPathsWithMethod<
++  CreatedClient extends Client<any, any>,
++  Method extends HttpMethod,
++> =
++  CreatedClient extends Client<infer Paths, infer _Media>
++    ? PathsWithMethod<Paths, Method>
++    : never;
+ 
+ export type MethodResponse<
+   CreatedClient extends Client<any, any>,
+@@ -260,25 +302,34 @@ export type MethodResponse<
+   Path extends ClientPathsWithMethod<CreatedClient, Method>,
+   Options = {},
+ > =
+-  CreatedClient extends Client<infer Paths extends { [key: string]: any }, infer Media extends MediaType>
++  CreatedClient extends Client<
++    infer Paths extends { [key: string]: any },
++    infer Media extends MediaType
++  >
+     ? NonNullable<FetchResponse<Paths[Path][Method], Options, Media>["data"]>
+     : never;
+ 
+-export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
+-  clientOptions?: ClientOptions,
+-): Client<Paths, Media>;
++export default function createClient<
++  Paths extends {},
++  Media extends MediaType = MediaType,
++>(clientOptions?: ClientOptions): Client<Paths, Media>;
+ 
+-export type PathBasedClient<Paths extends Record<string | number, any>, Media extends MediaType = MediaType> = {
++export type PathBasedClient<
++  Paths extends Record<string | number, any>,
++  Media extends MediaType = MediaType,
++> = {
+   [Path in keyof Paths]: ClientForPath<Paths[Path], Media>;
+ };
+ 
+-export declare function wrapAsPathBasedClient<Paths extends {}, Media extends MediaType = MediaType>(
+-  client: Client<Paths, Media>,
+-): PathBasedClient<Paths, Media>;
++export declare function wrapAsPathBasedClient<
++  Paths extends {},
++  Media extends MediaType = MediaType,
++>(client: Client<Paths, Media>): PathBasedClient<Paths, Media>;
+ 
+-export declare function createPathBasedClient<Paths extends {}, Media extends MediaType = MediaType>(
+-  clientOptions?: ClientOptions,
+-): PathBasedClient<Paths, Media>;
++export declare function createPathBasedClient<
++  Paths extends {},
++  Media extends MediaType = MediaType,
++>(clientOptions?: ClientOptions): PathBasedClient<Paths, Media>;
+ 
+ /** Serialize primitive params to string */
+ export declare function serializePrimitiveParam(
+@@ -303,7 +354,13 @@ export declare function serializeArrayParam(
+   name: string,
+   value: unknown[],
+   options: {
+-    style: "simple" | "label" | "matrix" | "form" | "spaceDelimited" | "pipeDelimited";
++    style:
++      | "simple"
++      | "label"
++      | "matrix"
++      | "form"
++      | "spaceDelimited"
++      | "pipeDelimited";
+     explode: boolean;
+     allowReserved?: boolean;
+   },
+@@ -319,7 +376,10 @@ export declare function createQuerySerializer<T = unknown>(
+  * @type {import("./index.js").defaultPathSerializer}
+  * @see https://swagger.io/docs/specification/serialization/#path
+  */
+-export declare function defaultPathSerializer(pathname: string, pathParams: Record<string, unknown>): string;
++export declare function defaultPathSerializer(
++  pathname: string,
++  pathParams: Record<string, unknown>,
++): string;
+ 
+ /** Serialize body object to string */
+ export declare function defaultBodySerializer<T>(body: T): string;
+@@ -339,7 +399,9 @@ export declare function createFinalURL<O>(
+ ): string;
+ 
+ /** Merge headers a and b, with b taking priority */
+-export declare function mergeHeaders(...allHeaders: (HeadersOptions | undefined)[]): Headers;
++export declare function mergeHeaders(
++  ...allHeaders: (HeadersOptions | undefined)[]
++): Headers;
+ 
+ /** Remove trailing slash from url */
+ export declare function removeTrailingSlash(url: string): string;
