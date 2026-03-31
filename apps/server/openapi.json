@@ -133,6 +133,33 @@
           "Test"
         ]
       }
+    },
+    "/reference-component/component-definition": {
+      "put": {
+        "operationId": "ComponentDefinitionController_uploadComponentDefinitions",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ComponentDefinition"
+        ]
+      }
     }
   },
   "info": {

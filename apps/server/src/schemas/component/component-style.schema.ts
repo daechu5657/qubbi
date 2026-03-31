@@ -29,7 +29,7 @@ export class ComponentStyle {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ required: true })
+  @Prop({ type: String, required: true })
   cssProperty: keyof ElementCSSInlineStyle["style"];
 
   @Prop({ type: Number, required: true, enum: STYLE_VALUE_TYPES })

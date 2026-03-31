@@ -5,7 +5,8 @@
     "moduleResolution": "nodenext",
     "strict": true,
     "declaration": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "rootDir": "src"
   },
-  "include": ["src", "scripts"]
+  "include": ["src"]
 }

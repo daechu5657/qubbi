@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
+import { api } from "../src/api";
 
 type ComponentDefinitionLike = {
   name: string;
@@ -58,11 +59,7 @@ async function main() {
     );
   });
 
-  const items: Array<{
-    exportName: string;
-    file: string;
-    definition: ComponentDefinitionLike;
-  }> = [];
+  const items: Array<ComponentDefinitionLike> = [];
 
   for (const file of files) {
     const mod = await import(pathToFileURL(file).href);
@@ -70,27 +67,30 @@ async function main() {
     for (const [exportName, value] of Object.entries(mod)) {
       if (!isComponentDefinition(value)) continue;
 
-      items.push({
-        exportName,
-        file: path.relative(distDir, file).replace(/\\/g, "/"),
-        definition: value,
-      });
+      items.push(value);
     }
   }
 
-  await fs.writeFile(
-    outPath,
-    JSON.stringify(
-      {
-        generatedAt: new Date().toISOString(),
-        count: items.length,
-        items,
-      },
-      null,
-      2,
-    ),
-    "utf8",
-  );
+  const response = await api.PUT("/reference-component/component-definition", {
+    // @ts-ignore
+    body: items,
+  });
+  // TODO: fix
+
+  console.log(response);
+  // await fs.writeFile(
+  //   outPath,
+  //   JSON.stringify(
+  //     {
+  //       generatedAt: new Date().toISOString(),
+  //       count: items.length,
+  //       items,
+  //     },
+  //     null,
+  //     2,
+  //   ),
+  //   "utf8",
+  // );
 
   console.log(`written: ${outPath}`);
 }

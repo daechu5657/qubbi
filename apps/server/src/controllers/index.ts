@@ -1,8 +1,6 @@
-import { TestController } from "./editor/test.controller";
-
-const EDITOR_CONTROLLERS = [TestController];
-const REFERENCE_COMPONENT_CONTROLLERS = [];
-const SDK_CONTROLLERS = [];
+import { EDITOR_CONTROLLERS } from "./editor";
+import { REFERENCE_COMPONENT_CONTROLLERS } from "./reference-component";
+import { SDK_CONTROLLERS } from "./sdk";
 
 export const APP_CONTROLLERS = [
   ...EDITOR_CONTROLLERS,
