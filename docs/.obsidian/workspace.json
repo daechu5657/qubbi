@@ -1,0 +1,223 @@
+{
+  "main": {
+    "id": "54d8aafb3e1e61f2",
+    "type": "split",
+    "children": [
+      {
+        "id": "7a87b10570edb979",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fc7cedaf0b28bafe",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "Main.canvas",
+                "viewState": {
+                  "x": -7646.909904131704,
+                  "y": 162.55573676467182,
+                  "zoom": -0.9570970168798497
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "Main"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "9015cdda010dea2e",
+    "type": "split",
+    "children": [
+      {
+        "id": "b2650ed51cf0b0af",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "837f64976bb78eb5",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "파일 탐색기"
+            }
+          },
+          {
+            "id": "5dca0acb30884aaf",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "검색"
+            }
+          },
+          {
+            "id": "d36957b13d2d52e4",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "북마크"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 242.50260543823242,
+    "collapsed": true
+  },
+  "right": {
+    "id": "a0345449460c7c1e",
+    "type": "split",
+    "children": [
+      {
+        "id": "885c4f96ad4df03f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2298cec68acd370f",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "component-catalog/Schema-Map.canvas",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Schema-Map 의 백링크"
+            }
+          },
+          {
+            "id": "e25bb80dbde1688e",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "component-catalog/Schema-Map.canvas",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Schema-Map 의 나가는 링크"
+            }
+          },
+          {
+            "id": "556a85c1a994aa2c",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "태그"
+            }
+          },
+          {
+            "id": "11d58772cef61050",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "모든 속성"
+            }
+          },
+          {
+            "id": "a36efba211c80596",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "component-catalog/Schema-Map.canvas",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Schema-Map 의 개요"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:빠른 전환기 열기": false,
+      "graph:그래프 뷰 열기": false,
+      "canvas:새 캔버스 만들기": false,
+      "daily-notes:오늘의 일일 노트 열기": false,
+      "templates:템플릿 삽입": false,
+      "command-palette:명령어 팔레트 열기": false,
+      "bases:새 베이스 생성하기": false
+    }
+  },
+  "active": "fc7cedaf0b28bafe",
+  "lastOpenFiles": [
+    "무제.md",
+    "Main.canvas",
+    "domain/Schema-Map.canvas",
+    "domain/Project.md",
+    "domain/Schema-Index.md",
+    "domain/Revision.md",
+    "domain/README.md",
+    "README.md",
+    "domain/Graph-Guide.md",
+    "domain/ComponentProp.md",
+    "domain/ComponentDefinition.md",
+    "domain/Component.md",
+    "component-catalog/Schema-Map.canvas",
+    "domain/PageTreeSnapshot.md",
+    "domain/PageTree.md",
+    "domain/DesignTokenValue.md",
+    "domain/DesignToken.md",
+    "domain/ComponentVersion.md",
+    "domain/ComponentVariant.md",
+    "domain/ComponentStyle.md",
+    "domain/ComponentPropOverride.md",
+    "domain/ComponentManifestModel.md",
+    "domain/ComponentManifest.md",
+    "domain/ComponentBehavior.md",
+    "domain",
+    "component-catalog/Component.md",
+    "component-domain/Component.md",
+    "component-catalog/Schema-Index.md",
+    "component-domain/Project.md",
+    "component-catalog"
+  ]
+}
