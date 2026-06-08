@@ -15,9 +15,9 @@
               "state": {
                 "file": "Main.canvas",
                 "viewState": {
-                  "x": -8174.759552950796,
-                  "y": 3240.453278711472,
-                  "zoom": -1.5000000993410718
+                  "x": -3250,
+                  "y": 2800,
+                  "zoom": -3.901935116492994
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -81,8 +81,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 242.50260543823242,
-    "collapsed": true
+    "width": 242.50260543823242
   },
   "right": {
     "id": "a0345449460c7c1e",
@@ -187,16 +186,16 @@
       "bases:새 베이스 생성하기": false
     }
   },
-  "active": "fc7cedaf0b28bafe",
+  "active": "837f64976bb78eb5",
   "lastOpenFiles": [
-    "무제.md",
+    "README.md",
     "Main.canvas",
+    "무제.md",
     "domain/Schema-Map.canvas",
     "domain/Project.md",
     "domain/Schema-Index.md",
     "domain/Revision.md",
     "domain/README.md",
-    "README.md",
     "domain/Graph-Guide.md",
     "domain/ComponentProp.md",
     "domain/ComponentDefinition.md",
