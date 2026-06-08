@@ -1,9 +1,9 @@
-import { ComponentPropDefinition } from "./component-prop.definition";
+import { ComponentPropsDefinition } from "./component-props.definition";
+import { ComponentVariantDefinition } from "./component-variant.definition";
 
-export interface ComponentDefinition<Variant extends string = string> {
+export interface ComponentDefinition {
   name: string;
   tagName: string;
-  baseProps: ComponentPropDefinition[];
-  variants: Variant[];
-  variantOverrides: Partial<Record<Variant, ComponentPropDefinition[]>>;
+  props: ComponentPropsDefinition;
+  variants?: ComponentVariantDefinition[];
 }

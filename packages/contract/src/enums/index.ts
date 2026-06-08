@@ -1,2 +1,2 @@
-export * from "../enums/component";
-export * from "../enums/style";
+export * from "./common";
+export * from "./style";

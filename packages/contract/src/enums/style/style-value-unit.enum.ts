@@ -1,5 +1,5 @@
 export enum StyleValueUnit {
-  Px,
-  Rem,
-  Percent,
+  Px = "px",
+  Rem = "rem",
+  Percent = "%",
 }

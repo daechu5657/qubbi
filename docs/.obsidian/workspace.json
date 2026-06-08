@@ -15,9 +15,9 @@
               "state": {
                 "file": "Main.canvas",
                 "viewState": {
-                  "x": -3250,
-                  "y": 2800,
-                  "zoom": -3.901935116492994
+                  "x": -13950.786786163648,
+                  "y": 1770.105748758032,
+                  "zoom": -1.5000000993410718
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -186,11 +186,11 @@
       "bases:새 베이스 생성하기": false
     }
   },
-  "active": "837f64976bb78eb5",
+  "active": "fc7cedaf0b28bafe",
   "lastOpenFiles": [
+    "무제.md",
     "README.md",
     "Main.canvas",
-    "무제.md",
     "domain/Schema-Map.canvas",
     "domain/Project.md",
     "domain/Schema-Index.md",
