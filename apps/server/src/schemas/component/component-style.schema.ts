@@ -2,53 +2,39 @@ import * as Contract from "@qubbi/contract";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument, Types } from "mongoose";
 
-const STYLE_VALUE_TYPES = [
-  Contract.Enums.StyleValueType.String,
-  Contract.Enums.StyleValueType.Number,
-] as const;
-
-const STYLE_VALUE_UNITS = [
-  Contract.Enums.StyleValueUnit.Px,
-  Contract.Enums.StyleValueUnit.Rem,
-  Contract.Enums.StyleValueUnit.Percent,
-] as const;
-
 @Schema({ collection: "component_styles" })
 export class ComponentStyle {
-  _id: Types.ObjectId;
+  _id!: Types.ObjectId;
 
-  @Prop({ type: Types.ObjectId, required: true, index: true })
-  projectId: Types.ObjectId;
+  @Prop({ required: true, type: Types.ObjectId })
+  componentId!: Types.ObjectId;
 
-  @Prop({ type: Types.ObjectId, required: true, index: true })
-  propId: Types.ObjectId;
-
-  @Prop({ required: true })
-  key: string;
+  @Prop({ type: Types.ObjectId || null })
+  componentVariantId?: Types.ObjectId | null;
 
   @Prop({ required: true })
-  name: string;
+  label!: string;
 
-  @Prop({ type: String, required: true })
-  cssProperty: keyof ElementCSSInlineStyle["style"];
+  @Prop({ required: true, type: String })
+  cssProperty!: keyof ElementCSSInlineStyle["style"];
 
-  @Prop({ type: Number, required: true, enum: STYLE_VALUE_TYPES })
-  valueType: Contract.Enums.StyleValueType;
+  @Prop({ required: true, type: String, enum: Contract.Enums.StyleValueKind })
+  valueKind!: Contract.Enums.StyleValueKind;
 
-  @Prop({ type: Number, enum: STYLE_VALUE_UNITS, default: null })
-  unit: Contract.Enums.StyleValueUnit | null;
+  @Prop({ type: String || null })
+  defaultStringValue?: string | null;
 
-  @Prop({ type: [Types.ObjectId], default: [] })
-  designTokenIds: Types.ObjectId[];
+  @Prop({ type: Number || null })
+  defaultNumberValue?: number | null;
 
-  @Prop({ type: Date, default: () => new Date() })
-  createdTime: Date;
+  @Prop({ type: Boolean || null })
+  defaultBooleanValue?: boolean | null;
 
-  @Prop({ type: Date, default: () => new Date() })
-  updatedTime: Date;
+  @Prop({ type: String || null, enum: Contract.Enums.StyleValueUnit })
+  defaultUnit?: Contract.Enums.StyleValueUnit | null;
 
-  @Prop({ type: Date, default: null })
-  deletedTime: Date | null;
+  @Prop({ type: String || null, enum: Contract.Enums.StyleValueFormat })
+  defaultFormat?: Contract.Enums.StyleValueFormat | null;
 }
 
 export type ComponentStyleDocument = HydratedDocument<ComponentStyle>;

@@ -1,7 +1,7 @@
-import * as Contract from "@qubbi/contract";
+// import * as Contract from "@qubbi/contract";
 
-export const defineComponent = <Variant extends string = string>(
-  definition: Contract.Definitions.ComponentDefinition<Variant>,
-) => {
-  return definition;
-};
+// export const defineComponent = <Variant extends string = string>(
+//   definition: Contract.Definitions.ComponentDefinition<Variant>,
+// ) => {
+//   return definition;
+// };
