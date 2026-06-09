@@ -1,8 +1,36 @@
+import * as fg from "fast-glob";
+import * as path from "path";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { INestApplication } from "@nestjs/common";
-import { ExceptionResponseDto } from "../common/models/exceptionResponse.dto";
 
-const EXTRA_MODELS = [ExceptionResponseDto];
+function collectExtraModels() {
+  const baseDir = path.resolve(__dirname, "../../").replace(/\\/g, "/");
+  const patterns = [`${baseDir}/**/*.model.js`, `${baseDir}/**/*.dto.js`];
+  const modelFiles = fg.sync(patterns, {
+    ignore: ["**/node_modules/**"],
+  });
+
+  const extraModels: Function[] = [];
+  for (const file of modelFiles) {
+    try {
+      const module = require(file);
+      for (const exportedItem of Object.values(module)) {
+        if (
+          typeof exportedItem === "function" &&
+          exportedItem.name &&
+          (exportedItem.name.endsWith("Model") ||
+            exportedItem.name.endsWith("Dto"))
+        ) {
+          extraModels.push(exportedItem);
+        }
+      }
+    } catch (error) {
+      console.warn(`[Swagger] Failed to load module: ${file}`, error);
+    }
+  }
+
+  return extraModels;
+}
 
 export function createOpenApiDocument(app: INestApplication) {
   const config = new DocumentBuilder()
@@ -11,8 +39,11 @@ export function createOpenApiDocument(app: INestApplication) {
     .setVersion("1.0")
     .build();
 
+  const asd = collectExtraModels();
+  console.log(asd.length);
+
   return SwaggerModule.createDocument(app, config, {
-    extraModels: EXTRA_MODELS,
+    extraModels: asd,
   });
 }
 
