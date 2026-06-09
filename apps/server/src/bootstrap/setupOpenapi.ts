@@ -1,6 +1,6 @@
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { INestApplication } from "@nestjs/common";
-import { ExceptionResponseDto } from "../common/models/exception-response.dto";
+import { ExceptionResponseDto } from "../common/models/exceptionResponse.dto";
 
 const EXTRA_MODELS = [ExceptionResponseDto];
 

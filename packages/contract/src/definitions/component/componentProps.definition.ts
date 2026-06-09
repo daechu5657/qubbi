@@ -1,4 +1,4 @@
-import { ComponentStyleDefinition } from "./component-style.definition";
+import { ComponentStyleDefinition } from "./componentStyle.definition";
 
 export interface ComponentPropsDefinition {
   style: ComponentStyleDefinition[];

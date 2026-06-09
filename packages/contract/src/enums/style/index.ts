@@ -1,3 +1,3 @@
-export * from "./style-value-unit.enum";
-export * from "./style-value-kind.enum";
-export * from "./style-value-format.enum";
+export * from "./styleValueUnit.enum";
+export * from "./styleValueKind.enum";
+export * from "./styleValueFormat.enum";

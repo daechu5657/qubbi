@@ -1,6 +1,6 @@
 import * as Contract from "@qubbi/contract";
 import { ApiProperty } from "@nestjs/swagger";
-import { ComponentStyleDocument } from "../../schemas/component/component-style.schema";
+import { ComponentStyleDocument } from "../../schemas/component/componentStyle.schema";
 
 export class ComponentStyleModel {
   @ApiProperty()

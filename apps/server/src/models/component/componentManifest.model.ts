@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { ComponentModel } from "./component.model";
-import { ComponentVersionDocument } from "../../schemas/component/component-version.schema";
+import { ComponentVersionDocument } from "../../schemas/component/componentVersion.schema";
 
 export class ComponentManifestModel {
   @ApiProperty()

@@ -1,7 +1,7 @@
 import { writeFileSync } from "node:fs";
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "../src/app.module";
-import { createOpenApiDocument } from "../src/bootstrap/setup-openapi";
+import { createOpenApiDocument } from "../src/bootstrap/setupOpenapi";
 
 async function main() {
   const app = await NestFactory.create(AppModule);

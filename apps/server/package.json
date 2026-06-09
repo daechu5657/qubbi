@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "openapi:emit": "pnpm exec ts-node scripts/emit-openapi.ts",
+    "openapi:emit": "pnpm exec ts-node scripts/emitOpenapi.ts",
     "dev": "nest start --watch",
     "dev:watch": "nest start --watch",
     "build": "nest build && pnpm run openapi:emit",

@@ -6,7 +6,7 @@ import {
   HttpStatus,
 } from "@nestjs/common";
 import { MongooseError } from "mongoose";
-import { ExceptionResponseDto } from "../models/exception-response.dto";
+import { ExceptionResponseDto } from "../models/exceptionResponse.dto";
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {

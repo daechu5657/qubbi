@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { BaseDatabaseService } from "../../common/base/base-database.service";
-import { CreateTestDto } from "../../models/test/create-test.dto";
-import { UpdateTestDto } from "../../models/test/update-test.dto";
+import { BaseDatabaseService } from "../../common/base/baseDatabase.service";
+import { CreateTestDto } from "../../models/test/createTest.dto";
+import { UpdateTestDto } from "../../models/test/updateTest.dto";
 import { Test, TestSchema } from "../../schemas/test/test.schema";
 
 @Injectable()

@@ -7,9 +7,9 @@ import {
   Post,
   Put,
 } from "@nestjs/common";
-import { CreateTestDto } from "../../models/test/create-test.dto";
+import { CreateTestDto } from "../../models/test/createTest.dto";
 import { ApiOkResponse } from "@nestjs/swagger";
-import { UpdateTestDto } from "../../models/test/update-test.dto";
+import { UpdateTestDto } from "../../models/test/updateTest.dto";
 import { TestModel } from "../../models/test/test.model";
 import { TestModelingService } from "../../services/test/test-modeling.service";
 import { TestService } from "../../services/test/test.service";

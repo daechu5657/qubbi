@@ -1,4 +1,4 @@
-import { ComponentPropsDefinition } from "./component-props.definition";
+import { ComponentPropsDefinition } from "./componentProps.definition";
 
 export interface ComponentVariantDefinition {
   key: string;

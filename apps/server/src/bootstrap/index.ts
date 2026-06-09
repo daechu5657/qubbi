@@ -1,3 +1,3 @@
-export * from "./setup-openapi";
-export * from "./setup-exception-filter";
-export * from "./setup-validation";
+export * from "./setupOpenapi";
+export * from "./setupExceptionFilter";
+export * from "./setupValidation";

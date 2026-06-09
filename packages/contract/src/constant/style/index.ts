@@ -1,1 +1,1 @@
-export * from "./style-value-kind-rules.constant";
+export * from "./styleValueKindRules.constant";

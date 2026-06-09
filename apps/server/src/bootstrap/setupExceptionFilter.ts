@@ -1,5 +1,5 @@
 import { INestApplication } from "@nestjs/common";
-import { GlobalExceptionFilter } from "../../src/common/filters/global-exception.filter";
+import { GlobalExceptionFilter } from "../common/filters/globalException.filter";
 
 export function setupExceptionFilter(app: INestApplication) {
   app.useGlobalFilters(new GlobalExceptionFilter());

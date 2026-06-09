@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "model:generate": "pnpm dlx openapi-typescript@latest ../../apps/server/openapi.json -o src/generated.ts",
-    "model:extract": "pnpm exec ts-node scripts/extract-model.ts",
+    "model:extract": "pnpm exec ts-node scripts/extractModel.ts",
     "prettier": "prettier --write src/generated.ts",
     "dev": "pnpm run model:generate && pnpm run model:extract && pnpm run prettier && tsc -p tsconfig.json",
     "build": "pnpm run model:generate && pnpm run model:extract && pnpm run prettier && tsc -p tsconfig.json"

@@ -1,3 +1,3 @@
-export * from "./project-role.enum";
-export * from "./revision-status.enum";
-export * from "./space-placement-kind.enum";
+export * from "./projectRole.enum";
+export * from "./revisionStatus.enum";
+export * from "./spacePlacementKind.enum";

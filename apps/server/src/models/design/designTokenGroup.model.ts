@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { DesignTokenGroupDocument } from "../../schemas/design/design-token-group.schema";
+import { DesignTokenGroupDocument } from "../../schemas/design/designTokenGroup.schema";
 import { DesignTokenModel } from "./designToken.model";
 
 export class DesingTokenGroupModel {

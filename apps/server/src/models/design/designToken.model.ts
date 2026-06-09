@@ -1,7 +1,7 @@
 import * as Contract from "@qubbi/contract";
 import { ApiProperty } from "@nestjs/swagger";
 import { DesignTokenValueModel } from "./designTokenValue.model";
-import { DesignTokenDocument } from "../../schemas/design/design-token.schema";
+import { DesignTokenDocument } from "../../schemas/design/designToken.schema";
 
 export class DesignTokenModel {
   @ApiProperty()
