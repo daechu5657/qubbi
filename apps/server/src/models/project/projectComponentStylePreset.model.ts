@@ -3,34 +3,42 @@ import { ApiProperty } from "@nestjs/swagger";
 import { ProjectComponentStylePresetDocument } from "../../schemas/project/projectComponentStylePreset.schema";
 
 export class ProjectComponentStylePresetModel {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ nullable: true, type: String })
   componentVariantId: string | null;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   componentStyleId: string;
 
-  @ApiProperty()
+  @ApiProperty({ nullable: true, type: String })
   stringValue: string | null;
 
-  @ApiProperty()
+  @ApiProperty({ nullable: true, type: Number })
   numberValue: number | null;
 
-  @ApiProperty()
+  @ApiProperty({ nullable: true, type: Boolean })
   booleanValue: boolean | null;
 
-  @ApiProperty()
+  @ApiProperty({
+    nullable: true,
+    enumName: "StyleValueUnit",
+    enum: Contract.Enums.StyleValueUnit,
+  })
   unit: Contract.Enums.StyleValueUnit | null;
 
-  @ApiProperty()
+  @ApiProperty({
+    nullable: true,
+    enumName: "StyleValueFormat",
+    enum: Contract.Enums.StyleValueFormat,
+  })
   format: Contract.Enums.StyleValueFormat | null;
 
-  @ApiProperty()
+  @ApiProperty({ nullable: true, type: String })
   designTokenId: string | null;
 
-  @ApiProperty()
+  @ApiProperty({ nullable: true, type: String })
   designTokenValueId: string | null;
 
   constructor({

@@ -3,40 +3,40 @@ import { SpacePlacementKind } from "../../enums";
 import { SpacePlacementDocument } from "../../schemas/space/spacePlacement.schema";
 
 export class SpacePlacementModel {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   stableId: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   spaceId: string;
 
-  @ApiProperty()
+  @ApiProperty({ enumName: "SpacePlacementKind", enum: SpacePlacementKind })
   kind: SpacePlacementKind;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   targetId: string;
 
-  @ApiProperty()
+  @ApiProperty({ nullable: true, type: String })
   pageViewportId: string | null;
 
-  @ApiProperty()
+  @ApiProperty({ type: Number })
   x: number;
 
-  @ApiProperty()
+  @ApiProperty({ type: Number })
   y: number;
 
-  @ApiProperty()
+  @ApiProperty({ type: Number })
   width: number;
 
-  @ApiProperty()
+  @ApiProperty({ type: Number })
   height: number;
 
-  @ApiProperty()
+  @ApiProperty({ type: Number })
   zIndex: number;
 
-  @ApiProperty()
+  @ApiProperty({ type: Number })
   order: number;
 
   constructor({ spacePlacement }: { spacePlacement: SpacePlacementDocument }) {

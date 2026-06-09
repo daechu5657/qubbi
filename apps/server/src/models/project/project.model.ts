@@ -3,19 +3,19 @@ import { ProjectDocument } from "../../schemas/project/project.schema";
 import { ProjectComponentPresetModel } from "./projectComponentPreset.model";
 
 export class ProjectModel {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   currentRevisionId: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   description: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: () => [ProjectComponentPresetModel] })
   componentPresets: ProjectComponentPresetModel[];
 
   constructor({

@@ -4,19 +4,19 @@ import { ComponentDocument } from "../../schemas/component/component.schema";
 import { ComponentVariantModel } from "./componentVariant.model";
 
 export class ComponentModel {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   tagName: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: () => ComponentPropsModel })
   props: ComponentPropsModel;
 
-  @ApiProperty()
+  @ApiProperty({ type: () => [ComponentVariantModel] })
   variants: ComponentVariantModel[];
 
   constructor({

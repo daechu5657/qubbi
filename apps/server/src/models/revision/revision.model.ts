@@ -3,28 +3,32 @@ import { RevisionDocument } from "../../schemas/revision/revision.schema";
 import { RevisionStatus } from "../../enums";
 
 export class RevisionModel {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ nullable: true, type: String })
   parentRevisionId: string | null;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   componentVersionId: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
+  name: string;
+
+  @ApiProperty({ type: String })
   createdBy: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   description: string;
 
-  @ApiProperty()
+  @ApiProperty({ enumName: "RevisionStatus", enum: RevisionStatus })
   status: RevisionStatus;
 
   constructor({ revision }: { revision: RevisionDocument }) {
     this.id = revision._id.toString();
     this.parentRevisionId = revision.parentRevisionId?.toString() ?? null;
     this.componentVersionId = revision.componentVersionId.toString();
+    this.name = revision.name;
     this.createdBy = revision.createdBy.toString();
     this.description = revision.description;
     this.status = revision.status;

@@ -3,32 +3,32 @@ import { ComponentPropsModel } from "./componentProps.model";
 import { ComponentVariantDocument } from "../../schemas/component/componentVariant.schema";
 
 export class ComponentVariantModel {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   key: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   order: number;
 
-  @ApiProperty()
+  @ApiProperty({ type: () => ComponentPropsModel })
   props: ComponentPropsModel;
 
   constructor({
-    varaint,
+    variant,
     propsModels,
   }: {
-    varaint: ComponentVariantDocument;
+    variant: ComponentVariantDocument;
     propsModels: ComponentPropsModel;
   }) {
-    this.id = varaint._id.toString();
-    this.key = varaint.key;
-    this.name = varaint.name;
-    this.order = varaint.order;
+    this.id = variant._id.toString();
+    this.key = variant.key;
+    this.name = variant.name;
+    this.order = variant.order;
     this.props = propsModels;
   }
 }

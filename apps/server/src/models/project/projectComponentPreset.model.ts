@@ -3,13 +3,13 @@ import { ProjectComponentStylePresetModel } from "./projectComponentStylePreset.
 import { ProjectComponentPresetDocument } from "../../schemas/project/projectComponentPreset.schema";
 
 export class ProjectComponentPresetModel {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   componentId: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: () => [ProjectComponentStylePresetModel] })
   stylePresets: ProjectComponentStylePresetModel[];
 
   constructor({

@@ -4,16 +4,19 @@ import { DesignTokenValueModel } from "./designTokenValue.model";
 import { DesignTokenDocument } from "../../schemas/design/designToken.schema";
 
 export class DesignTokenModel {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    enumName: "StyleValueKind",
+    enum: Contract.Enums.StyleValueKind,
+  })
   valueKind: Contract.Enums.StyleValueKind;
 
-  @ApiProperty()
+  @ApiProperty({ type: () => [DesignTokenValueModel] })
   values: DesignTokenValueModel[];
 
   constructor({

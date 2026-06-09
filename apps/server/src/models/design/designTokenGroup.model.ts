@@ -2,14 +2,14 @@ import { ApiProperty } from "@nestjs/swagger";
 import { DesignTokenGroupDocument } from "../../schemas/design/designTokenGroup.schema";
 import { DesignTokenModel } from "./designToken.model";
 
-export class DesingTokenGroupModel {
-  @ApiProperty()
+export class DesignTokenGroupModel {
+  @ApiProperty({ type: String })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: () => [DesignTokenModel] })
   designTokens: DesignTokenModel[];
 
   constructor({

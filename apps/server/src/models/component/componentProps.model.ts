@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { ComponentStyleModel } from "./componentStyle.model";
 
 export class ComponentPropsModel {
-  @ApiProperty()
+  @ApiProperty({ type: () => [ComponentStyleModel] })
   style: ComponentStyleModel[];
 
   // attributes: [];

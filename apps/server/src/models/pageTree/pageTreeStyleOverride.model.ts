@@ -3,28 +3,36 @@ import { ApiProperty } from "@nestjs/swagger";
 import { PageTreeStyleOverrideDocument } from "../../schemas/pageTree/pageTreeStyleOverride.schema";
 
 export class PageTreeStyleOverrideModel {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   componentStyleId: string;
 
-  @ApiProperty()
+  @ApiProperty({ nullable: true, type: String })
   stringValue: string | null;
 
-  @ApiProperty()
+  @ApiProperty({ nullable: true, type: Number })
   numberValue: number | null;
 
-  @ApiProperty()
+  @ApiProperty({ nullable: true, type: Boolean })
   booleanValue: boolean | null;
 
-  @ApiProperty()
+  @ApiProperty({
+    nullable: true,
+    enumName: "StyleValueUnit",
+    enum: Contract.Enums.StyleValueUnit,
+  })
   unit: Contract.Enums.StyleValueUnit | null;
 
-  @ApiProperty()
+  @ApiProperty({
+    nullable: true,
+    enumName: "StyleValueFormat",
+    enum: Contract.Enums.StyleValueFormat,
+  })
   format: Contract.Enums.StyleValueFormat | null;
 
-  @ApiProperty()
+  @ApiProperty({ nullable: true, type: String })
   designTokenValueId: string | null;
 
   constructor({

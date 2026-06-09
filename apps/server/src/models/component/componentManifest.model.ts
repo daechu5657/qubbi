@@ -3,13 +3,13 @@ import { ComponentModel } from "./component.model";
 import { ComponentVersionDocument } from "../../schemas/component/componentVersion.schema";
 
 export class ComponentManifestModel {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   componentVersionId: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   componentVersion: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: () => [ComponentModel] })
   components: ComponentModel[];
 
   constructor({

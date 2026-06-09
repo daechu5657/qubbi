@@ -4,22 +4,22 @@ import { PageModel } from "../page/page.model";
 import { SpacePlacementModel } from "./spacePlacement.model";
 
 export class SpaceModel {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   stableId: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: Number })
   order: number;
 
-  @ApiProperty()
+  @ApiProperty({ type: () => [PageModel] })
   pages: PageModel[];
 
-  @ApiProperty()
+  @ApiProperty({ type: () => [SpacePlacementModel] })
   placements: SpacePlacementModel[];
 
   constructor({

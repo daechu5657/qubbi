@@ -1,34 +1,31 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { PageDocument } from "../../schemas/page/page.schema";
 import { PageTreeModel } from "../pageTree/pageTree.model";
-import { SpaceDocument } from "../../schemas/space/space.schema";
 
 export class PageModel {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   stableId: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   spaceId: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   order: number;
 
-  @ApiProperty()
+  @ApiProperty({ nullable: true, type: () => PageTreeModel })
   rootPageTree: PageTreeModel | null;
 
   constructor({
     page,
-    space,
     rootPageTreeModel,
   }: {
     page: PageDocument;
-    space: SpaceDocument;
     rootPageTreeModel: PageTreeModel;
   }) {
     this.id = page._id.toString();
@@ -36,7 +33,7 @@ export class PageModel {
     this.name = page.name;
     this.order = page.order;
 
-    this.spaceId = space._id.toString();
+    this.spaceId = page.spaceId.toString();
     this.rootPageTree = rootPageTreeModel;
   }
 }

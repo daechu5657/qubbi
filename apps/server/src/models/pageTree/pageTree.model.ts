@@ -3,31 +3,31 @@ import { PageTreeDocument } from "../../schemas/pageTree/pageTree.schema";
 import { PageTreeStyleOverrideModel } from "./pageTreeStyleOverride.model";
 
 export class PageTreeModel {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   stableId: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   pageId: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   componentId: string;
 
-  @ApiProperty()
+  @ApiProperty({ nullable: true, type: String })
   componentVariantId: string | null;
 
-  @ApiProperty()
+  @ApiProperty({ nullable: true, type: String })
   parentId: string | null;
 
-  @ApiProperty()
+  @ApiProperty({ type: Number })
   order: number;
 
-  @ApiProperty()
+  @ApiProperty({ type: () => [PageTreeStyleOverrideModel] })
   styleOverrides: PageTreeStyleOverrideModel[];
 
-  @ApiProperty()
+  @ApiProperty({ type: () => [PageTreeModel] })
   children: PageTreeModel[];
 
   constructor({
