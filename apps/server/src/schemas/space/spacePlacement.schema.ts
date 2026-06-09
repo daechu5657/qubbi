@@ -18,8 +18,8 @@ export class SpacePlacement {
   @Prop({ required: true, type: MongooseSchema.Types.ObjectId })
   spaceId!: Types.ObjectId;
 
-  @Prop({ required: true, type: Number, enum: SpacePlacementKind })
-  kind!: number;
+  @Prop({ required: true, type: String, enum: SpacePlacementKind })
+  kind!: SpacePlacementKind;
 
   @Prop({ required: true, type: MongooseSchema.Types.ObjectId })
   targetId!: Types.ObjectId;

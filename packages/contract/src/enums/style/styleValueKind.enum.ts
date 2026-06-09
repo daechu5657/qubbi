@@ -1,7 +1,7 @@
 export enum StyleValueKind {
-  Text = "text",
-  Color = "color",
-  Number = "number",
-  Length = "length",
-  Boolean = "boolean",
+  Text = "Text",
+  Color = "Color",
+  Number = "Number",
+  Length = "Length",
+  Boolean = "Boolean",
 }

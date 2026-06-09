@@ -1,6 +1,6 @@
 export enum SpacePlacementKind {
-  Page,
-  PageTree,
-  Image,
-  Canvas,
+  Page = "Page",
+  PageTree = "PageTree",
+  Image = "Image",
+  Canvas = "Canvas",
 }

@@ -229,6 +229,700 @@
           "path",
           "timestamp"
         ]
+      },
+      "StyleValueKind": {
+        "type": "string",
+        "enum": [
+          "Text",
+          "Color",
+          "Number",
+          "Length",
+          "Boolean"
+        ]
+      },
+      "StyleValueUnit": {
+        "type": "string",
+        "enum": [
+          "Px",
+          "Rem",
+          "Percent"
+        ]
+      },
+      "StyleValueFormat": {
+        "type": "string",
+        "enum": [
+          "Hex",
+          "Rgb",
+          "Rgba",
+          "Hsl",
+          "Hsla"
+        ]
+      },
+      "ComponentStyleModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "componentVariantId": {
+            "type": "string",
+            "nullable": true
+          },
+          "label": {
+            "type": "string"
+          },
+          "cssProperty": {
+            "type": "string"
+          },
+          "valueKind": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StyleValueKind"
+              }
+            ]
+          },
+          "stringValue": {
+            "type": "string",
+            "nullable": true
+          },
+          "numberValue": {
+            "type": "number",
+            "nullable": true
+          },
+          "booleanValue": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "unit": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StyleValueUnit"
+              }
+            ]
+          },
+          "format": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StyleValueFormat"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "componentVariantId",
+          "label",
+          "cssProperty",
+          "valueKind",
+          "stringValue",
+          "numberValue",
+          "booleanValue",
+          "unit",
+          "format"
+        ]
+      },
+      "ComponentPropsModel": {
+        "type": "object",
+        "properties": {
+          "style": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ComponentStyleModel"
+            }
+          }
+        },
+        "required": [
+          "style"
+        ]
+      },
+      "ComponentVariantModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "order": {
+            "type": "string"
+          },
+          "props": {
+            "$ref": "#/components/schemas/ComponentPropsModel"
+          }
+        },
+        "required": [
+          "id",
+          "key",
+          "name",
+          "order",
+          "props"
+        ]
+      },
+      "ComponentModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tagName": {
+            "type": "string"
+          },
+          "props": {
+            "$ref": "#/components/schemas/ComponentPropsModel"
+          },
+          "variants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ComponentVariantModel"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "tagName",
+          "props",
+          "variants"
+        ]
+      },
+      "ComponentManifestModel": {
+        "type": "object",
+        "properties": {
+          "componentVersionId": {
+            "type": "string"
+          },
+          "componentVersion": {
+            "type": "string"
+          },
+          "components": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ComponentModel"
+            }
+          }
+        },
+        "required": [
+          "componentVersionId",
+          "componentVersion",
+          "components"
+        ]
+      },
+      "DesignTokenValueModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "stringValue": {
+            "type": "string",
+            "nullable": true
+          },
+          "numberValue": {
+            "type": "number",
+            "nullable": true
+          },
+          "booleanValue": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "unit": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StyleValueUnit"
+              }
+            ]
+          },
+          "format": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StyleValueFormat"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "stringValue",
+          "numberValue",
+          "booleanValue",
+          "unit",
+          "format"
+        ]
+      },
+      "DesignTokenModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "valueKind": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StyleValueKind"
+              }
+            ]
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DesignTokenValueModel"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "valueKind",
+          "values"
+        ]
+      },
+      "DesignTokenGroupModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "designTokens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DesignTokenModel"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "designTokens"
+        ]
+      },
+      "PageTreeStyleOverrideModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "componentStyleId": {
+            "type": "string"
+          },
+          "stringValue": {
+            "type": "string",
+            "nullable": true
+          },
+          "numberValue": {
+            "type": "number",
+            "nullable": true
+          },
+          "booleanValue": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "unit": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StyleValueUnit"
+              }
+            ]
+          },
+          "format": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StyleValueFormat"
+              }
+            ]
+          },
+          "designTokenValueId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "componentStyleId",
+          "stringValue",
+          "numberValue",
+          "booleanValue",
+          "unit",
+          "format",
+          "designTokenValueId"
+        ]
+      },
+      "PageTreeModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "stableId": {
+            "type": "string"
+          },
+          "pageId": {
+            "type": "string"
+          },
+          "componentId": {
+            "type": "string"
+          },
+          "componentVariantId": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentId": {
+            "type": "string",
+            "nullable": true
+          },
+          "order": {
+            "type": "number"
+          },
+          "styleOverrides": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PageTreeStyleOverrideModel"
+            }
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PageTreeModel"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "stableId",
+          "pageId",
+          "componentId",
+          "componentVariantId",
+          "parentId",
+          "order",
+          "styleOverrides",
+          "children"
+        ]
+      },
+      "PageModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "stableId": {
+            "type": "string"
+          },
+          "spaceId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "order": {
+            "type": "string"
+          },
+          "rootPageTree": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageTreeModel"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "stableId",
+          "spaceId",
+          "name",
+          "order",
+          "rootPageTree"
+        ]
+      },
+      "ProjectComponentStylePresetModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "componentVariantId": {
+            "type": "string",
+            "nullable": true
+          },
+          "componentStyleId": {
+            "type": "string"
+          },
+          "stringValue": {
+            "type": "string",
+            "nullable": true
+          },
+          "numberValue": {
+            "type": "number",
+            "nullable": true
+          },
+          "booleanValue": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "unit": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StyleValueUnit"
+              }
+            ]
+          },
+          "format": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StyleValueFormat"
+              }
+            ]
+          },
+          "designTokenId": {
+            "type": "string",
+            "nullable": true
+          },
+          "designTokenValueId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "componentVariantId",
+          "componentStyleId",
+          "stringValue",
+          "numberValue",
+          "booleanValue",
+          "unit",
+          "format",
+          "designTokenId",
+          "designTokenValueId"
+        ]
+      },
+      "ProjectComponentPresetModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "componentId": {
+            "type": "string"
+          },
+          "stylePresets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProjectComponentStylePresetModel"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "componentId",
+          "stylePresets"
+        ]
+      },
+      "ProjectModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "currentRevisionId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "componentPresets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProjectComponentPresetModel"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "currentRevisionId",
+          "name",
+          "description",
+          "componentPresets"
+        ]
+      },
+      "RevisionStatus": {
+        "type": "string",
+        "enum": [
+          "Working",
+          "Sealed"
+        ]
+      },
+      "RevisionModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "parentRevisionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "componentVersionId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RevisionStatus"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "parentRevisionId",
+          "componentVersionId",
+          "name",
+          "createdBy",
+          "description",
+          "status"
+        ]
+      },
+      "SpacePlacementKind": {
+        "type": "string",
+        "enum": [
+          "Page",
+          "PageTree",
+          "Image",
+          "Canvas"
+        ]
+      },
+      "SpacePlacementModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "stableId": {
+            "type": "string"
+          },
+          "spaceId": {
+            "type": "string"
+          },
+          "kind": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SpacePlacementKind"
+              }
+            ]
+          },
+          "targetId": {
+            "type": "string"
+          },
+          "pageViewportId": {
+            "type": "string",
+            "nullable": true
+          },
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "width": {
+            "type": "number"
+          },
+          "height": {
+            "type": "number"
+          },
+          "zIndex": {
+            "type": "number"
+          },
+          "order": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "stableId",
+          "spaceId",
+          "kind",
+          "targetId",
+          "pageViewportId",
+          "x",
+          "y",
+          "width",
+          "height",
+          "zIndex",
+          "order"
+        ]
+      },
+      "SpaceModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "stableId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "order": {
+            "type": "number"
+          },
+          "pages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PageModel"
+            }
+          },
+          "placements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SpacePlacementModel"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "stableId",
+          "name",
+          "order",
+          "pages",
+          "placements"
+        ]
       }
     }
   }

@@ -1,5 +1,5 @@
 export enum Primitive {
-  String = "string",
-  Number = "number",
-  Boolean = "boolean",
+  String = "String",
+  Number = "Number",
+  Boolean = "Boolean",
 }

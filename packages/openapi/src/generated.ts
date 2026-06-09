@@ -63,6 +63,154 @@ export interface components {
       path: string;
       timestamp: string;
     };
+    /** @enum {string} */
+    StyleValueKind: "text" | "color" | "number" | "length" | "boolean";
+    /** @enum {string} */
+    StyleValueUnit: "px" | "rem" | "%";
+    /** @enum {string} */
+    StyleValueFormat: "hex" | "rgb" | "rgba" | "hsl" | "hsla";
+    ComponentStyleModel: {
+      id: string;
+      componentVariantId: string | null;
+      label: string;
+      cssProperty: string;
+      valueKind: components["schemas"]["StyleValueKind"];
+      stringValue: string | null;
+      numberValue: number | null;
+      booleanValue: boolean | null;
+      unit: components["schemas"]["StyleValueUnit"] | null;
+      format: components["schemas"]["StyleValueFormat"] | null;
+    };
+    ComponentPropsModel: {
+      style: components["schemas"]["ComponentStyleModel"][];
+    };
+    ComponentVariantModel: {
+      id: string;
+      key: string;
+      name: string;
+      order: string;
+      props: components["schemas"]["ComponentPropsModel"];
+    };
+    ComponentModel: {
+      id: string;
+      name: string;
+      tagName: string;
+      props: components["schemas"]["ComponentPropsModel"];
+      variants: components["schemas"]["ComponentVariantModel"][];
+    };
+    ComponentManifestModel: {
+      componentVersionId: string;
+      componentVersion: string;
+      components: components["schemas"]["ComponentModel"][];
+    };
+    DesignTokenValueModel: {
+      id: string;
+      name: string;
+      stringValue: string | null;
+      numberValue: number | null;
+      booleanValue: boolean | null;
+      unit: components["schemas"]["StyleValueUnit"] | null;
+      format: components["schemas"]["StyleValueFormat"] | null;
+    };
+    DesignTokenModel: {
+      id: string;
+      name: string;
+      valueKind: components["schemas"]["StyleValueKind"];
+      values: components["schemas"]["DesignTokenValueModel"][];
+    };
+    DesignTokenGroupModel: {
+      id: string;
+      name: string;
+      designTokens: components["schemas"]["DesignTokenModel"][];
+    };
+    PageTreeStyleOverrideModel: {
+      id: string;
+      componentStyleId: string;
+      stringValue: string | null;
+      numberValue: number | null;
+      booleanValue: boolean | null;
+      unit: components["schemas"]["StyleValueUnit"] | null;
+      format: components["schemas"]["StyleValueFormat"] | null;
+      designTokenValueId: string | null;
+    };
+    PageTreeModel: {
+      id: string;
+      stableId: string;
+      pageId: string;
+      componentId: string;
+      componentVariantId: string | null;
+      parentId: string | null;
+      order: number;
+      styleOverrides: components["schemas"]["PageTreeStyleOverrideModel"][];
+      children: components["schemas"]["PageTreeModel"][];
+    };
+    PageModel: {
+      id: string;
+      stableId: string;
+      spaceId: string;
+      name: string;
+      order: string;
+      rootPageTree: components["schemas"]["PageTreeModel"] | null;
+    };
+    ProjectComponentStylePresetModel: {
+      id: string;
+      componentVariantId: string | null;
+      componentStyleId: string;
+      stringValue: string | null;
+      numberValue: number | null;
+      booleanValue: boolean | null;
+      unit: components["schemas"]["StyleValueUnit"] | null;
+      format: components["schemas"]["StyleValueFormat"] | null;
+      designTokenId: string | null;
+      designTokenValueId: string | null;
+    };
+    ProjectComponentPresetModel: {
+      id: string;
+      componentId: string;
+      stylePresets: components["schemas"]["ProjectComponentStylePresetModel"][];
+    };
+    ProjectModel: {
+      id: string;
+      currentRevisionId: string;
+      name: string;
+      description: string;
+      componentPresets: components["schemas"]["ProjectComponentPresetModel"][];
+    };
+    /** @enum {number} */
+    RevisionStatus: 0 | 1;
+    RevisionModel: {
+      id: string;
+      parentRevisionId: string | null;
+      componentVersionId: string;
+      name: string;
+      createdBy: string;
+      description: string;
+      status: components["schemas"]["RevisionStatus"];
+    };
+    /** @enum {number} */
+    SpacePlacementKind: 0 | 1 | 2 | 3;
+    SpacePlacementModel: {
+      id: string;
+      stableId: string;
+      spaceId: string;
+      kind: components["schemas"]["SpacePlacementKind"];
+      targetId: string;
+      pageViewportId: string | null;
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+      zIndex: number;
+      order: number;
+    };
+    SpaceModel: {
+      id: string;
+      stableId: string;
+      name: string;
+      order: number;
+      pages: components["schemas"]["PageModel"][];
+      placements: components["schemas"]["SpacePlacementModel"][];
+    };
   };
   responses: never;
   parameters: never;
@@ -86,7 +234,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          "application/json": Models.TestModel[];
+          "application/json": components["schemas"]["TestModel"][];
         };
       };
     };
@@ -100,7 +248,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": Models.CreateTestDto;
+        "application/json": components["schemas"]["CreateTestDto"];
       };
     };
     responses: {
@@ -109,7 +257,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          "application/json": Models.TestModel;
+          "application/json": components["schemas"]["TestModel"];
         };
       };
     };
@@ -123,7 +271,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": Models.UpdateTestDto;
+        "application/json": components["schemas"]["UpdateTestDto"];
       };
     };
     responses: {
@@ -132,7 +280,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          "application/json": Models.TestModel;
+          "application/json": components["schemas"]["TestModel"];
         };
       };
     };
@@ -153,7 +301,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          "application/json": Models.TestModel;
+          "application/json": components["schemas"]["TestModel"];
         };
       };
     };
@@ -179,31 +327,4 @@ export interface operations {
   };
 }
 
-export namespace Models {
-  export interface TestModel {
-    id: string;
-    name: number;
-    email: string;
-    /** Format: date-time */
-    deletedTime: string;
-  }
-
-  export interface CreateTestDto {
-    name: number;
-    email: string;
-  }
-
-  export interface UpdateTestDto {
-    id: string;
-    name: number;
-    email: string;
-  }
-
-  export interface ExceptionResponseDto {
-    source: string;
-    statusCode: number;
-    message: string;
-    path: string;
-    timestamp: string;
-  }
-}
+export namespace Models {}

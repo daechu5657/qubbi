@@ -202,8 +202,9 @@ async function main() {
 
   const modelNames = new Set<string>();
   for (const p of schemasTypeNode.getProperties()) {
-    addSchemaModel(p, modelNamespace);
-    modelNames.add(p.getName());
+    console.log(p.getName());
+    // addSchemaModel(p, modelNamespace);
+    // modelNames.add(p.getName());
   }
 
   const operations = source.getInterfaceOrThrow("operations");

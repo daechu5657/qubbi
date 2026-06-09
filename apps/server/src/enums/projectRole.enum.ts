@@ -1,5 +1,5 @@
 export enum ProjectRole {
-  Owner,
-  Editor,
-  Viewer,
+  Owner = "Owner",
+  Editor = "Editor",
+  Viewer = "Viewer",
 }

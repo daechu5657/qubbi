@@ -39,11 +39,8 @@ export function createOpenApiDocument(app: INestApplication) {
     .setVersion("1.0")
     .build();
 
-  const asd = collectExtraModels();
-  console.log(asd.length);
-
   return SwaggerModule.createDocument(app, config, {
-    extraModels: asd,
+    extraModels: collectExtraModels(),
   });
 }
 

@@ -24,7 +24,7 @@ export class Revision {
   @Prop({ required: true, type: String })
   description!: string;
 
-  @Prop({ required: true, type: Number, enum: RevisionStatus })
+  @Prop({ required: true, type: String, enum: RevisionStatus })
   status!: RevisionStatus;
 }
 

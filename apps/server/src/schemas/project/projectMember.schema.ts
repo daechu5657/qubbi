@@ -12,7 +12,7 @@ export class ProjectMember {
   @Prop({ required: true, type: MongooseSchema.Types.ObjectId })
   userId!: Types.ObjectId;
 
-  @Prop({ required: true, type: Number, enum: ProjectRole })
+  @Prop({ required: true, type: String, enum: ProjectRole })
   role!: ProjectRole;
 }
 

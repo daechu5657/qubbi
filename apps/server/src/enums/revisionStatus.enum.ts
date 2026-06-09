@@ -1,4 +1,4 @@
 export enum RevisionStatus {
-  Working,
-  Sealed,
+  Working = "Working",
+  Sealed = "Sealed",
 }
