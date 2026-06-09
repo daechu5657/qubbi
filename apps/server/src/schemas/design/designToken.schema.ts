@@ -6,7 +6,7 @@ import { HydratedDocument, Types } from "mongoose";
 export class DesignToken {
   _id!: Types.ObjectId;
 
-  @Prop({ required: true })
+  @Prop({ required: true, trim: true, type: String })
   name!: string;
 
   @Prop({ required: true, type: String, enum: Contract.Enums.StyleValueKind })

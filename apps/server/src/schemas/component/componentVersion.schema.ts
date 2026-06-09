@@ -5,7 +5,7 @@ import { HydratedDocument, Types } from "mongoose";
 export class ComponentVersion {
   _id!: Types.ObjectId;
 
-  @Prop({ required: true })
+  @Prop({ required: true, trim: true, type: String })
   version!: string;
 }
 

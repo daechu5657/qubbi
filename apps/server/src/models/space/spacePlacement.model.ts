@@ -19,6 +19,9 @@ export class SpacePlacementModel {
   targetId: string;
 
   @ApiProperty()
+  pageViewportId: string | null;
+
+  @ApiProperty()
   x: number;
 
   @ApiProperty()
@@ -42,6 +45,7 @@ export class SpacePlacementModel {
     this.spaceId = spacePlacement.spaceId.toString();
     this.kind = spacePlacement.kind;
     this.targetId = spacePlacement.targetId.toString();
+    this.pageViewportId = spacePlacement.pageViewportId?.toString() ?? null;
     this.x = spacePlacement.x;
     this.y = spacePlacement.y;
     this.width = spacePlacement.width;

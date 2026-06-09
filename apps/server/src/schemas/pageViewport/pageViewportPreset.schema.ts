@@ -1,17 +1,17 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument, Types } from "mongoose";
 
-@Schema({ collection: "page_viewport_preset" })
+@Schema({ collection: "page_viewport_presets" })
 export class PageViewportPreset {
   _id!: Types.ObjectId;
 
-  @Prop({ required: true })
+  @Prop({ required: true, trim: true, type: String })
   name!: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, type: Number })
   width!: number;
 
-  @Prop({ required: true })
+  @Prop({ required: true, type: Number })
   height!: number;
 }
 
