@@ -4,20 +4,26 @@ import {
   PropertySignature,
   SourceFile,
   SyntaxKind,
-  TypeNode,
 } from "ts-morph";
+import * as Contract from "@qubbi/contract";
 
-const NAMESPACE_NAME = "Models";
+const MODELS_NAMESPACE_NAME = "Models";
+const ENUMS_NAMESPACE_NAME = "Enums";
+const contractEnumNames = new Set(Object.keys(Contract.Enums));
+const SCHEMA_REF_PATTERN = /^components\["schemas"\]\["([^"]+)"\]$/;
 
 function removeDuplication(source: SourceFile) {
   for (const existingModule of source.getModules()) {
-    if (existingModule.getName() === NAMESPACE_NAME) {
+    if (
+      existingModule.getName() === MODELS_NAMESPACE_NAME ||
+      existingModule.getName() === ENUMS_NAMESPACE_NAME
+    ) {
       existingModule.remove();
     }
   }
 }
 
-function addSchemaModel(p: PropertySignature, module: ModuleDeclaration) {
+function addModel(p: PropertySignature, module: ModuleDeclaration) {
   const target = module.addInterface({
     name: p.getName(),
     isExported: true,
@@ -33,189 +39,165 @@ function addSchemaModel(p: PropertySignature, module: ModuleDeclaration) {
   }
 }
 
-function parseFirstSchemaRefName(typeText: string) {
-  const matches = [
-    ...typeText.matchAll(/components\["schemas"\]\["([^"]+)"\]/g),
-  ];
+function hasEnumJsdocTag(p: PropertySignature) {
+  for (const doc of p.getJsDocs()) {
+    for (const tag of doc.getTags()) {
+      if (tag.isKind(SyntaxKind.JSDocEnumTag)) {
+        return true;
+      }
+    }
+  }
 
-  return matches.map((m) => m[1])[0];
+  return false;
 }
 
-function isKeywordKind(kind: SyntaxKind) {
-  return (
-    kind === SyntaxKind.StringKeyword ||
-    kind === SyntaxKind.NumberKeyword ||
-    kind === SyntaxKind.BooleanKeyword ||
-    kind === SyntaxKind.NullKeyword ||
-    kind === SyntaxKind.UndefinedKeyword ||
-    kind === SyntaxKind.UnknownKeyword ||
-    kind === SyntaxKind.AnyKeyword ||
-    kind === SyntaxKind.NeverKeyword ||
-    kind === SyntaxKind.ObjectKeyword ||
-    kind === SyntaxKind.BigIntKeyword ||
-    kind === SyntaxKind.VoidKeyword
-  );
+function addEnum(p: PropertySignature, module: ModuleDeclaration) {
+  const name = p.getName();
+  if (contractEnumNames.has(name)) {
+    return;
+  }
+
+  const target = module.addEnum({
+    name,
+    isExported: true,
+  });
+
+  const typeNodes = p
+    .getTypeNodeOrThrow()
+    .asKindOrThrow(SyntaxKind.UnionType)
+    .getTypeNodes();
+
+  for (const tn of typeNodes) {
+    if (!tn.isKind(SyntaxKind.LiteralType)) {
+      continue;
+    }
+
+    const literal = tn.getLiteral();
+    if (!literal.isKind(SyntaxKind.StringLiteral)) {
+      continue;
+    }
+
+    target.addMember({
+      name: tn.getText(),
+      value: literal.getLiteralValue(),
+    });
+  }
 }
 
-function isKeywordTypeNode(tn: TypeNode) {
-  return isKeywordKind(tn.getKind());
+function parseSchemaRefName(typeText: string) {
+  return typeText.match(SCHEMA_REF_PATTERN)?.[1];
 }
 
-function toModelTypeText(tn: TypeNode, modelNames: Set<string>): string | null {
-  if (isKeywordKind(tn.getKind())) {
-    return tn.getText();
+function getSchemaRefReplacement(
+  schemaName: string,
+  modelNames: Set<string>,
+  enumNames: Set<string>,
+) {
+  if (modelNames.has(schemaName)) {
+    return `${MODELS_NAMESPACE_NAME}.${schemaName}`;
   }
 
-  if (tn.isKind(SyntaxKind.IndexedAccessType)) {
-    const modelName = parseFirstSchemaRefName(tn.getText());
-    if (modelName && modelNames.has(modelName)) {
-      return `${NAMESPACE_NAME}.${modelName}`;
-    }
-    return null;
+  if (contractEnumNames.has(schemaName)) {
+    return `Contract.Enums.${schemaName}`;
   }
 
-  if (tn.isKind(SyntaxKind.ArrayType)) {
-    const elementTypeNode = tn.getElementTypeNode();
-
-    if (elementTypeNode.isKind(SyntaxKind.ParenthesizedType)) {
-      const inner = elementTypeNode.getTypeNode();
-      const next = toModelTypeText(inner, modelNames);
-      if (next) {
-        return `(${next})[]`;
-      }
-
-      return null;
-    }
-
-    if (isKeywordTypeNode(elementTypeNode)) {
-      return tn.getText();
-    }
-
-    const modelName = parseFirstSchemaRefName(elementTypeNode.getText());
-    if (modelName && modelNames.has(modelName)) {
-      return `${NAMESPACE_NAME}.${modelName}[]`;
-    }
-
-    return null;
-  }
-
-  if (tn.isKind(SyntaxKind.ParenthesizedType)) {
-    const inner = tn.asKindOrThrow(SyntaxKind.ParenthesizedType).getTypeNode();
-    return toModelTypeText(inner, modelNames);
-  }
-
-  if (tn.isKind(SyntaxKind.UnionType)) {
-    const members = tn.asKindOrThrow(SyntaxKind.UnionType).getTypeNodes();
-    const nextMembers: string[] = [];
-    let hasModel = false;
-
-    for (const member of members) {
-      if (isKeywordTypeNode(member)) {
-        nextMembers.push(member.getText());
-        continue;
-      }
-
-      const modelName = parseFirstSchemaRefName(member.getText());
-      if (modelName && modelNames.has(modelName)) {
-        nextMembers.push(`${NAMESPACE_NAME}.${modelName}`);
-        hasModel = true;
-        continue;
-      }
-
-      return null;
-    }
-
-    return hasModel ? nextMembers.join(" | ") : tn.getText();
+  if (enumNames.has(schemaName)) {
+    return `${ENUMS_NAMESPACE_NAME}.${schemaName}`;
   }
 
   return null;
 }
 
-function editRequest(modelNames: Set<string>, p?: PropertySignature) {
-  if (!p) {
-    return;
-  }
+function replaceSchemaRefs(
+  source: SourceFile,
+  modelNames: Set<string>,
+  enumNames: Set<string>,
+) {
+  const refs = source
+    .getDescendantsOfKind(SyntaxKind.IndexedAccessType)
+    .filter((tn) => parseSchemaRefName(tn.getText()));
 
-  const tn = p.getTypeNodeOrThrow();
-  if (tn.isKind(SyntaxKind.NeverKeyword)) {
-    return;
-  }
+  for (const ref of refs) {
+    const schemaName = parseSchemaRefName(ref.getText());
+    if (!schemaName) {
+      continue;
+    }
 
-  const targetTypeNode = tn
-    .asKindOrThrow(SyntaxKind.TypeLiteral)
-    .getPropertyOrThrow("content")
-    .getTypeNodeOrThrow()
-    .asKindOrThrow(SyntaxKind.TypeLiteral)
-    .getPropertyOrThrow(`"application/json"`)
-    .getTypeNodeOrThrow();
-
-  const nextTypeText = toModelTypeText(targetTypeNode, modelNames);
-  if (nextTypeText) {
-    targetTypeNode.replaceWithText(nextTypeText);
+    const replacement = getSchemaRefReplacement(
+      schemaName,
+      modelNames,
+      enumNames,
+    );
+    if (replacement) {
+      ref.replaceWithText(replacement);
+    }
   }
 }
 
-function editResponse(modelNames: Set<string>, p?: PropertySignature) {
-  if (!p) {
-    return;
-  }
+function ensureContractImport(source: SourceFile) {
+  const contractImport = source.getImportDeclaration(
+    (declaration) =>
+      declaration.getModuleSpecifierValue() === "@qubbi/contract",
+  );
 
-  const tn = p
-    .getTypeNodeOrThrow()
-    .asKindOrThrow(SyntaxKind.TypeLiteral)
-    .getPropertyOrThrow("200")
-    .getTypeNodeOrThrow()
-    .asKindOrThrow(SyntaxKind.TypeLiteral)
-    .getPropertyOrThrow("content")
-    .getTypeNodeOrThrow();
-
-  if (tn.isKind(SyntaxKind.NeverKeyword)) {
-    return;
-  }
-
-  const targetTypeNode = tn
-    .asKindOrThrow(SyntaxKind.TypeLiteral)
-    .getPropertyOrThrow(`"application/json"`)
-    .getTypeNodeOrThrow();
-
-  const nextTypeText = toModelTypeText(targetTypeNode, modelNames);
-  if (nextTypeText) {
-    targetTypeNode.replaceWithText(nextTypeText);
+  if (!contractImport) {
+    source.insertImportDeclaration(0, {
+      namespaceImport: "Contract",
+      moduleSpecifier: "@qubbi/contract",
+    });
   }
 }
 
 async function main() {
   const project = new Project();
   const source = project.addSourceFileAtPath("./src/generated.ts");
+
+  const components = source.getInterface("components");
+  if (!components) {
+    return;
+  }
+
   removeDuplication(source);
 
   const modelNamespace = source.addModule({
-    name: NAMESPACE_NAME,
+    name: MODELS_NAMESPACE_NAME,
     isExported: true,
   });
 
-  const components = source.getInterfaceOrThrow("components");
+  const enumNamespace = source.addModule({
+    name: ENUMS_NAMESPACE_NAME,
+    isExported: true,
+  });
+
   const schemasTypeNode = components
     .getPropertyOrThrow("schemas")
     .getTypeNodeOrThrow()
     .asKindOrThrow(SyntaxKind.TypeLiteral);
 
   const modelNames = new Set<string>();
+  const enumNames = new Set<string>();
+  let usesContractEnum = false;
+
   for (const p of schemasTypeNode.getProperties()) {
-    console.log(p.getName());
-    // addSchemaModel(p, modelNamespace);
-    // modelNames.add(p.getName());
+    const tn = p.getTypeNodeOrThrow();
+    const name = p.getName();
+
+    if (tn.isKind(SyntaxKind.TypeLiteral)) {
+      addModel(p, modelNamespace);
+      modelNames.add(name);
+    } else if (hasEnumJsdocTag(p)) {
+      addEnum(p, enumNamespace);
+      enumNames.add(name);
+      usesContractEnum ||= contractEnumNames.has(name);
+    }
   }
 
-  const operations = source.getInterfaceOrThrow("operations");
-  for (const op of operations.getProperties()) {
-    const operationTypeNode = op
-      .getTypeNodeOrThrow()
-      .asKindOrThrow(SyntaxKind.TypeLiteral);
-
-    editRequest(modelNames, operationTypeNode.getProperty("requestBody"));
-    editResponse(modelNames, operationTypeNode.getProperty("responses"));
+  if (usesContractEnum) {
+    ensureContractImport(source);
   }
+
+  replaceSchemaRefs(source, modelNames, enumNames);
+  components.remove();
 
   await project.save();
 }

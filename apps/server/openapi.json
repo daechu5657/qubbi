@@ -133,6 +133,37 @@
           "Test"
         ]
       }
+    },
+    "/editor/test/1": {
+      "delete": {
+        "operationId": "TestController_test1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComponentStyleModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ComponentStyleModel"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Test"
+        ]
+      }
     }
   },
   "info": {
@@ -201,33 +232,6 @@
           "id",
           "name",
           "email"
-        ]
-      },
-      "ExceptionResponseDto": {
-        "type": "object",
-        "properties": {
-          "source": {
-            "type": "string"
-          },
-          "statusCode": {
-            "type": "number"
-          },
-          "message": {
-            "type": "string"
-          },
-          "path": {
-            "type": "string"
-          },
-          "timestamp": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "source",
-          "statusCode",
-          "message",
-          "path",
-          "timestamp"
         ]
       },
       "StyleValueKind": {
@@ -321,6 +325,33 @@
           "booleanValue",
           "unit",
           "format"
+        ]
+      },
+      "ExceptionResponseDto": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "statusCode": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "statusCode",
+          "message",
+          "path",
+          "timestamp"
         ]
       },
       "ComponentPropsModel": {

@@ -14,6 +14,8 @@ import { TestModel } from "../../models/test/test.model";
 import { TestModelingService } from "../../services/test/test-modeling.service";
 import { TestService } from "../../services/test/test.service";
 import { EditorController } from "./base.controller";
+import { ComponentStyleModel } from "../../models/component/componentStyle.model";
+import { RevisionModel } from "../../models/revision/revision.model";
 
 @EditorController("test")
 export class TestController {
@@ -70,5 +72,13 @@ export class TestController {
   @Delete(":id")
   delete(@Param("id") id: string) {
     this.testService.delete(id);
+  }
+
+  @Delete("1")
+  @ApiOkResponse({
+    type: ComponentStyleModel,
+  })
+  test1(@Body() body: ComponentStyleModel) {
+    return body;
   }
 }

@@ -11,14 +11,15 @@
     "dev": "pnpm run model:generate && pnpm run model:transform && pnpm run prettier && tsc -p tsconfig.json",
     "build": "pnpm run model:generate && pnpm run model:transform && pnpm run prettier && tsc -p tsconfig.json"
   },
+  "dependencies": {
+    "openapi-fetch": "^0.17.0",
+    "@qubbi/contract": "workspace:*"
+  },
   "devDependencies": {
     "@types/node": "^25.5.0",
     "ts-morph": "^27.0.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.0",
     "prettier": "^3.8.1"
-  },
-  "dependencies": {
-    "openapi-fetch": "^0.17.0"
   }
 }

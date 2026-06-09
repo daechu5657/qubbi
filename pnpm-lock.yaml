@@ -25,6 +25,9 @@ importers:
 
   apps/editor:
     dependencies:
+      '@qubbi/openapi':
+        specifier: workspace:*
+        version: link:../../packages/openapi
       react:
         specifier: ^19.2.4
         version: 19.2.4
@@ -70,13 +73,14 @@ importers:
         version: 8.0.0(@types/node@24.12.0)
 
   apps/reference-component:
+    dependencies:
+      '@qubbi/openapi':
+        specifier: workspace:*
+        version: link:../../packages/openapi
     devDependencies:
       '@qubbi/contract':
         specifier: workspace:*
         version: link:../../packages/contract
-      '@qubbi/openapi':
-        specifier: workspace:*
-        version: link:../../packages/openapi
       '@types/node':
         specifier: ^25.5.0
         version: 25.5.0
@@ -104,6 +108,9 @@ importers:
       '@nestjs/platform-express':
         specifier: ^11.0.1
         version: 11.1.16(@nestjs/common@11.1.16)(@nestjs/core@11.1.16)
+      '@qubbi/contract':
+        specifier: workspace:*
+        version: link:../../packages/contract
       class-transformer:
         specifier: ^0.5.1
         version: 0.5.1
@@ -141,9 +148,6 @@ importers:
       '@nestjs/testing':
         specifier: ^11.0.1
         version: 11.1.16(@nestjs/common@11.1.16)(@nestjs/core@11.1.16)(@nestjs/platform-express@11.1.16)
-      '@qubbi/contract':
-        specifier: workspace:*
-        version: link:../../packages/contract
       '@types/express':
         specifier: ^5.0.0
         version: 5.0.6
@@ -207,6 +211,9 @@ importers:
 
   packages/openapi:
     dependencies:
+      '@qubbi/contract':
+        specifier: workspace:*
+        version: link:../contract
       openapi-fetch:
         specifier: ^0.17.0
         version: 0.17.0(patch_hash=suakxobyh4czp2qi7ywru6hvve)

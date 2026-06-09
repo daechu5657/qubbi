@@ -7,7 +7,9 @@
     "definition:extract": "pnpm exec ts-node scripts/extractDefinition.ts",
     "build": "tsc -p tsconfig.json && pnpm run definition:extract"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@qubbi/openapi": "workspace:*"
+  },
   "devDependencies": {
     "@types/node": "^25.5.0",
     "ts-node": "^10.9.2",
