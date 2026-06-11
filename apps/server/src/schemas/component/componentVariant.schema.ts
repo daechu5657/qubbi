@@ -11,10 +11,7 @@ export class ComponentVariant {
   @Prop({ required: true, trim: true, type: String })
   key!: string;
 
-  @Prop({ required: true, trim: true, type: String })
-  name!: string;
-
-  @Prop({ required: true, trim: true, type: Number })
+  @Prop({ required: true, type: Number })
   order!: number;
 }
 

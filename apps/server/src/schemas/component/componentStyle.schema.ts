@@ -9,11 +9,11 @@ export class ComponentStyle {
   @Prop({ required: true, type: MongooseSchema.Types.ObjectId })
   componentId!: Types.ObjectId;
 
-  @Prop({ default: null, type: MongooseSchema.Types.ObjectId })
-  componentVariantId!: Types.ObjectId | null;
+  @Prop({ required: true, type: MongooseSchema.Types.ObjectId })
+  componentPartId!: Types.ObjectId;
 
-  @Prop({ required: true, trim: true, type: String })
-  label!: string;
+  @Prop({ required: true, type: MongooseSchema.Types.ObjectId })
+  componentVariantId!: Types.ObjectId;
 
   @Prop({ required: true, type: String })
   cssProperty!: keyof ElementCSSInlineStyle["style"];
