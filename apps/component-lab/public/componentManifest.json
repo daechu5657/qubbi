@@ -1,4 +1,6 @@
 {
-  "generatedAt": "2026-06-18T14:39:33.256Z",
-  "files": []
+  "generatedAt": "2026-06-18T14:41:28.407Z",
+  "files": [
+    "src/components/button.component.tsx"
+  ]
 }
