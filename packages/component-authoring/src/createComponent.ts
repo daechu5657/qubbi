@@ -1,11 +1,13 @@
 import React from "react";
 import type { Properties } from "csstype";
+import * as Contract from "@qubbi/contract";
 
 type VariantsGeneric = readonly string[] | undefined;
 
 type Arguments<T extends VariantsGeneric> = {
-  variants?: T;
   name: string;
+  placementType: Contract.Enums.ComponentPlacementType;
+  variants?: T;
 };
 
 type VariantOf<Variants extends readonly string[] | undefined> =
@@ -20,6 +22,7 @@ type ComponentPropsWithVariant<Props extends object, Variant extends string> = [
 function createComponent<const V extends VariantsGeneric = undefined>({
   variants,
   name,
+  placementType,
 }: Arguments<V>) {
   type Variant = VariantOf<V>;
 

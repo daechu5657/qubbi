@@ -1,8 +1,10 @@
 import * as ComponentAuthoring from "@qubbi/component-authoring";
+import * as Contract from "@qubbi/contract";
 
 const inputComponent = ComponentAuthoring.createComponent({
   name: "InputComponent",
   variants: ["test", "test2"],
+  placementType: Contract.Enums.ComponentPlacementType.Standalone,
 });
 
 function Input({

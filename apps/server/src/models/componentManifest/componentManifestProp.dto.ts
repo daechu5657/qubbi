@@ -1,12 +1,15 @@
+import * as Contract from "@qubbi/contract";
 import { ApiProperty } from "@nestjs/swagger";
-import { ComponentPropType } from "../../enums/componentPropType";
 
 export class ComponentManifestPropDto {
   @ApiProperty({ type: String })
   key!: string;
 
-  @ApiProperty({ enumName: "ComponentPropType", enum: ComponentPropType })
-  type!: ComponentPropType;
+  @ApiProperty({
+    enumName: "ComponentPropType",
+    enum: Contract.Enums.ComponentPropType,
+  })
+  type!: Contract.Enums.ComponentPropType;
 
   @ApiProperty({ type: Boolean })
   required!: boolean;

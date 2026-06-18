@@ -256,6 +256,10 @@ importers:
         version: 8.57.0(eslint@9.39.4)(typescript@5.9.3)
 
   packages/component-authoring:
+    dependencies:
+      '@qubbi/contract':
+        specifier: workspace:*
+        version: link:../contract
     devDependencies:
       '@types/react':
         specifier: ^19.2.14
