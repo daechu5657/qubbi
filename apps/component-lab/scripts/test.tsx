@@ -14,7 +14,7 @@ function Input({
 }) {
   const variant = inputComponent.useVariant();
 
-  const container = inputComponent.useVariantsStyle(
+  const container = inputComponent.useVariantStyle(
     {
       padding: "5px",
     },

@@ -32,7 +32,7 @@ function createComponent<const V extends VariantsGeneric = undefined>({
     return React.useContext(variantContext);
   };
 
-  const useVariantsStyle = (
+  const useVariantStyle = (
     defaults: Partial<Properties>,
     variants: Partial<Record<Variant, Properties>>,
   ) => {
@@ -72,7 +72,7 @@ function createComponent<const V extends VariantsGeneric = undefined>({
     return wrappedComponent;
   };
 
-  return { placementType, define, useVariantsStyle, useVariant };
+  return { placementType, define, useVariantStyle, useVariant };
 }
 
 export { createComponent };
