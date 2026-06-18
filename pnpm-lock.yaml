@@ -12,7 +12,17 @@ patchedDependencies:
 importers:
 
   .:
+    dependencies:
+      css-tree:
+        specifier: ^3.2.1
+        version: 3.2.1
+      csstype:
+        specifier: ^3.2.3
+        version: 3.2.3
     devDependencies:
+      '@types/css-tree':
+        specifier: ^2.3.11
+        version: 2.3.11
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -25,6 +35,18 @@ importers:
 
   apps/component-lab:
     dependencies:
+      '@qubbi/component-authoring':
+        specifier: workspace:*
+        version: link:../../packages/component-authoring
+      '@qubbi/contract':
+        specifier: workspace:*
+        version: link:../../packages/contract
+      '@qubbi/openapi':
+        specifier: workspace:*
+        version: link:../../packages/openapi
+      csstype:
+        specifier: ^3.2.3
+        version: 3.2.3
       react:
         specifier: ^19.2.6
         version: 19.2.7
@@ -233,6 +255,18 @@ importers:
         specifier: ^8.20.0
         version: 8.57.0(eslint@9.39.4)(typescript@5.9.3)
 
+  packages/component-authoring:
+    devDependencies:
+      '@types/react':
+        specifier: ^19.2.14
+        version: 19.2.14
+      react:
+        specifier: ^19.2.6
+        version: 19.2.7
+      typescript:
+        specifier: ^5.9.0
+        version: 5.9.3
+
   packages/contract:
     devDependencies:
       typescript:
@@ -260,12 +294,6 @@ importers:
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@25.5.0)(typescript@5.9.3)
-      typescript:
-        specifier: ^5.9.0
-        version: 5.9.3
-
-  packages/sdk:
-    devDependencies:
       typescript:
         specifier: ^5.9.0
         version: 5.9.3
@@ -2208,6 +2236,10 @@ packages:
     resolution: {integrity: sha512-he+DHOWReW0nghN24E1WUqM0efK4kI9oTqDm6XmK8ZPe2djZ90BSNdGnIyCLzCPw7/pogPlGbzI2wHGGmi4O/Q==}
     dev: true
 
+  /@types/css-tree@2.3.11:
+    resolution: {integrity: sha512-aEokibJOI77uIlqoBOkVbaQGC9zII0A+JH1kcTNKW2CwyYWD8KM6qdo+4c77wD3wZOQfJuNWAr9M4hdk+YhDIg==}
+    dev: true
+
   /@types/eslint-scope@3.7.7:
     resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==}
     dependencies:
@@ -3651,9 +3683,16 @@ packages:
       which: 2.0.2
     dev: true
 
+  /css-tree@3.2.1:
+    resolution: {integrity: sha512-X7sjQzceUhu1u7Y/ylrRZFU2FS6LRiFVp6rKLPg23y3x3c3DOKAwuXGDp+PAGjh6CSnCjYeAul8pcT8bAl+lSA==}
+    engines: {node: ^10 || ^12.20.0 || ^14.13.0 || >=15.0.0}
+    dependencies:
+      mdn-data: 2.27.1
+      source-map-js: 1.2.1
+    dev: false
+
   /csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
-    dev: true
 
   /debug@4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
@@ -5654,6 +5693,10 @@ packages:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
     engines: {node: '>= 0.4'}
 
+  /mdn-data@2.27.1:
+    resolution: {integrity: sha512-9Yubnt3e8A0OKwxYSXyhLymGW4sCufcLG6VdiDdUGVkPhpqLxlvP5vl1983gQjJl3tqbrM731mjaZaP68AgosQ==}
+    dev: false
+
   /media-typer@0.3.0:
     resolution: {integrity: sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==}
     engines: {node: '>= 0.6'}
@@ -6258,7 +6301,6 @@ packages:
   /react@19.2.7:
     resolution: {integrity: sha512-HNe9WslTbXmFK8o8cmwgAeJFSBvt1bPdHCVKtaaV+WlAN36mpT4hcRpwbf3fY56ar2oIXzsBpOAiIRHAdY0OlQ==}
     engines: {node: '>=0.10.0'}
-    dev: false
 
   /readable-stream@3.6.2:
     resolution: {integrity: sha512-9u/sniCrY3D5WdsERHzHE4G2YCXqoG5FTHUiCC4SIbr6XcLZBY05ya9EKjYek9O5xOAwjGq+1JdGBAS7Q9ScoA==}
@@ -6550,7 +6592,6 @@ packages:
   /source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /source-map-support@0.5.13:
     resolution: {integrity: sha512-SHSKFHadjVA5oR4PPqhtAVdcBWwRYVd6g6cAXnIbRiIwc2EhPrTuKUBdSLvlEKyIP3GCf89fltvcZiP9MMFA1w==}
