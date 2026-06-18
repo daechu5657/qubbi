@@ -37,7 +37,7 @@ function createComponent<const V extends VariantsGeneric = undefined>({
     variants: Partial<Record<Variant, Properties>>,
   ) => {
     const variant = useVariant();
-    const styles = [defaults, variants[variant] ?? {}] as Properties[];
+    const styles = [defaults, variant ? variants[variant] : {}] as Properties[];
 
     return (overrides?: Properties) => mergeStyles(...styles, overrides ?? {});
   };
@@ -72,11 +72,7 @@ function createComponent<const V extends VariantsGeneric = undefined>({
     return wrappedComponent;
   };
 
-  return {
-    define,
-    useVariantsStyle,
-    useVariant,
-  };
+  return { placementType, define, useVariantsStyle, useVariant };
 }
 
 export { createComponent };
