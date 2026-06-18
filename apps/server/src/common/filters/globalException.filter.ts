@@ -6,7 +6,7 @@ import {
   HttpStatus,
 } from "@nestjs/common";
 import { MongooseError } from "mongoose";
-import { ExceptionResponseDto } from "../models/exceptionResponse.dto";
+import { ExceptionResponseModel } from "../models/exceptionResponse.model";
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
@@ -15,7 +15,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const res = ctx.getResponse();
     const req = ctx.getRequest();
 
-    const exceptionResponse = new ExceptionResponseDto();
+    const exceptionResponse = new ExceptionResponseModel();
     exceptionResponse.path = req.url;
     exceptionResponse.timestamp = new Date().toISOString();
 

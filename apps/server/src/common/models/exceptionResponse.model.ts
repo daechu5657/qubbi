@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export class ExceptionResponseDto {
+export class ExceptionResponseModel {
   @ApiProperty()
   source!: "server" | "mongoose" | "default";
 

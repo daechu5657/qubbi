@@ -1,8 +1,8 @@
 import * as Contract from "@qubbi/contract";
 import { ApiProperty } from "@nestjs/swagger";
-import { ComponentManifestStyleDto } from "./componentManifestStyle.dto";
+import { ComponentManifestStyleModel } from "./componentManifestStyle.model";
 
-export class ComponentManifestPartDto {
+export class ComponentManifestPartModel {
   @ApiProperty({ type: String })
   tagName!: string;
 
@@ -15,9 +15,9 @@ export class ComponentManifestPartDto {
   @ApiProperty({ type: Number })
   order!: number;
 
-  @ApiProperty({ type: () => [ComponentManifestStyleDto] })
-  styles!: ComponentManifestStyleDto[];
+  @ApiProperty({ type: () => [ComponentManifestStyleModel] })
+  styles!: ComponentManifestStyleModel[];
 
-  @ApiProperty({ type: () => [ComponentManifestPartDto] })
-  children!: ComponentManifestPartDto[];
+  @ApiProperty({ type: () => [ComponentManifestPartModel] })
+  children!: ComponentManifestPartModel[];
 }

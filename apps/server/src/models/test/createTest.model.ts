@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsString, IsNotEmpty, IsInt } from "class-validator";
 
-export class CreateTestDto {
+export class CreateTestModel {
   @ApiProperty()
   @IsInt()
   @Type(() => Number)

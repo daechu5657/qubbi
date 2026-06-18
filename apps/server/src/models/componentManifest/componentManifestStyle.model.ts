@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export class ComponentManifestStyleDto {
+export class ComponentManifestStyleModel {
   @ApiProperty({ type: String })
   variantKey!: string;
 

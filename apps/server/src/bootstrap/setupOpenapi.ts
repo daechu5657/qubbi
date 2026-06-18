@@ -5,7 +5,7 @@ import { INestApplication } from "@nestjs/common";
 
 function collectExtraModels() {
   const baseDir = path.resolve(__dirname, "../../").replace(/\\/g, "/");
-  const patterns = [`${baseDir}/**/*.model.js`, `${baseDir}/**/*.dto.js`];
+  const patterns = [`${baseDir}/**/*.model.js`];
   const modelFiles = fg.sync(patterns, {
     ignore: ["**/node_modules/**"],
   });
@@ -18,8 +18,7 @@ function collectExtraModels() {
         if (
           typeof exportedItem === "function" &&
           exportedItem.name &&
-          (exportedItem.name.endsWith("Model") ||
-            exportedItem.name.endsWith("Dto"))
+          exportedItem.name.endsWith("Model")
         ) {
           extraModels.push(exportedItem);
         }

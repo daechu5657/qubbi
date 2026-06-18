@@ -7,9 +7,9 @@ import {
   Post,
   Put,
 } from "@nestjs/common";
-import { CreateTestDto } from "../../models/test/createTest.dto";
+import { CreateTestModel } from "../../models/test/createTest.model";
 import { ApiOkResponse } from "@nestjs/swagger";
-import { UpdateTestDto } from "../../models/test/updateTest.dto";
+import { UpdateTestModel } from "../../models/test/updateTest.model";
 import { TestModel } from "../../models/test/test.model";
 import { TestModelingService } from "../../services/test/test-modeling.service";
 import { TestService } from "../../services/test/test.service";
@@ -53,8 +53,8 @@ export class TestController {
   @ApiOkResponse({
     type: TestModel,
   })
-  async create(@Body() createTestDto: CreateTestDto) {
-    const item = await this.testService.create(createTestDto);
+  async create(@Body() createTestModel: CreateTestModel) {
+    const item = await this.testService.create(createTestModel);
 
     return this.testModelingService.single(item);
   }
@@ -63,8 +63,8 @@ export class TestController {
   @ApiOkResponse({
     type: TestModel,
   })
-  async update(@Body() updateTestDto: UpdateTestDto) {
-    const item = await this.testService.update(updateTestDto);
+  async update(@Body() UpdateTestModel: UpdateTestModel) {
+    const item = await this.testService.update(UpdateTestModel);
 
     return this.testModelingService.single(item);
   }

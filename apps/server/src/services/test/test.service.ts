@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { BaseDatabaseService } from "../../common/base/baseDatabase.service";
-import { CreateTestDto } from "../../models/test/createTest.dto";
-import { UpdateTestDto } from "../../models/test/updateTest.dto";
+import { CreateTestModel } from "../../models/test/createTest.model";
+import { UpdateTestModel } from "../../models/test/updateTest.model";
 import { Test, TestSchema } from "../../schemas/test/test.schema";
 
 @Injectable()
@@ -24,24 +24,24 @@ export class TestService extends BaseDatabaseService {
     return item;
   }
 
-  async create(createTestDto: CreateTestDto) {
-    const item = new this.test(createTestDto);
+  async create(CreateTestModel: CreateTestModel) {
+    const item = new this.test(CreateTestModel);
 
     return item.save();
   }
 
-  async update(updateTestDto: UpdateTestDto) {
-    const item = await this.single(updateTestDto.id);
+  async update(UpdateTestModel: UpdateTestModel) {
+    const item = await this.single(UpdateTestModel.id);
 
     await this.test.updateOne(
       { _id: item!.id },
       {
-        name: updateTestDto.name,
-        email: updateTestDto.email,
+        name: UpdateTestModel.name,
+        email: UpdateTestModel.email,
       },
     );
 
-    return this.single(updateTestDto.id);
+    return this.single(UpdateTestModel.id);
   }
 
   async delete(id: string) {

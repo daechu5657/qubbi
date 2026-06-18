@@ -1,7 +1,7 @@
 import * as Contract from "@qubbi/contract";
 import { ApiProperty } from "@nestjs/swagger";
 
-export class ComponentManifestPropDto {
+export class ComponentManifestPropModel {
   @ApiProperty({ type: String })
   key!: string;
 
