@@ -26,3 +26,11 @@ function Input({
 }
 
 export const TestComponent = inputComponent.define(Input);
+
+export default function () {
+  return (
+    <div>
+      <TestComponent />
+    </div>
+  );
+}

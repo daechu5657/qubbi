@@ -15,7 +15,7 @@ type ComponentPropsWithVariant<Props extends object, Variant extends string> = [
   Variant,
 ] extends [never]
   ? Props
-  : Props & { variant: Variant };
+  : Props & { variant?: Variant };
 
 function createComponent<const V extends VariantsGeneric = undefined>({
   variants,
@@ -23,16 +23,10 @@ function createComponent<const V extends VariantsGeneric = undefined>({
 }: Arguments<V>) {
   type Variant = VariantOf<V>;
 
-  const variantContext = React.createContext<Variant | null>(null);
+  const variantContext = React.createContext<Variant | undefined>(undefined);
 
   const useVariant = () => {
-    const variant = React.useContext(variantContext);
-
-    if (variant === null) {
-      throw new Error("useVariant must be used inside defineComponent.");
-    }
-
-    return variant;
+    return React.useContext(variantContext);
   };
 
   const useVariantsStyle = (
@@ -40,10 +34,9 @@ function createComponent<const V extends VariantsGeneric = undefined>({
     variants: Partial<Record<Variant, Properties>>,
   ) => {
     const variant = useVariant();
-    const styles = [defaults, variants[variant]] as Properties[];
+    const styles = [defaults, variants[variant] ?? {}] as Properties[];
 
-    return (overrides?: Properties) =>
-      mergeStyles(...styles, overrides ? overrides : {});
+    return (overrides?: Properties) => mergeStyles(...styles, overrides ?? {});
   };
 
   const mergeStyles = (...styles: Properties[]) => {
@@ -61,7 +54,7 @@ function createComponent<const V extends VariantsGeneric = undefined>({
       }
 
       const { variant, ...restProps } = props as Props & {
-        variant: Variant;
+        variant?: Variant;
       };
 
       return React.createElement(
