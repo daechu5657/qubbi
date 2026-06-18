@@ -11,11 +11,16 @@
     "react": "^19.2.6"
   },
   "dependencies": {
-    "@qubbi/contract": "workspace:*"
+    "@qubbi/contract": "workspace:*",
+    "fast-glob": "^3.3.3"
   },
   "devDependencies": {
-    "react": "^19.2.6",
+    "@types/node": "^25.9.3",
     "@types/react": "^19.2.14",
+    "react": "^19.2.6",
     "typescript": "^5.9.0"
+  },
+  "bin": {
+    "component-authoring": "dist/cli.js"
   }
 }
