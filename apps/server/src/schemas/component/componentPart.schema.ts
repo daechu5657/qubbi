@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument, Types, Schema as MongooseSchema } from "mongoose";
-import { ComponentPartKind } from "../../enums/componentPartKind";
+// import { ComponentPartKind } from "../../enums/componentPartKind";
 
 @Schema({ collection: "component_parts" })
 export class ComponentPart {
@@ -18,8 +18,8 @@ export class ComponentPart {
   @Prop({ required: true, type: Number })
   order!: number;
 
-  @Prop({ required: true, type: String, enum: ComponentPartKind })
-  kind!: ComponentPartKind;
+  // @Prop({ required: true, type: String, enum: ComponentPartKind })
+  // kind!: ComponentPartKind;
 }
 
 export type ComponentPartDocument = HydratedDocument<ComponentPart>;

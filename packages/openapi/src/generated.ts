@@ -86,7 +86,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": Models.CreateTestDto;
+        "application/json": Models.CreateTestModel;
       };
     };
     responses: {
@@ -109,7 +109,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": Models.UpdateTestDto;
+        "application/json": Models.UpdateTestModel;
       };
     };
     responses: {
@@ -197,12 +197,12 @@ export namespace Models {
     deletedTime: string;
   }
 
-  export interface CreateTestDto {
+  export interface CreateTestModel {
     name: number;
     email: string;
   }
 
-  export interface UpdateTestDto {
+  export interface UpdateTestModel {
     id: string;
     name: number;
     email: string;
@@ -211,7 +211,6 @@ export namespace Models {
   export interface ComponentStyleModel {
     id: string;
     componentVariantId: string | null;
-    label: string;
     cssProperty: string;
     valueKind: Contract.Enums.StyleValueKind;
     stringValue: string | null;
@@ -221,7 +220,7 @@ export namespace Models {
     format: Contract.Enums.StyleValueFormat | null;
   }
 
-  export interface ExceptionResponseDto {
+  export interface ExceptionResponseModel {
     source: string;
     statusCode: number;
     message: string;
@@ -236,7 +235,6 @@ export namespace Models {
   export interface ComponentVariantModel {
     id: string;
     key: string;
-    name: string;
     order: string;
     props: Models.ComponentPropsModel;
   }
@@ -244,7 +242,6 @@ export namespace Models {
   export interface ComponentModel {
     id: string;
     name: string;
-    tagName: string;
     props: Models.ComponentPropsModel;
     variants: Models.ComponentVariantModel[];
   }
@@ -253,6 +250,44 @@ export namespace Models {
     componentVersionId: string;
     componentVersion: string;
     components: Models.ComponentModel[];
+  }
+
+  export interface ComponentManifestVariantModel {
+    key: string;
+    order: number;
+  }
+
+  export interface ComponentManifestPropModel {
+    key: string;
+    type: Contract.Enums.ComponentPropType;
+    required: boolean;
+  }
+
+  export interface ComponentManifestStyleModel {
+    variantKey: string;
+    cssProperty: string;
+    rawValue: string;
+  }
+
+  export interface ComponentManifestPartModel {
+    tagName: string;
+    kind: Contract.Enums.ComponentPartKind;
+    order: number;
+    styles: Models.ComponentManifestStyleModel[];
+    children: Models.ComponentManifestPartModel[];
+  }
+
+  export interface ComponentManifestComponentModel {
+    name: string;
+    placementType: Contract.Enums.ComponentPlacementType;
+    variants: Models.ComponentManifestVariantModel[];
+    props: Models.ComponentManifestPropModel[];
+    parts: Models.ComponentManifestPartModel[];
+  }
+
+  export interface ComponentManifestUploadModel {
+    componentVersion: string;
+    components: Models.ComponentManifestComponentModel[];
   }
 
   export interface DesignTokenValueModel {

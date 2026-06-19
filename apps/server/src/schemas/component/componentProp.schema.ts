@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument, Types, Schema as MongooseSchema } from "mongoose";
-import { ComponentPropType } from "../../enums/componentPropType";
+// import { ComponentPropType } from "../../enums/componentPropType";
 
 @Schema({ collection: "component_props" })
 export class ComponentProp {
@@ -12,8 +12,8 @@ export class ComponentProp {
   @Prop({ required: true, trim: true, type: String })
   key!: string;
 
-  @Prop({ required: true, type: String, enum: ComponentPropType })
-  type!: string;
+  // @Prop({ required: true, type: String, enum: ComponentPropType })
+  // type!: string;
 
   @Prop({ required: true, type: Boolean })
   required!: boolean;

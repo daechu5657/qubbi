@@ -1,3 +1,4 @@
+// import { createComponent, type Properties } from "@qubbi/component-authoring";
 import * as ComponentAuthoring from "@qubbi/component-authoring";
 import * as Contract from "@qubbi/contract";
 
@@ -8,10 +9,8 @@ const buttonComponent = ComponentAuthoring.createComponent({
 });
 
 function ButtonBase({
-  label,
   buttonStyle,
 }: {
-  label: string;
   buttonStyle?: ComponentAuthoring.Properties;
 }) {
   const button = buttonComponent.useVariantStyle(
@@ -23,7 +22,17 @@ function ButtonBase({
     },
   );
 
-  return <button style={button(buttonStyle)}>{label}</button>;
+  return <button style={button(buttonStyle)}></button>;
 }
 
+// const ButtonBase = () => <button />; <button></button>;
+// const ButtonBase = () => {
+//   return <button />;
+//   return <button></button>;
+// };
+
 export const ButtonComponent = buttonComponent.define(ButtonBase);
+// export const ButtonComponent = buttonComponent.define(() => <button/>);
+// export const ButtonComponent = buttonComponent.define(() => <button></button>);
+// export const ButtonComponent = buttonComponent.define(() => {return <button/>});
+// export const ButtonComponent = buttonComponent.define(() => {return <button></button>});

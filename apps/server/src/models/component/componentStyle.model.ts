@@ -9,8 +9,8 @@ export class ComponentStyleModel {
   @ApiProperty({ nullable: true, type: String })
   componentVariantId: string | null;
 
-  @ApiProperty({ type: String })
-  label: string;
+  // @ApiProperty({ type: String })
+  // label: string;
 
   @ApiProperty({ type: String })
   cssProperty: keyof ElementCSSInlineStyle["style"];
@@ -47,7 +47,7 @@ export class ComponentStyleModel {
   constructor({ style }: { style: ComponentStyleDocument }) {
     this.id = style._id.toString();
     this.componentVariantId = style.componentVariantId?.toString() ?? null;
-    this.label = style.label;
+    // this.label = style.label;
     this.cssProperty = style.cssProperty;
     this.valueKind = style.valueKind;
     this.stringValue = style.defaultStringValue ?? null;

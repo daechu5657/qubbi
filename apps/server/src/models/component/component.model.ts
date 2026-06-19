@@ -10,8 +10,8 @@ export class ComponentModel {
   @ApiProperty({ type: String })
   name: string;
 
-  @ApiProperty({ type: String })
-  tagName: string;
+  // @ApiProperty({ type: String })
+  // tagName: string;
 
   @ApiProperty({ type: () => ComponentPropsModel })
   props: ComponentPropsModel;
@@ -30,7 +30,7 @@ export class ComponentModel {
   }) {
     this.id = component._id.toString();
     this.name = component.name;
-    this.tagName = component.tagName;
+    // this.tagName = component.tagName;
     this.props = propsModel;
     this.variants = variantModels;
   }

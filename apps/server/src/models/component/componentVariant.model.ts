@@ -9,8 +9,8 @@ export class ComponentVariantModel {
   @ApiProperty({ type: String })
   key: string;
 
-  @ApiProperty({ type: String })
-  name: string;
+  // @ApiProperty({ type: String })
+  // name: string;
 
   @ApiProperty({ type: String })
   order: number;
@@ -27,7 +27,7 @@ export class ComponentVariantModel {
   }) {
     this.id = variant._id.toString();
     this.key = variant.key;
-    this.name = variant.name;
+    // this.name = variant.name;
     this.order = variant.order;
     this.props = propsModels;
   }

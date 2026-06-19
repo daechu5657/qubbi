@@ -5,20 +5,24 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc -p tsconfig.json",
+    "test": "pnpm exec ts-node src/parseComponent.ts"
   },
   "peerDependencies": {
     "react": "^19.2.6"
   },
   "dependencies": {
     "@qubbi/contract": "workspace:*",
-    "fast-glob": "^3.3.3"
+    "@qubbi/openapi": "workspace:*",
+    "fast-glob": "^3.3.3",
+    "ts-morph": "^27.0.2"
   },
   "devDependencies": {
     "@types/node": "^25.9.3",
     "@types/react": "^19.2.14",
     "react": "^19.2.6",
-    "typescript": "^5.9.0"
+    "typescript": "^5.9.0",
+    "ts-node": "^10.9.2"
   },
   "bin": {
     "component-authoring": "dist/cli.js"

@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "pnpm run components:parse && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "components:parse": "component-authoring parse --pattern \"src/**/*.component.tsx\" --out \"public/componentManifest.json\""
+    "components:parse": "component-authoring parse --pattern \"src/**/*.component.tsx\" --out \"src/generated/componentManifest.json\""
   },
   "dependencies": {
     "@qubbi/contract": "workspace:*",
