@@ -21,8 +21,7 @@ function pack(cwd: string, root: string) {
     });
 
     archive.on("error", function (err) {
-      reject();
-      throw err;
+      reject(err);
     });
 
     archive.pipe(output);

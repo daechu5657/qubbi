@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "pnpm run components:prebuild && tsc -b && vite build && ",
+    "build": "pnpm run components:prebuild && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "components:prebuild": "component-authoring prebuild --root components"

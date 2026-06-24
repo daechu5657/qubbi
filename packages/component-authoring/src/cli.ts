@@ -17,15 +17,11 @@ async function main() {
     throw new Error("--root are required.");
   }
 
-  try {
-    const cwd = process.cwd();
+  const cwd = process.cwd();
 
-    await parseComponent(cwd, root);
-    await build(cwd, root);
-    await pack(cwd, root);
-  } catch (error) {
-    console.error(error);
-  }
+  await parseComponent(cwd, root);
+  await build(cwd, root);
+  await pack(cwd, root);
 }
 
 function getArg(args: string[], name: string) {
