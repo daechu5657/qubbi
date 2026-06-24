@@ -12,7 +12,7 @@ function ButtonBase({
   label,
   buttonStyle,
 }: {
-  label: string;
+  label?: string;
   buttonStyle?: ComponentAuthoring.Properties;
 }) {
   const button = buttonComponent.useVariantStyle(

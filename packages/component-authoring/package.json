@@ -13,15 +13,17 @@
   "dependencies": {
     "@qubbi/contract": "workspace:*",
     "@qubbi/openapi": "workspace:*",
+    "archiver": "^8.0.0",
     "fast-glob": "^3.3.3",
     "ts-morph": "^27.0.2"
   },
   "devDependencies": {
+    "@types/archiver": "^8.0.0",
     "@types/node": "^25.9.3",
     "@types/react": "^19.2.14",
     "react": "^19.2.6",
-    "typescript": "^5.9.0",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.0"
   },
   "bin": {
     "component-authoring": "dist/cli.js"

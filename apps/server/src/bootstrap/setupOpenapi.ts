@@ -1,5 +1,5 @@
 import * as fg from "fast-glob";
-import * as path from "path";
+import * as path from "node:path";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { INestApplication } from "@nestjs/common";
 

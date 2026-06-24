@@ -1,0 +1,21 @@
+{
+  "extends": "../tsconfig.app.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "./dist",
+    "noEmit": false,
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": false,
+
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
+
+    "allowImportingTsExtensions": false
+  },
+  "include": ["./**/*.ts", "./**/*.tsx"],
+  "exclude": ["./dist"]
+}

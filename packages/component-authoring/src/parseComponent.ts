@@ -72,15 +72,8 @@ type ParsePartContext = {
   styleValueMap: Map<string, ComponentStyleModel[]>;
 };
 
-async function parseComponent({
-  cwd,
-  pattern,
-  out,
-}: {
-  cwd: string;
-  pattern: string;
-  out: string;
-}) {
+async function parseComponent(cwd: string, root: string) {
+  const pattern = `${root}/**/*.component.tsx`;
   const files = await fg(pattern, {
     cwd,
     absolute: true,
@@ -139,7 +132,8 @@ async function parseComponent({
     components,
   };
 
-  const outPath = path.isAbsolute(out) ? out : path.resolve(cwd, out);
+  const out = `${root}/componentManifest.json`;
+  const outPath = path.resolve(cwd, out);
   await fs.mkdir(path.dirname(outPath), { recursive: true });
   await fs.writeFile(outPath, JSON.stringify(result, null, 2), "utf8");
 

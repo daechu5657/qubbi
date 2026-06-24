@@ -1,27 +1,31 @@
 #!/usr/bin/env node
 
+import { build } from "./build";
+import { pack } from "./pack";
 import { parseComponent } from "./parseComponent";
 
 async function main() {
   const [, , command, ...args] = process.argv;
 
-  if (command !== "parse") {
-    console.log("Usage: component-authoring parse --pattern ... --out ...");
+  if (command !== "prebuild") {
+    console.log("Usage: component-authoring prebuild --root ...");
     return;
   }
 
-  const pattern = getArg(args, "--pattern");
-  const out = getArg(args, "--out");
-
-  if (!pattern || !out) {
-    throw new Error("--pattern and --out are required.");
+  const root = getArg(args, "--root");
+  if (!root) {
+    throw new Error("--root are required.");
   }
 
-  await parseComponent({
-    cwd: process.cwd(),
-    pattern,
-    out,
-  });
+  try {
+    const cwd = process.cwd();
+
+    await parseComponent(cwd, root);
+    await build(cwd, root);
+    await pack(cwd, root);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 function getArg(args: string[], name: string) {
