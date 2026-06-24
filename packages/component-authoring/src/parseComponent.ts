@@ -27,7 +27,6 @@ import {
   TypeNode,
 } from "ts-morph";
 
-const COMPONENT_MANIFEST_VERSION = 1;
 const PACKAGE_NAME = "@qubbi/component-authoring";
 const CREATE_COMPONENT_FUNCTION_NAME = "createComponent";
 const DEFINE_FUNCTION_NAME = "define";
@@ -135,7 +134,6 @@ async function parseComponent({
   }
 
   const result = {
-    manifestVersion: COMPONENT_MANIFEST_VERSION,
     generatedAt: new Date().toISOString(),
     files: files.map((file) => path.relative(cwd, file).replaceAll("\\", "/")),
     components,
@@ -1727,4 +1725,4 @@ function pascalToCamel(str: string): string {
   return str.charAt(0).toLowerCase() + str.slice(1);
 }
 
-export { COMPONENT_MANIFEST_VERSION, parseComponent };
+export { parseComponent };
