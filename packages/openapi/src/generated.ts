@@ -259,8 +259,17 @@ export namespace Models {
 
   export interface ComponentManifestPropModel {
     key: string;
-    type: Contract.Enums.ComponentPropType;
     required: boolean;
+    value:
+      | Models.ComponentManifestStringPropValueModel
+      | Models.ComponentManifestNumberPropValueModel
+      | Models.ComponentManifestBooleanPropValueModel
+      | Models.ComponentManifestStringEnumPropValueModel
+      | Models.ComponentManifestNumberEnumPropValueModel
+      | Models.ComponentManifestObjectPropValueModel
+      | Models.ComponentManifestArrayPropValueModel
+      | Models.ComponentManifestStylePropertiesPropValueModel
+      | Models.ComponentManifestUnknownPropValueModel;
   }
 
   export interface ComponentManifestStyleModel {
@@ -283,6 +292,99 @@ export namespace Models {
     variants: Models.ComponentManifestVariantModel[];
     props: Models.ComponentManifestPropModel[];
     parts: Models.ComponentManifestPartModel[];
+  }
+
+  export interface ComponentManifestStringPropValueModel {
+    /**
+     * @description discriminator enum property added by openapi-typescript
+     * @enum {string}
+     */
+    type: "String";
+    defaultValue?: string;
+  }
+
+  export interface ComponentManifestNumberPropValueModel {
+    /**
+     * @description discriminator enum property added by openapi-typescript
+     * @enum {string}
+     */
+    type: "Number";
+    defaultValue?: number;
+  }
+
+  export interface ComponentManifestBooleanPropValueModel {
+    /**
+     * @description discriminator enum property added by openapi-typescript
+     * @enum {string}
+     */
+    type: "Boolean";
+    defaultValue?: boolean;
+  }
+
+  export interface ComponentManifestStringEnumPropValueModel {
+    /**
+     * @description discriminator enum property added by openapi-typescript
+     * @enum {string}
+     */
+    type: "StringEnum";
+    values: string[];
+    defaultValue?: string;
+  }
+
+  export interface ComponentManifestNumberEnumPropValueModel {
+    /**
+     * @description discriminator enum property added by openapi-typescript
+     * @enum {string}
+     */
+    type: "NumberEnum";
+    values: number[];
+    defaultValue?: number;
+  }
+
+  export interface ComponentManifestObjectPropValueModel {
+    /**
+     * @description discriminator enum property added by openapi-typescript
+     * @enum {string}
+     */
+    type: "Object";
+    properties: Models.ComponentManifestPropModel[];
+  }
+
+  export interface ComponentManifestStylePropertiesPropValueModel {
+    /**
+     * @description discriminator enum property added by openapi-typescript
+     * @enum {string}
+     */
+    type: "StyleProperties";
+    defaultValue?: Record<string, never>;
+  }
+
+  export interface ComponentManifestUnknownPropValueModel {
+    /**
+     * @description discriminator enum property added by openapi-typescript
+     * @enum {string}
+     */
+    type: "Unknown";
+    rawType?: string;
+  }
+
+  export interface ComponentManifestArrayPropValueModel {
+    /**
+     * @description discriminator enum property added by openapi-typescript
+     * @enum {string}
+     */
+    type: "Array";
+    item:
+      | Models.ComponentManifestStringPropValueModel
+      | Models.ComponentManifestNumberPropValueModel
+      | Models.ComponentManifestBooleanPropValueModel
+      | Models.ComponentManifestStringEnumPropValueModel
+      | Models.ComponentManifestNumberEnumPropValueModel
+      | Models.ComponentManifestObjectPropValueModel
+      | Models.ComponentManifestArrayPropValueModel
+      | Models.ComponentManifestStylePropertiesPropValueModel
+      | Models.ComponentManifestUnknownPropValueModel;
+    defaultValue?: Record<string, never>[];
   }
 
   export interface ComponentManifestUploadModel {

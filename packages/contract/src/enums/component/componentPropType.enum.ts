@@ -2,5 +2,14 @@ export enum ComponentPropType {
   String = "String",
   Number = "Number",
   Boolean = "Boolean",
-  Event = "Event",
+
+  StringEnum = "StringEnum",
+  NumberEnum = "NumberEnum",
+
+  Object = "Object",
+  Array = "Array",
+
+  StyleProperties = "StyleProperties",
+
+  Unknown = "Unknown",
 }
