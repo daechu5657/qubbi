@@ -1,0 +1,603 @@
+{
+  "manifestVersion": 1,
+  "generatedAt": "2026-06-24T11:27:46.585Z",
+  "files": [
+    "src/components/button.component.tsx",
+    "src/components/test.component.tsx"
+  ],
+  "components": [
+    {
+      "variants": [
+        {
+          "key": "default",
+          "order": 0
+        },
+        {
+          "key": "primary",
+          "order": 1
+        },
+        {
+          "key": "disabled",
+          "order": 2
+        }
+      ],
+      "name": "ButtonComponent",
+      "placementType": "Standalone",
+      "props": [
+        {
+          "key": "text",
+          "required": true,
+          "value": {
+            "type": "String"
+          }
+        },
+        {
+          "key": "text2",
+          "required": true,
+          "value": {
+            "type": "String"
+          }
+        },
+        {
+          "key": "text3",
+          "required": true,
+          "value": {
+            "type": "String"
+          }
+        },
+        {
+          "key": "options",
+          "required": false,
+          "value": {
+            "type": "Array",
+            "item": {
+              "type": "Object",
+              "properties": [
+                {
+                  "key": "label",
+                  "required": true,
+                  "value": {
+                    "type": "String"
+                  }
+                },
+                {
+                  "key": "value",
+                  "required": true,
+                  "value": {
+                    "type": "String"
+                  }
+                },
+                {
+                  "key": "disabled",
+                  "required": false,
+                  "value": {
+                    "type": "Boolean"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "key": "options2",
+          "required": false,
+          "value": {
+            "type": "Object",
+            "properties": [
+              {
+                "key": "label",
+                "required": true,
+                "value": {
+                  "type": "String"
+                }
+              },
+              {
+                "key": "value",
+                "required": true,
+                "value": {
+                  "type": "String"
+                }
+              },
+              {
+                "key": "disabled",
+                "required": false,
+                "value": {
+                  "type": "Boolean"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key": "test",
+          "required": true,
+          "value": {
+            "type": "Object",
+            "properties": [
+              {
+                "key": "asd",
+                "required": true,
+                "value": {
+                  "type": "Number"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key": "test3",
+          "required": true,
+          "value": {
+            "type": "Array",
+            "item": {
+              "type": "Object",
+              "properties": [
+                {
+                  "key": "asd",
+                  "required": true,
+                  "value": {
+                    "type": "Number"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "key": "buttonStyle",
+          "required": false,
+          "value": {
+            "type": "StyleProperties"
+          }
+        }
+      ],
+      "parts": [
+        {
+          "tagName": "button",
+          "kind": "Element",
+          "order": 0,
+          "styles": [
+            {
+              "variantKey": "default",
+              "cssProperty": "padding",
+              "rawValue": "8px 12px"
+            },
+            {
+              "variantKey": "default",
+              "cssProperty": "backgroundColor",
+              "rawValue": "white"
+            },
+            {
+              "variantKey": "primary",
+              "cssProperty": "padding",
+              "rawValue": "8px 12px"
+            },
+            {
+              "variantKey": "primary",
+              "cssProperty": "backgroundColor",
+              "rawValue": "blue"
+            },
+            {
+              "variantKey": "primary",
+              "cssProperty": "color",
+              "rawValue": "white"
+            },
+            {
+              "variantKey": "disabled",
+              "cssProperty": "padding",
+              "rawValue": "8px 12px"
+            },
+            {
+              "variantKey": "disabled",
+              "cssProperty": "opacity",
+              "rawValue": "0.4"
+            }
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "variants": [
+        {
+          "key": "default",
+          "order": 0
+        },
+        {
+          "key": "primary",
+          "order": 1
+        },
+        {
+          "key": "disabled",
+          "order": 2
+        }
+      ],
+      "name": "ButtonComponent",
+      "placementType": "Standalone",
+      "props": [
+        {
+          "key": "label",
+          "required": true,
+          "value": {
+            "type": "String"
+          }
+        },
+        {
+          "key": "buttonStyle",
+          "required": false,
+          "value": {
+            "type": "StyleProperties"
+          }
+        }
+      ],
+      "parts": [
+        {
+          "tagName": "button",
+          "kind": "Element",
+          "order": 0,
+          "styles": [
+            {
+              "variantKey": "default",
+              "cssProperty": "padding",
+              "rawValue": "8px 12px"
+            },
+            {
+              "variantKey": "default",
+              "cssProperty": "backgroundColor",
+              "rawValue": "white"
+            },
+            {
+              "variantKey": "primary",
+              "cssProperty": "padding",
+              "rawValue": "8px 12px"
+            },
+            {
+              "variantKey": "primary",
+              "cssProperty": "backgroundColor",
+              "rawValue": "blue"
+            },
+            {
+              "variantKey": "primary",
+              "cssProperty": "color",
+              "rawValue": "white"
+            },
+            {
+              "variantKey": "disabled",
+              "cssProperty": "padding",
+              "rawValue": "8px 12px"
+            },
+            {
+              "variantKey": "disabled",
+              "cssProperty": "opacity",
+              "rawValue": "0.4"
+            }
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "variants": [
+        {
+          "key": "default",
+          "order": 0
+        }
+      ],
+      "name": "ConditionalInput",
+      "placementType": "Standalone",
+      "props": [
+        {
+          "key": "asButton",
+          "required": true,
+          "value": {
+            "type": "Boolean"
+          }
+        }
+      ],
+      "parts": [
+        {
+          "tagName": "input",
+          "kind": "Element",
+          "order": 0,
+          "styles": [],
+          "children": []
+        }
+      ]
+    },
+    {
+      "variants": [
+        {
+          "key": "default",
+          "order": 0
+        }
+      ],
+      "name": "ListComponent",
+      "placementType": "Standalone",
+      "props": [
+        {
+          "key": "items",
+          "required": true,
+          "value": {
+            "type": "Array",
+            "item": {
+              "type": "String"
+            }
+          }
+        }
+      ],
+      "parts": [
+        {
+          "tagName": "ul",
+          "kind": "Element",
+          "order": 0,
+          "styles": [],
+          "children": []
+        }
+      ]
+    },
+    {
+      "variants": [
+        {
+          "key": "default",
+          "order": 0
+        }
+      ],
+      "name": "TextComponent",
+      "placementType": "Standalone",
+      "props": [
+        {
+          "key": "as",
+          "required": false,
+          "value": {
+            "type": "StringEnum",
+            "values": [
+              "p",
+              "span",
+              "strong"
+            ],
+            "defaultValue": "p"
+          }
+        },
+        {
+          "key": "children",
+          "required": false,
+          "value": {
+            "type": "Unknown",
+            "rawType": "React.ReactNode"
+          }
+        }
+      ],
+      "parts": [
+        {
+          "tagName": "Tag",
+          "kind": "Component",
+          "order": 0,
+          "styles": [],
+          "children": []
+        }
+      ]
+    },
+    {
+      "variants": [
+        {
+          "key": "default",
+          "order": 0
+        },
+        {
+          "key": "active",
+          "order": 1
+        }
+      ],
+      "name": "SpreadStyleBox",
+      "placementType": "Standalone",
+      "props": [
+        {
+          "key": "boxStyle",
+          "required": false,
+          "value": {
+            "type": "StyleProperties"
+          }
+        }
+      ],
+      "parts": [
+        {
+          "tagName": "div",
+          "kind": "Element",
+          "order": 0,
+          "styles": [
+            {
+              "variantKey": "default",
+              "cssProperty": "padding",
+              "rawValue": "10px"
+            },
+            {
+              "variantKey": "default",
+              "cssProperty": "borderColor",
+              "rawValue": "gray"
+            },
+            {
+              "variantKey": "active",
+              "cssProperty": "padding",
+              "rawValue": "10px"
+            },
+            {
+              "variantKey": "active",
+              "cssProperty": "borderColor",
+              "rawValue": "blue"
+            },
+            {
+              "variantKey": "default",
+              "cssProperty": "borderStyle",
+              "rawValue": "solid"
+            },
+            {
+              "variantKey": "active",
+              "cssProperty": "borderStyle",
+              "rawValue": "solid"
+            }
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "variants": [
+        {
+          "key": "default",
+          "order": 0
+        }
+      ],
+      "name": "ConditionalStyleBox",
+      "placementType": "Standalone",
+      "props": [
+        {
+          "key": "active",
+          "required": true,
+          "value": {
+            "type": "Boolean"
+          }
+        }
+      ],
+      "parts": [
+        {
+          "tagName": "div",
+          "kind": "Element",
+          "order": 0,
+          "styles": [],
+          "children": []
+        }
+      ]
+    },
+    {
+      "variants": [
+        {
+          "key": "default",
+          "order": 0
+        }
+      ],
+      "name": "ClassNameButton",
+      "placementType": "Standalone",
+      "props": [
+        {
+          "key": "active",
+          "required": true,
+          "value": {
+            "type": "Boolean"
+          }
+        }
+      ],
+      "parts": [
+        {
+          "tagName": "button",
+          "kind": "Element",
+          "order": 0,
+          "styles": [],
+          "children": []
+        }
+      ]
+    },
+    {
+      "variants": [
+        {
+          "key": "default",
+          "order": 0
+        }
+      ],
+      "name": "ToolbarItems",
+      "placementType": "Fragment",
+      "props": [],
+      "parts": [
+        {
+          "tagName": "button",
+          "kind": "Element",
+          "order": 0,
+          "styles": [],
+          "children": []
+        },
+        {
+          "tagName": "button",
+          "kind": "Element",
+          "order": 1,
+          "styles": [],
+          "children": []
+        }
+      ]
+    },
+    {
+      "variants": [
+        {
+          "key": "default",
+          "order": 0
+        }
+      ],
+      "name": "PanelComponent",
+      "placementType": "Standalone",
+      "props": [
+        {
+          "key": "children",
+          "required": false,
+          "value": {
+            "type": "Unknown",
+            "rawType": "React.ReactNode"
+          }
+        }
+      ],
+      "parts": [
+        {
+          "tagName": "section",
+          "kind": "Element",
+          "order": 0,
+          "styles": [],
+          "children": []
+        }
+      ]
+    },
+    {
+      "variants": [
+        {
+          "key": "default",
+          "order": 0
+        },
+        {
+          "key": "disabled",
+          "order": 1
+        }
+      ],
+      "name": "SearchInputComponent",
+      "placementType": "Standalone",
+      "props": [
+        {
+          "key": "placeholder",
+          "required": false,
+          "value": {
+            "type": "String"
+          }
+        }
+      ],
+      "parts": [
+        {
+          "tagName": "div",
+          "kind": "Element",
+          "order": 0,
+          "styles": [],
+          "children": [
+            {
+              "tagName": "input",
+              "kind": "Element",
+              "order": 0,
+              "styles": [],
+              "children": []
+            },
+            {
+              "tagName": "ButtonComponent",
+              "kind": "Component",
+              "order": 1,
+              "styles": [],
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

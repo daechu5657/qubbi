@@ -8,9 +8,38 @@ const buttonComponent = ComponentAuthoring.createComponent({
   variants: ["default", "primary", "disabled"],
 });
 
+type TypeTest = {
+  asd: number;
+};
+
+interface asdasd {
+  asd: string[];
+  0: string;
+  // asd: 1 | 2;
+  // asd: "str1" | "str2";
+}
+
+type StringType = string;
+
 function ButtonBase({
+  text,
   buttonStyle,
 }: {
+  text: string;
+  text2: asdasd["0"];
+  text3: StringType;
+  options?: {
+    label: string;
+    value: string;
+    disabled?: boolean;
+  }[];
+  options2?: {
+    label: string;
+    value: string;
+    disabled?: boolean;
+  };
+  test: TypeTest;
+  test3: TypeTest[];
   buttonStyle?: ComponentAuthoring.Properties;
 }) {
   const button = buttonComponent.useVariantStyle(
