@@ -1,6 +1,8 @@
-import createClient, { ClientOptions } from "openapi-fetch";
-import { paths } from "./generated";
+import createClient, { Client, ClientOptions } from "openapi-fetch";
+import type { paths } from "./generated.js";
 
-export function createApiClient(options?: ClientOptions) {
+export type ApiClient = Client<paths>;
+
+export function createApiClient(options?: ClientOptions): ApiClient {
   return createClient<paths>(options);
 }

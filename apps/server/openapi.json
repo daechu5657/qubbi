@@ -164,6 +164,39 @@
           "Test"
         ]
       }
+    },
+    "/componentLab/componentManifest/upload": {
+      "post": {
+        "operationId": "ComponentManifestController_upload",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bundle.zip": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "bundle.zip"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ComponentManifest"
+        ]
+      }
     }
   },
   "info": {
@@ -862,9 +895,6 @@
       "ComponentManifestUploadModel": {
         "type": "object",
         "properties": {
-          "componentVersion": {
-            "type": "string"
-          },
           "components": {
             "type": "array",
             "items": {
@@ -873,7 +903,6 @@
           }
         },
         "required": [
-          "componentVersion",
           "components"
         ]
       },

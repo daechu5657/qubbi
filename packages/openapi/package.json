@@ -4,22 +4,24 @@
   "version": "0.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
     "model:generate": "pnpm dlx openapi-typescript@latest ../../apps/server/openapi.json -o src/generated.ts",
-    "model:transform": "pnpm exec ts-node scripts/transform.ts",
+    "model:transform": "tsx scripts/transform.ts",
     "prettier": "prettier --write src/generated.ts",
     "dev": "pnpm run model:generate && pnpm run model:transform && pnpm run prettier && tsc -p tsconfig.json",
     "build": "pnpm run model:generate && pnpm run model:transform && pnpm run prettier && tsc -p tsconfig.json"
   },
   "dependencies": {
-    "openapi-fetch": "^0.17.0",
-    "@qubbi/contract": "workspace:*"
+    "@qubbi/contract": "workspace:*",
+    "openapi-fetch": "^0.17.0"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
+    "prettier": "^3.8.1",
     "ts-morph": "^27.0.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.0",
-    "prettier": "^3.8.1"
+    "tsx": "^4.22.4",
+    "typescript": "^5.9.0"
   }
 }
