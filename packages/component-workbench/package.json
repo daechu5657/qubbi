@@ -1,0 +1,22 @@
+{
+  "name": "@qubbi/component-workbench",
+  "private": true,
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "peerDependencies": {
+    "react": "^19.2.6"
+  },
+  "dependencies": {
+    "@qubbi/contract": "workspace:*",
+    "@qubbi/openapi": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.3",
+    "@types/react": "^19.2.14",
+    "typescript": "^5.9.0"
+  }
+}
