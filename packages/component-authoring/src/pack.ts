@@ -4,9 +4,7 @@ import { ZipArchive } from "archiver";
 
 function pack(cwd: string, root: string) {
   return new Promise<void>((resolve, reject) => {
-    const output = fs.createWriteStream(
-      path.resolve(cwd, "public/component-package.zip"),
-    );
+    const output = fs.createWriteStream(path.resolve(cwd, "public/bundle.zip"));
 
     const archive = new ZipArchive({
       zlib: { level: 9 },
