@@ -5,16 +5,14 @@
     "outDir": "./dist",
     "noEmit": false,
     "declaration": true,
-    "declarationMap": true,
     "emitDeclarationOnly": false,
-
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "jsx": "react-jsx",
-
     "tsBuildInfoFile": "./dist/.tsbuildinfo",
-
-    "allowImportingTsExtensions": false
+    "allowImportingTsExtensions": false,
+    "sourceMap": false,
+    "declarationMap": false
   },
   "include": ["./**/*.ts", "./**/*.tsx"],
   "exclude": ["./dist"]

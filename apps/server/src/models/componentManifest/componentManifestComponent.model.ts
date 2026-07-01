@@ -8,9 +8,6 @@ export class ComponentManifestComponentModel {
   @ApiProperty({ type: String })
   name!: string;
 
-  // @ApiProperty({ type: String })
-  // label!: string;
-
   @ApiProperty({
     enumName: "ComponentPlacementType",
     enum: Contract.Enums.ComponentPlacementType,

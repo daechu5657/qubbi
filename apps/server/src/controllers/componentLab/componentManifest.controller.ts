@@ -1,37 +1,30 @@
-import {
-  ApiBody,
-  ApiConsumes,
-  ApiOperation,
-  ApiProperty,
-} from "@nestjs/swagger";
-import { TestModelingService } from "../../services/test/test-modeling.service";
-import { TestService } from "../../services/test/test.service";
-import { ComponentLabController } from "./base.controller";
-
 import { Post, UploadedFile } from "@nestjs/common";
-import { ApiUpload } from "../../common/decorators/apiUpload";
+import { ComponentLabController } from "./base.controller";
+import { ApiFileUpload } from "../../common/decorators/apiUpload.decorator";
+import { ZipService } from "../../common/services/zip.service";
+import { ComponentManifestService } from "../../services/componentManifest/componentManifest.service";
+import { ComponentManifestModelingService } from "../../services/componentManifest/componentManifestModeling.service";
+
+const COMPONENT_MANIFEST_FILE_NAME = "componentManifest.json";
 
 @ComponentLabController("componentManifest")
 export class ComponentManifestController {
-  constructor() {
-    // private readonly testService: TestService,
-    // private readonly testModelingService: TestModelingService,
-  }
+  constructor(
+    private readonly componentManifestService: ComponentManifestService,
+    private readonly componentManifestModelingService: ComponentManifestModelingService,
+    private readonly zipService: ZipService,
+  ) {}
 
   @Post("upload")
-  @ApiUpload("bundle.zip")
+  @ApiFileUpload("bundle.zip")
   async upload(@UploadedFile() file: Express.Multer.File) {
-    // const items = await this.testService.list();
-    // return this.testModelingService.list(items);
+    const extractedData = await this.zipService.extract(file.buffer);
 
-    if (!file) {
-      return { message: "파일이 없습니다." };
-    }
+    const manifestBuffer = extractedData.get(COMPONENT_MANIFEST_FILE_NAME);
+    const uploadModel =
+      await this.componentManifestModelingService.modeling(manifestBuffer);
 
-    return {
-      message: "ZIP 파일 업로드 성공",
-      filename: file.originalname,
-      size: file.size,
-    };
+    await this.componentManifestService.validate();
+    await this.componentManifestService.upload(uploadModel);
   }
 }

@@ -5,5 +5,5 @@ import { BaseService } from "./base.service";
 @Injectable()
 export class BaseDatabaseService extends BaseService {
   @Inject(MongoContext)
-  protected readonly mongoContext: MongoContext;
+  protected readonly mongoContext!: MongoContext;
 }
