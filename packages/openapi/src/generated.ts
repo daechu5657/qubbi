@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-  "/componentLab/componentManifest/upload": {
+  "/component-lab/component-manifest/upload": {
     parameters: {
       query?: never;
       header?: never;
@@ -13,7 +13,7 @@ export interface paths {
     };
     get?: never;
     put?: never;
-    post: operations["ComponentManifestController_upload"];
+    post: operations["ComponentLabComponentManifestController_upload"];
     delete?: never;
     options?: never;
     head?: never;
@@ -24,7 +24,7 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export type $defs = Record<string, never>;
 export interface operations {
-  ComponentManifestController_upload: {
+  ComponentLabComponentManifestController_upload: {
     parameters: {
       query?: never;
       header?: never;
@@ -51,14 +51,6 @@ export interface operations {
 }
 
 export namespace Models {
-  export interface ExceptionResponseModel {
-    source: string;
-    statusCode: number;
-    message: string;
-    path: string;
-    timestamp: string;
-  }
-
   export interface ComponentManifestVariantModel {
     key: string;
     order: number;

@@ -1,12 +1,9 @@
 import { Module } from "@nestjs/common";
-import { APP_SERVICES } from "./services";
-import { APP_CONTROLLERS } from "./controllers";
-import { APP_IMPORTS } from "./infrastructure";
+import { MongoDBModule } from "./infrastructure/mongodb/mongodb.module";
+import { ComponentManagementModule } from "./modules/services/component-management/component-management.module";
 
 @Module({
-  imports: APP_IMPORTS,
-  providers: [...APP_SERVICES],
+  imports: [MongoDBModule, ComponentManagementModule],
   exports: [],
-  controllers: [...APP_CONTROLLERS],
 })
 export class AppModule {}
