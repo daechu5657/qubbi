@@ -8,7 +8,7 @@ async function main() {
   try {
     const document = createOpenApiDocument(app);
 
-    writeFileSync("./openapi.json", JSON.stringify(document, null, 2));
+    writeFileSync("./swagger.json", JSON.stringify(document, null, 2));
   } finally {
     await app.close();
   }

@@ -1,3 +1,3 @@
-import { TestController } from "./test.controller";
+// import { TestController } from "./test.controller";
 
-export const EDITOR_CONTROLLERS = [TestController];
+export const EDITOR_CONTROLLERS = [];

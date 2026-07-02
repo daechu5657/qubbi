@@ -1,12 +1,12 @@
 import React from "react";
 import type { Properties } from "csstype";
-import * as Contract from "@qubbi/contract";
+import * as Openapi from "@qubbi/openapi";
 
 type VariantsGeneric = readonly string[] | undefined;
 
 type Arguments<T extends VariantsGeneric> = {
   name: string;
-  placementType: Contract.Enums.ComponentPlacementType;
+  placementType: Openapi.Enums.ComponentPlacementType;
   variants?: T;
 };
 

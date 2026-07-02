@@ -1,8 +1,8 @@
-import * as Contract from "@qubbi/contract";
 import { ApiProperty } from "@nestjs/swagger";
 import { ComponentManifestPartModel } from "./componentManifestPart.model";
 import { ComponentManifestPropModel } from "./componentManifestProp.model";
 import { ComponentManifestVariantModel } from "./componentManifestVariant.model";
+import { ComponentPlacementType } from "../../enums";
 
 export class ComponentManifestComponentModel {
   @ApiProperty({ type: String })
@@ -10,9 +10,9 @@ export class ComponentManifestComponentModel {
 
   @ApiProperty({
     enumName: "ComponentPlacementType",
-    enum: Contract.Enums.ComponentPlacementType,
+    enum: ComponentPlacementType,
   })
-  placementType!: Contract.Enums.ComponentPlacementType;
+  placementType!: ComponentPlacementType;
 
   @ApiProperty({ type: () => [ComponentManifestVariantModel] })
   variants!: ComponentManifestVariantModel[];

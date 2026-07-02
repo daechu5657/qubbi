@@ -1,0 +1,530 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/componentLab/componentManifest/upload": {
+      "post": {
+        "operationId": "ComponentManifestController_upload",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bundle.zip": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "bundle.zip"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ComponentManifest"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "API",
+    "description": "The API description",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "ExceptionResponseModel": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "statusCode": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "statusCode",
+          "message",
+          "path",
+          "timestamp"
+        ]
+      },
+      "ComponentPlacementType": {
+        "type": "string",
+        "enum": [
+          "Standalone",
+          "Fragment"
+        ]
+      },
+      "ComponentManifestVariantModel": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "order": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "key",
+          "order"
+        ]
+      },
+      "ComponentManifestPropModel": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "value": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ComponentManifestStringPropValueModel"
+              },
+              {
+                "$ref": "#/components/schemas/ComponentManifestNumberPropValueModel"
+              },
+              {
+                "$ref": "#/components/schemas/ComponentManifestBooleanPropValueModel"
+              },
+              {
+                "$ref": "#/components/schemas/ComponentManifestStringEnumPropValueModel"
+              },
+              {
+                "$ref": "#/components/schemas/ComponentManifestNumberEnumPropValueModel"
+              },
+              {
+                "$ref": "#/components/schemas/ComponentManifestObjectPropValueModel"
+              },
+              {
+                "$ref": "#/components/schemas/ComponentManifestArrayPropValueModel"
+              },
+              {
+                "$ref": "#/components/schemas/ComponentManifestStylePropertiesPropValueModel"
+              },
+              {
+                "$ref": "#/components/schemas/ComponentManifestUnknownPropValueModel"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "String": "#/components/schemas/ComponentManifestStringPropValueModel",
+                "Number": "#/components/schemas/ComponentManifestNumberPropValueModel",
+                "Boolean": "#/components/schemas/ComponentManifestBooleanPropValueModel",
+                "StringEnum": "#/components/schemas/ComponentManifestStringEnumPropValueModel",
+                "NumberEnum": "#/components/schemas/ComponentManifestNumberEnumPropValueModel",
+                "Object": "#/components/schemas/ComponentManifestObjectPropValueModel",
+                "Array": "#/components/schemas/ComponentManifestArrayPropValueModel",
+                "StyleProperties": "#/components/schemas/ComponentManifestStylePropertiesPropValueModel",
+                "Unknown": "#/components/schemas/ComponentManifestUnknownPropValueModel"
+              }
+            }
+          }
+        },
+        "required": [
+          "key",
+          "required",
+          "value"
+        ]
+      },
+      "ComponentPartKind": {
+        "type": "string",
+        "enum": [
+          "Element",
+          "Component"
+        ]
+      },
+      "ComponentManifestStyleModel": {
+        "type": "object",
+        "properties": {
+          "variantKey": {
+            "type": "string"
+          },
+          "cssProperty": {
+            "type": "string"
+          },
+          "rawValue": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "variantKey",
+          "cssProperty",
+          "rawValue"
+        ]
+      },
+      "ComponentManifestPartModel": {
+        "type": "object",
+        "properties": {
+          "tagName": {
+            "type": "string"
+          },
+          "kind": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ComponentPartKind"
+              }
+            ]
+          },
+          "order": {
+            "type": "number"
+          },
+          "styles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ComponentManifestStyleModel"
+            }
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ComponentManifestPartModel"
+            }
+          }
+        },
+        "required": [
+          "tagName",
+          "kind",
+          "order",
+          "styles",
+          "children"
+        ]
+      },
+      "ComponentManifestComponentModel": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "placementType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ComponentPlacementType"
+              }
+            ]
+          },
+          "variants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ComponentManifestVariantModel"
+            }
+          },
+          "props": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ComponentManifestPropModel"
+            }
+          },
+          "parts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ComponentManifestPartModel"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "placementType",
+          "variants",
+          "props",
+          "parts"
+        ]
+      },
+      "ComponentPropType": {
+        "type": "string",
+        "enum": [
+          "String",
+          "Number",
+          "Boolean",
+          "StringEnum",
+          "NumberEnum",
+          "Object",
+          "Array",
+          "StyleProperties",
+          "Unknown"
+        ]
+      },
+      "ComponentManifestStringPropValueModel": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "example": "String",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ComponentPropType"
+              }
+            ]
+          },
+          "defaultValue": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "ComponentManifestNumberPropValueModel": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "example": "Number",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ComponentPropType"
+              }
+            ]
+          },
+          "defaultValue": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "ComponentManifestBooleanPropValueModel": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "example": "Boolean",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ComponentPropType"
+              }
+            ]
+          },
+          "defaultValue": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "ComponentManifestStringEnumPropValueModel": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "example": "StringEnum",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ComponentPropType"
+              }
+            ]
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "defaultValue": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "values"
+        ]
+      },
+      "ComponentManifestNumberEnumPropValueModel": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "example": "NumberEnum",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ComponentPropType"
+              }
+            ]
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "defaultValue": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "type",
+          "values"
+        ]
+      },
+      "ComponentManifestObjectPropValueModel": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "example": "Object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ComponentPropType"
+              }
+            ]
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ComponentManifestPropModel"
+            }
+          }
+        },
+        "required": [
+          "type",
+          "properties"
+        ]
+      },
+      "ComponentManifestStylePropertiesPropValueModel": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "example": "StyleProperties",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ComponentPropType"
+              }
+            ]
+          },
+          "defaultValue": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "ComponentManifestUnknownPropValueModel": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "example": "Unknown",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ComponentPropType"
+              }
+            ]
+          },
+          "rawType": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "ComponentManifestArrayPropValueModel": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "example": "Array",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ComponentPropType"
+              }
+            ]
+          },
+          "item": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ComponentManifestStringPropValueModel"
+              },
+              {
+                "$ref": "#/components/schemas/ComponentManifestNumberPropValueModel"
+              },
+              {
+                "$ref": "#/components/schemas/ComponentManifestBooleanPropValueModel"
+              },
+              {
+                "$ref": "#/components/schemas/ComponentManifestStringEnumPropValueModel"
+              },
+              {
+                "$ref": "#/components/schemas/ComponentManifestNumberEnumPropValueModel"
+              },
+              {
+                "$ref": "#/components/schemas/ComponentManifestObjectPropValueModel"
+              },
+              {
+                "$ref": "#/components/schemas/ComponentManifestArrayPropValueModel"
+              },
+              {
+                "$ref": "#/components/schemas/ComponentManifestStylePropertiesPropValueModel"
+              },
+              {
+                "$ref": "#/components/schemas/ComponentManifestUnknownPropValueModel"
+              }
+            ]
+          },
+          "defaultValue": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "type",
+          "item"
+        ]
+      },
+      "ComponentManifestUploadModel": {
+        "type": "object",
+        "properties": {
+          "generatedAt": {
+            "type": "array",
+            "items": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "components": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ComponentManifestComponentModel"
+            }
+          }
+        },
+        "required": [
+          "generatedAt",
+          "files",
+          "components"
+        ]
+      }
+    }
+  }
+}

@@ -38,9 +38,6 @@ importers:
       '@qubbi/component-authoring':
         specifier: workspace:*
         version: link:../../packages/component-authoring
-      '@qubbi/contract':
-        specifier: workspace:*
-        version: link:../../packages/contract
       '@qubbi/openapi':
         specifier: workspace:*
         version: link:../../packages/openapi
@@ -93,9 +90,6 @@ importers:
 
   apps/editor:
     dependencies:
-      '@qubbi/contract':
-        specifier: workspace:*
-        version: link:../../packages/contract
       '@qubbi/openapi':
         specifier: workspace:*
         version: link:../../packages/openapi
@@ -160,9 +154,6 @@ importers:
       '@nestjs/platform-express':
         specifier: ^11.0.1
         version: 11.1.16(@nestjs/common@11.1.16)(@nestjs/core@11.1.16)
-      '@qubbi/contract':
-        specifier: workspace:*
-        version: link:../../packages/contract
       class-transformer:
         specifier: ^0.5.1
         version: 0.5.1
@@ -266,9 +257,6 @@ importers:
 
   packages/component-authoring:
     dependencies:
-      '@qubbi/contract':
-        specifier: workspace:*
-        version: link:../contract
       '@qubbi/openapi':
         specifier: workspace:*
         version: link:../openapi
@@ -303,9 +291,6 @@ importers:
 
   packages/component-workbench:
     dependencies:
-      '@qubbi/contract':
-        specifier: workspace:*
-        version: link:../contract
       '@qubbi/openapi':
         specifier: workspace:*
         version: link:../openapi
@@ -323,17 +308,8 @@ importers:
         specifier: ^5.9.0
         version: 5.9.3
 
-  packages/contract:
-    devDependencies:
-      typescript:
-        specifier: ^5.9.0
-        version: 5.9.3
-
   packages/openapi:
     dependencies:
-      '@qubbi/contract':
-        specifier: workspace:*
-        version: link:../contract
       openapi-fetch:
         specifier: ^0.17.0
         version: 0.17.0(patch_hash=suakxobyh4czp2qi7ywru6hvve)

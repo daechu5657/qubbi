@@ -1,9 +1,9 @@
-import * as Contract from "@qubbi/contract";
 import {
   ApiProperty,
   ApiPropertyOptional,
   getSchemaPath,
 } from "@nestjs/swagger";
+import { ComponentPropType } from "../../enums";
 
 const componentPropValueOneOf = () => ({
   oneOf: [
@@ -20,31 +20,31 @@ const componentPropValueOneOf = () => ({
   discriminator: {
     propertyName: "type",
     mapping: {
-      [Contract.Enums.ComponentPropType.String]: getSchemaPath(
+      [ComponentPropType.String]: getSchemaPath(
         ComponentManifestStringPropValueModel,
       ),
-      [Contract.Enums.ComponentPropType.Number]: getSchemaPath(
+      [ComponentPropType.Number]: getSchemaPath(
         ComponentManifestNumberPropValueModel,
       ),
-      [Contract.Enums.ComponentPropType.Boolean]: getSchemaPath(
+      [ComponentPropType.Boolean]: getSchemaPath(
         ComponentManifestBooleanPropValueModel,
       ),
-      [Contract.Enums.ComponentPropType.StringEnum]: getSchemaPath(
+      [ComponentPropType.StringEnum]: getSchemaPath(
         ComponentManifestStringEnumPropValueModel,
       ),
-      [Contract.Enums.ComponentPropType.NumberEnum]: getSchemaPath(
+      [ComponentPropType.NumberEnum]: getSchemaPath(
         ComponentManifestNumberEnumPropValueModel,
       ),
-      [Contract.Enums.ComponentPropType.Object]: getSchemaPath(
+      [ComponentPropType.Object]: getSchemaPath(
         ComponentManifestObjectPropValueModel,
       ),
-      [Contract.Enums.ComponentPropType.Array]: getSchemaPath(
+      [ComponentPropType.Array]: getSchemaPath(
         ComponentManifestArrayPropValueModel,
       ),
-      [Contract.Enums.ComponentPropType.StyleProperties]: getSchemaPath(
+      [ComponentPropType.StyleProperties]: getSchemaPath(
         ComponentManifestStylePropertiesPropValueModel,
       ),
-      [Contract.Enums.ComponentPropType.Unknown]: getSchemaPath(
+      [ComponentPropType.Unknown]: getSchemaPath(
         ComponentManifestUnknownPropValueModel,
       ),
     },
@@ -53,11 +53,11 @@ const componentPropValueOneOf = () => ({
 
 export class ComponentManifestStringPropValueModel {
   @ApiProperty({
-    enum: Contract.Enums.ComponentPropType,
+    enum: ComponentPropType,
     enumName: "ComponentPropType",
-    example: Contract.Enums.ComponentPropType.String,
+    example: ComponentPropType.String,
   })
-  type!: Contract.Enums.ComponentPropType.String;
+  type!: ComponentPropType.String;
 
   @ApiPropertyOptional({ type: String })
   defaultValue?: string;
@@ -65,11 +65,11 @@ export class ComponentManifestStringPropValueModel {
 
 export class ComponentManifestNumberPropValueModel {
   @ApiProperty({
-    enum: Contract.Enums.ComponentPropType,
+    enum: ComponentPropType,
     enumName: "ComponentPropType",
-    example: Contract.Enums.ComponentPropType.Number,
+    example: ComponentPropType.Number,
   })
-  type!: Contract.Enums.ComponentPropType.Number;
+  type!: ComponentPropType.Number;
 
   @ApiPropertyOptional({ type: Number })
   defaultValue?: number;
@@ -77,11 +77,11 @@ export class ComponentManifestNumberPropValueModel {
 
 export class ComponentManifestBooleanPropValueModel {
   @ApiProperty({
-    enum: Contract.Enums.ComponentPropType,
+    enum: ComponentPropType,
     enumName: "ComponentPropType",
-    example: Contract.Enums.ComponentPropType.Boolean,
+    example: ComponentPropType.Boolean,
   })
-  type!: Contract.Enums.ComponentPropType.Boolean;
+  type!: ComponentPropType.Boolean;
 
   @ApiPropertyOptional({ type: Boolean })
   defaultValue?: boolean;
@@ -89,11 +89,11 @@ export class ComponentManifestBooleanPropValueModel {
 
 export class ComponentManifestStringEnumPropValueModel {
   @ApiProperty({
-    enum: Contract.Enums.ComponentPropType,
+    enum: ComponentPropType,
     enumName: "ComponentPropType",
-    example: Contract.Enums.ComponentPropType.StringEnum,
+    example: ComponentPropType.StringEnum,
   })
-  type!: Contract.Enums.ComponentPropType.StringEnum;
+  type!: ComponentPropType.StringEnum;
 
   @ApiProperty({ type: [String] })
   values!: string[];
@@ -104,11 +104,11 @@ export class ComponentManifestStringEnumPropValueModel {
 
 export class ComponentManifestNumberEnumPropValueModel {
   @ApiProperty({
-    enum: Contract.Enums.ComponentPropType,
+    enum: ComponentPropType,
     enumName: "ComponentPropType",
-    example: Contract.Enums.ComponentPropType.NumberEnum,
+    example: ComponentPropType.NumberEnum,
   })
-  type!: Contract.Enums.ComponentPropType.NumberEnum;
+  type!: ComponentPropType.NumberEnum;
 
   @ApiProperty({ type: [Number] })
   values!: number[];
@@ -119,11 +119,11 @@ export class ComponentManifestNumberEnumPropValueModel {
 
 export class ComponentManifestObjectPropValueModel {
   @ApiProperty({
-    enum: Contract.Enums.ComponentPropType,
+    enum: ComponentPropType,
     enumName: "ComponentPropType",
-    example: Contract.Enums.ComponentPropType.Object,
+    example: ComponentPropType.Object,
   })
-  type!: Contract.Enums.ComponentPropType.Object;
+  type!: ComponentPropType.Object;
 
   @ApiProperty({ type: () => [ComponentManifestPropModel] })
   properties!: ComponentManifestPropModel[];
@@ -131,11 +131,11 @@ export class ComponentManifestObjectPropValueModel {
 
 export class ComponentManifestStylePropertiesPropValueModel {
   @ApiProperty({
-    enum: Contract.Enums.ComponentPropType,
+    enum: ComponentPropType,
     enumName: "ComponentPropType",
-    example: Contract.Enums.ComponentPropType.StyleProperties,
+    example: ComponentPropType.StyleProperties,
   })
-  type!: Contract.Enums.ComponentPropType.StyleProperties;
+  type!: ComponentPropType.StyleProperties;
 
   @ApiPropertyOptional({ type: Object })
   defaultValue?: Record<string, string>;
@@ -143,11 +143,11 @@ export class ComponentManifestStylePropertiesPropValueModel {
 
 export class ComponentManifestUnknownPropValueModel {
   @ApiProperty({
-    enum: Contract.Enums.ComponentPropType,
+    enum: ComponentPropType,
     enumName: "ComponentPropType",
-    example: Contract.Enums.ComponentPropType.Unknown,
+    example: ComponentPropType.Unknown,
   })
-  type!: Contract.Enums.ComponentPropType.Unknown;
+  type!: ComponentPropType.Unknown;
 
   @ApiPropertyOptional({ type: String })
   rawType?: string;
@@ -155,11 +155,11 @@ export class ComponentManifestUnknownPropValueModel {
 
 export class ComponentManifestArrayPropValueModel {
   @ApiProperty({
-    enum: Contract.Enums.ComponentPropType,
+    enum: ComponentPropType,
     enumName: "ComponentPropType",
-    example: Contract.Enums.ComponentPropType.Array,
+    example: ComponentPropType.Array,
   })
-  type!: Contract.Enums.ComponentPropType.Array;
+  type!: ComponentPropType.Array;
 
   @ApiProperty({
     oneOf: [

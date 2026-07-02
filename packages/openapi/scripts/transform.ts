@@ -5,11 +5,9 @@ import {
   SourceFile,
   SyntaxKind,
 } from "ts-morph";
-import * as Contract from "@qubbi/contract";
 
 const MODELS_NAMESPACE_NAME = "Models";
 const ENUMS_NAMESPACE_NAME = "Enums";
-const contractEnumNames = new Set(Object.keys(Contract.Enums));
 const SCHEMA_REF_PATTERN = /^components\["schemas"\]\["([^"]+)"\]$/;
 
 function removeDuplication(source: SourceFile) {
@@ -53,10 +51,6 @@ function hasEnumJsdocTag(p: PropertySignature) {
 
 function addEnum(p: PropertySignature, module: ModuleDeclaration) {
   const name = p.getName();
-  if (contractEnumNames.has(name)) {
-    return;
-  }
-
   const target = module.addEnum({
     name,
     isExported: true,
@@ -97,10 +91,6 @@ function getSchemaRefReplacement(
     return `${MODELS_NAMESPACE_NAME}.${schemaName}`;
   }
 
-  if (contractEnumNames.has(schemaName)) {
-    return `Contract.Enums.${schemaName}`;
-  }
-
   if (enumNames.has(schemaName)) {
     return `${ENUMS_NAMESPACE_NAME}.${schemaName}`;
   }
@@ -134,20 +124,6 @@ function replaceSchemaRefs(
   }
 }
 
-function ensureContractImport(source: SourceFile) {
-  const contractImport = source.getImportDeclaration(
-    (declaration) =>
-      declaration.getModuleSpecifierValue() === "@qubbi/contract",
-  );
-
-  if (!contractImport) {
-    source.insertImportDeclaration(0, {
-      namespaceImport: "Contract",
-      moduleSpecifier: "@qubbi/contract",
-    });
-  }
-}
-
 async function main() {
   const project = new Project();
   const source = project.addSourceFileAtPath("./src/generated.ts");
@@ -176,7 +152,6 @@ async function main() {
 
   const modelNames = new Set<string>();
   const enumNames = new Set<string>();
-  let usesContractEnum = false;
 
   for (const p of schemasTypeNode.getProperties()) {
     const tn = p.getTypeNodeOrThrow();
@@ -188,12 +163,7 @@ async function main() {
     } else if (hasEnumJsdocTag(p)) {
       addEnum(p, enumNamespace);
       enumNames.add(name);
-      usesContractEnum ||= contractEnumNames.has(name);
     }
-  }
-
-  if (usesContractEnum) {
-    ensureContractImport(source);
   }
 
   replaceSchemaRefs(source, modelNames, enumNames);

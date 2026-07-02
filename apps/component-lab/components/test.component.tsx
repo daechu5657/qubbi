@@ -1,10 +1,10 @@
 import React from "react";
 import * as ComponentAuthoring from "@qubbi/component-authoring";
-import * as Contract from "@qubbi/contract";
+import * as Openapi from "@qubbi/openapi";
 
 const buttonComponent = ComponentAuthoring.createComponent({
   name: "ButtonComponent",
-  placementType: Contract.Enums.ComponentPlacementType.Standalone,
+  placementType: Openapi.Enums.ComponentPlacementType.Standalone,
   variants: ["default", "primary", "disabled"],
 });
 
@@ -32,7 +32,7 @@ export const ButtonComponent = buttonComponent.define(ButtonBase);
 //1. 조건부 JSX
 const conditionalComponent = ComponentAuthoring.createComponent({
   name: "ConditionalInput",
-  placementType: Contract.Enums.ComponentPlacementType.Standalone,
+  placementType: Openapi.Enums.ComponentPlacementType.Standalone,
   variants: ["default"],
 });
 
@@ -51,7 +51,7 @@ export const ConditionalInputComponent =
 
 const listComponent = ComponentAuthoring.createComponent({
   name: "ListComponent",
-  placementType: Contract.Enums.ComponentPlacementType.Standalone,
+  placementType: Openapi.Enums.ComponentPlacementType.Standalone,
   variants: ["default"],
 });
 
@@ -70,7 +70,7 @@ export const ListComponent = listComponent.define(List);
 // 3. 동적 tag
 const textComponent = ComponentAuthoring.createComponent({
   name: "TextComponent",
-  placementType: Contract.Enums.ComponentPlacementType.Standalone,
+  placementType: Openapi.Enums.ComponentPlacementType.Standalone,
   variants: ["default"],
 });
 
@@ -89,7 +89,7 @@ export const TextComponent = textComponent.define(Text);
 // 4. style spread
 const spreadStyleComponent = ComponentAuthoring.createComponent({
   name: "SpreadStyleBox",
-  placementType: Contract.Enums.ComponentPlacementType.Standalone,
+  placementType: Openapi.Enums.ComponentPlacementType.Standalone,
   variants: ["default", "active"],
 });
 
@@ -117,7 +117,7 @@ export const SpreadStyleBoxComponent =
 // 5. 조건부 style
 const conditionalStyleComponent = ComponentAuthoring.createComponent({
   name: "ConditionalStyleBox",
-  placementType: Contract.Enums.ComponentPlacementType.Standalone,
+  placementType: Openapi.Enums.ComponentPlacementType.Standalone,
   variants: ["default"],
 });
 
@@ -138,7 +138,7 @@ export const ConditionalStyleBoxComponent =
 // 6. className
 const classNameComponent = ComponentAuthoring.createComponent({
   name: "ClassNameButton",
-  placementType: Contract.Enums.ComponentPlacementType.Standalone,
+  placementType: Openapi.Enums.ComponentPlacementType.Standalone,
   variants: ["default"],
 });
 
@@ -152,7 +152,7 @@ export const ClassNameButtonComponent =
 // 7. Fragment / multiple root
 const fragmentComponent = ComponentAuthoring.createComponent({
   name: "ToolbarItems",
-  placementType: Contract.Enums.ComponentPlacementType.Fragment,
+  placementType: Openapi.Enums.ComponentPlacementType.Fragment,
   variants: ["default"],
 });
 
@@ -170,7 +170,7 @@ export const ToolbarItemsComponent = fragmentComponent.define(ToolbarItems);
 // 8. children / slot
 const panelComponent = ComponentAuthoring.createComponent({
   name: "PanelComponent",
-  placementType: Contract.Enums.ComponentPlacementType.Standalone,
+  placementType: Openapi.Enums.ComponentPlacementType.Standalone,
   variants: ["default"],
 });
 
@@ -183,7 +183,7 @@ export const PanelComponent = panelComponent.define(Panel);
 // 9. 다른 컴포넌트가 return 안에 들어가는 경우
 const searchInputComponent = ComponentAuthoring.createComponent({
   name: "SearchInputComponent",
-  placementType: Contract.Enums.ComponentPlacementType.Standalone,
+  placementType: Openapi.Enums.ComponentPlacementType.Standalone,
   variants: ["default", "disabled"],
 });
 
