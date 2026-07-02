@@ -1,9 +1,9 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { ConfigService } from "@nestjs/config";
-import { setupExceptionFilter } from "./bootstrap/setupExceptionFilter";
-import { setupOpenapi } from "./bootstrap/setupOpenapi";
-import { setupValidation } from "./bootstrap/setupValidation";
+import { setupExceptionFilter } from "./bootstrap/setup-exception-filter";
+import { setupOpenapi } from "./bootstrap/setup-openapi";
+import { setupValidation } from "./bootstrap/setu-validation";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
