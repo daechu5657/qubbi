@@ -6,12 +6,6 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
-  "devDependencies": {
-    "@types/css-tree": "^2.3.11",
-    "eslint": "^8.57.0",
-    "prettier": "^3.2.5",
-    "turbo": "^2.8.17"
-  },
   "packageManager": "pnpm@8.15.6",
   "name": "qubbi",
   "pnpm": {
@@ -22,5 +16,11 @@
   "dependencies": {
     "css-tree": "^3.2.1",
     "csstype": "^3.2.3"
+  },
+  "devDependencies": {
+    "@types/css-tree": "^2.3.11",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "turbo": "^2.8.17"
   }
 }

@@ -20,6 +20,15 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
-    "types": ["node", "Multer"]
+    "types": ["node", "Multer"],
+    "plugins": [
+      { "transform": "typia/lib/transform" },
+      {
+        "transform": "@nestia/core/lib/transform",
+        "validate": "validate",
+        "stringify": "assert"
+      },
+      { "transform": "@nestia/sdk/lib/transform" }
+    ]
   }
 }

@@ -1,3 +1,3 @@
-import { createApiClient } from "@qubbi/openapi";
+// import { createApiClient } from "@qubbi/openapi";
 
-export const api = createApiClient({ baseUrl: "http://localhost:3000" });
+// export const api = createApiClient({ baseUrl: "http://localhost:3000" });

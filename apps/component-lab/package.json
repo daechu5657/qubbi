@@ -11,7 +11,6 @@
     "components:prebuild": "component-authoring prebuild --root components"
   },
   "dependencies": {
-    "@qubbi/openapi": "workspace:*",
     "@qubbi/component-authoring": "workspace:*",
     "csstype": "^3.2.3",
     "react": "^19.2.6",

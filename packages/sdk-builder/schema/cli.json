@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["appModule", "swagger", "appModuleExport", "exportPackageName"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "appModule": { "type": "string" },
+    "appModuleExport": { "type": "string" },
+    "exportPackageName": { "type": "string" },
+    "swagger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["openapi", "info"],
+      "properties": {
+        "openapi": { "type": "string", "enum": ["2.0", "3.0", "3.1", "3.2"] },
+        "info": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["title", "description", "version"],
+          "properties": {
+            "title": { "type": "string" },
+            "description": { "type": "string" },
+            "version": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

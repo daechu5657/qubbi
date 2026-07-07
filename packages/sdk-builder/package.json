@@ -1,0 +1,35 @@
+{
+  "name": "@qubbi/sdk-builder",
+  "private": true,
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "js-yaml": "^5.2.1",
+    "openapi-typescript": "^7.13.0",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.0",
+    "fast-glob": "^3.3.3",
+    "@nestia/sdk": "^11.3.4",
+    "@nestjs/core": "^11.0.1"
+  },
+  "bin": {
+    "sdk-builder": "dist/cli.js"
+  },
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "schema"
+  ]
+}

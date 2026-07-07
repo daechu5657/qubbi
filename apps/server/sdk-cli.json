@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/@qubbi/sdk-builder/schema/cli.json",
+  "appModule": "./dist/app.module.js",
+  "appModuleExport": "AppModule",
+  "exportPackageName": "@qubbi/sdk",
+  "swagger": {
+    "openapi": "3.0",
+    "info": {
+      "title": "API",
+      "description": "The API description",
+      "version": "1.0"
+    }
+  }
+}

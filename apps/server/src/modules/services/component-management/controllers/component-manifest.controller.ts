@@ -1,13 +1,18 @@
-import { Post, UploadedFile } from "@nestjs/common";
 import { ComponentManifestUploadService } from "../../../applications/component-manifest-upload/component-manifest-upload.service";
-import { FileUpload } from "../../../../shared/decorators/file-upload.decorator";
 import {
   EditorController,
   ComponentLabController,
 } from "../../../../shared/decorators/controller.decorator";
+import multer from "multer";
+import { TypedBody, TypedFormData, TypedRoute } from "@nestia/core";
+import { ComponentManifestModel } from "../../../domains/component-manifest/models/component-manifest.model";
 
 @EditorController("component-manifest")
 class EditorComponentManifestController {}
+
+class ComponentManifestUploadForm {
+  "bundle.zip"!: File;
+}
 
 @ComponentLabController("component-manifest")
 class ComponentLabComponentManifestController {
@@ -15,10 +20,15 @@ class ComponentLabComponentManifestController {
     private readonly componentManifestUploadService: ComponentManifestUploadService,
   ) {}
 
-  @Post("upload")
-  @FileUpload("bundle.zip")
-  async upload(@UploadedFile() file: Express.Multer.File) {
-    await this.componentManifestUploadService.upload(file.buffer);
+  @TypedRoute.Post("upload")
+  async upload(
+    // @TypedFormData.Body(() => multer())
+    // form: ComponentManifestUploadForm,
+    @TypedBody()
+    test: ComponentManifestModel,
+  ) {
+    // const buffer = Buffer.from(await form["bundle.zip"].arrayBuffer());
+    // await this.componentManifestUploadService.upload(buffer);
   }
 }
 

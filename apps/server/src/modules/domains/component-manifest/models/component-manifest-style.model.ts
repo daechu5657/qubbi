@@ -1,12 +1,7 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { Properties } from "csstype";
 
 export class ComponentManifestStyleModel {
-  @ApiProperty({ type: String })
   variantKey!: string;
-
-  @ApiProperty({ type: String })
-  cssProperty!: keyof ElementCSSInlineStyle["style"];
-
-  @ApiProperty({ type: String })
+  cssProperty!: keyof Properties;
   rawValue!: string;
 }

@@ -12,9 +12,20 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    "@qubbi/openapi#build": {
-      "dependsOn": ["server#build", "^build"],
-      "outputs": ["dist/**", "src/generated.ts"]
+
+    "server#build": {
+      "dependsOn": ["@qubbi/sdk-builder#build"],
+      "outputs": ["dist/**"]
+    },
+
+    "server#sdk-builder": {
+      "dependsOn": ["server#build"],
+      "outputs": ["../../packages/sdk/src/generated.ts"]
+    },
+
+    "@qubbi/sdk#build": {
+      "dependsOn": ["server#sdk-builder"],
+      "outputs": ["dist/**"]
     },
 
     "lint": {}
