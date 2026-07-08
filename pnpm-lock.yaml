@@ -354,6 +354,9 @@ importers:
       '@types/node':
         specifier: ^25.5.0
         version: 25.9.3
+      '@typia/interface':
+        specifier: ^12.1.1
+        version: 12.1.1
       ajv:
         specifier: ^8.20.0
         version: 8.20.0
@@ -1611,7 +1614,6 @@ packages:
       '@types/node': 25.9.3
       chardet: 2.1.1
       iconv-lite: 0.7.2
-    dev: true
 
   /@inquirer/figures@1.0.15:
     resolution: {integrity: sha512-t2IEY+unGHOzAaVM5Xx6DEWKeXlDDcNPeDyUpsRc6CUhBfU3VQOEl+Vssh7VNp1dR8MdUJBWhuObjXCsVpjN5g==}
@@ -2143,7 +2145,7 @@ packages:
       reflect-metadata: 0.2.2
       rxjs: 7.8.2
       tgrid: 1.2.1
-      typia: 12.1.1(@types/node@22.19.15)(typescript@6.0.3)
+      typia: 12.1.1(@types/node@25.9.3)(typescript@6.0.3)
       ws: 7.5.11
     transitivePeerDependencies:
       - bufferutil
@@ -6253,7 +6255,6 @@ packages:
       wrap-ansi: 6.2.0
     transitivePeerDependencies:
       - '@types/node'
-    dev: true
 
   /ipaddr.js@1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
@@ -9246,7 +9247,6 @@ packages:
       typescript: 6.0.3
     transitivePeerDependencies:
       - '@types/node'
-    dev: true
 
   /ufo@1.6.4:
     resolution: {integrity: sha512-JFNbkD1Svwe0KvGi8GOeLcP4kAWQ609twvCdcHxq1oSL8svv39ZuSvajcD8B+5D0eL4+s1Is2D/O6KN3qcTeRA==}

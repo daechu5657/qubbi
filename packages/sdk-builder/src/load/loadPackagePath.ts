@@ -2,9 +2,9 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import * as yaml from "js-yaml";
 import fg from "fast-glob";
-import { ConfigSchema } from "./cli.js";
+import { IConfig } from "../types.js";
 
-export async function loadPackagePath({ config }: { config: ConfigSchema }) {
+export async function loadPackagePath({ config }: { config: IConfig }) {
   const file = fs.readFileSync(
     path.join(process.cwd(), "../../pnpm-workspace.yaml"),
     "utf8",

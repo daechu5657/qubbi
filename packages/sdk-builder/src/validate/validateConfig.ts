@@ -1,5 +1,5 @@
 import { Ajv2020 } from "ajv/dist/2020.js";
-import { ConfigSchema } from "./cli.js";
+import { IConfig } from "../types.js";
 import addFormatsModule from "ajv-formats";
 
 export function validateConfig({
@@ -7,7 +7,7 @@ export function validateConfig({
   config,
 }: {
   config: unknown;
-  schema: ConfigSchema;
+  schema: IConfig;
 }) {
   const ajv = new Ajv2020({ allErrors: true });
   const addFormats = addFormatsModule.default ?? addFormatsModule;

@@ -1,6 +1,6 @@
 import * as path from "node:path";
 import * as fs from "node:fs";
-import { ConfigSchema } from "./cli.js";
+import { IConfig } from "../types.js";
 
 export function loadConfig(fileName?: string) {
   try {
@@ -9,7 +9,7 @@ export function loadConfig(fileName?: string) {
         path.join(process.cwd(), fileName ?? "sdk-cli.json"),
         "utf-8",
       ),
-    ) as ConfigSchema;
+    ) as IConfig;
   } catch (error) {
     throw error;
   }

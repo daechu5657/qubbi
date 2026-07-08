@@ -1,16 +1,18 @@
 import * as path from "node:path";
 import * as fs from "node:fs";
 import { fileURLToPath } from "node:url";
-import { ConfigSchema } from "./cli.js";
+import { IConfig } from "../types.js";
 
-export function loadSchema(cliSchemaPath: string) {
+const SCHEMA_PATH = "../../schema/cli.json";
+
+export function loadSchema() {
   try {
     const schemaPath = path.resolve(
       path.dirname(fileURLToPath(import.meta.url)),
-      cliSchemaPath,
+      SCHEMA_PATH,
     );
 
-    return JSON.parse(fs.readFileSync(schemaPath, "utf-8")) as ConfigSchema;
+    return JSON.parse(fs.readFileSync(schemaPath, "utf-8")) as IConfig;
   } catch (error) {
     throw error;
   }

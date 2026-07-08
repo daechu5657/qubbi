@@ -1,8 +1,8 @@
 import * as path from "node:path";
-import { ConfigSchema } from "./cli.js";
 import { pathToFileURL } from "node:url";
+import { IConfig } from "../types.js";
 
-export async function loadAppModule({ config }: { config: ConfigSchema }) {
+export async function loadAppModule({ config }: { config: IConfig }) {
   const appModulePath = path.resolve(process.cwd(), config.appModule);
 
   try {

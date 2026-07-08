@@ -1,33 +1,30 @@
 #!/usr/bin/env node
 
-import { loadConfig } from "./loadConfig.js";
-import { createTypes } from "./createTypes.js";
-import type { INestiaConfig } from "@nestia/sdk";
-import { loadSchema } from "./loadSchema.js";
-import { validateConfig } from "./validateConfig.js";
-import { loadAppModule } from "./loadAppModule.js";
-import { loadPackagePath } from "./loadPackagePath.js";
+import path from "node:path";
+import { writeFileSync } from "node:fs";
+import { loadConfig } from "./load/loadConfig.js";
+import { loadSchema } from "./load/loadSchema.js";
+import { validateConfig } from "./validate/validateConfig.js";
+import { loadAppModule } from "./load/loadAppModule.js";
+import { loadPackagePath } from "./load/loadPackagePath.js";
+import { createDocument } from "./create/createDocument.js";
+import { build } from "./build/build.js";
 
-export interface ConfigSchema {
-  appModule: string;
-  appModuleExport: string;
-  exportPackageName: string;
-  swagger: INestiaConfig["swagger"];
-}
-
-const SCHEMA_PATH = "../schema/cli.json";
 const CONFIG_FILE_NAME = "sdk-cli.json";
 
 async function main() {
-  const schema = loadSchema(SCHEMA_PATH);
+  const schema = loadSchema();
   const config = loadConfig(CONFIG_FILE_NAME);
-
   validateConfig({ config, schema });
 
   const generatePath = await loadPackagePath({ config });
   const AppModule = await loadAppModule({ config });
+  const document = await createDocument({ AppModule, config });
 
-  createTypes({ config, AppModule, generatePath });
+  const contents = await build({ document });
+  const filePath = path.resolve(generatePath, "./src/generated.ts");
+
+  writeFileSync(filePath, contents);
 }
 
 main().catch((error) => {
