@@ -2,6 +2,7 @@ import { OpenApiV3_1 } from "@typia/interface";
 import path from "node:path";
 import ts from "typescript";
 import * as prettier from "prettier";
+import { createAxiosImport } from "../create/createAxiosImport.js";
 
 const IGNORE_MODEL_NAMES = ["Properties0(string)string"];
 
@@ -59,6 +60,7 @@ export async function build({
 
   const sourceFile = createSourceFile(
     interleaveNewLines([
+      createAxiosImport(),
       createCssTypeImport(),
       modelsNamespace,
       enumsNamespace,
@@ -322,10 +324,26 @@ function createPropertySignatureFromPropertyDeclaration(
 
   return ts.factory.createPropertySignature(
     undefined,
-    node.name,
+    clonePropertyName(node.name),
     node.questionToken,
     handleTypeNode(node.type, enums, models, checker),
   );
+}
+
+function clonePropertyName(name: ts.PropertyName): ts.PropertyName {
+  if (ts.isIdentifier(name)) {
+    return ts.factory.createIdentifier(name.text);
+  }
+
+  if (ts.isStringLiteral(name)) {
+    return ts.factory.createStringLiteral(name.text);
+  }
+
+  if (ts.isNumericLiteral(name)) {
+    return ts.factory.createNumericLiteral(name.text);
+  }
+
+  throw new Error(`unsupported property name: ${ts.SyntaxKind[name.kind]}`);
 }
 
 function handleClassElement(

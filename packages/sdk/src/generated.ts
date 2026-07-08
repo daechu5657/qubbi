@@ -1,3 +1,5 @@
+import type { AxiosInstance, AxiosRequestConfig } from "axios";
+
 import type { Properties } from "csstype";
 
 export namespace Models {
@@ -85,6 +87,9 @@ export namespace Models {
     variants: Models.ComponentManifestVariantModel[];
     props: Models.ComponentManifestPropModel[];
     parts: Models.ComponentManifestPartModel[];
+  }
+  export interface ComponentManifestUploadForm {
+    "bundle.zip": File;
   }
 }
 

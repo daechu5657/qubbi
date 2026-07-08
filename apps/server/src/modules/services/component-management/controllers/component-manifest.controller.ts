@@ -22,10 +22,17 @@ class ComponentLabComponentManifestController {
 
   @TypedRoute.Post("upload")
   async upload(
-    // @TypedFormData.Body(() => multer())
-    // form: ComponentManifestUploadForm,
+    @TypedFormData.Body(() => multer())
+    form: ComponentManifestUploadForm,
+  ) {
+    // const buffer = Buffer.from(await form["bundle.zip"].arrayBuffer());
+    // await this.componentManifestUploadService.upload(buffer);
+  }
+
+  @TypedRoute.Post("test")
+  async test(
     @TypedBody()
-    test: ComponentManifestModel,
+    body: ComponentManifestModel,
   ) {
     // const buffer = Buffer.from(await form["bundle.zip"].arrayBuffer());
     // await this.componentManifestUploadService.upload(buffer);
