@@ -28,8 +28,11 @@ export async function build({
 
   const modelStatements: ts.Statement[] = [];
   for (const [_, modelDecl] of models) {
+    // modelStatements.push(
+    //   handleClassDeclaration(modelDecl, enums, models, checker),
+    // );
     modelStatements.push(
-      handleClassDeclaration(modelDecl, enums, models, checker),
+      createInterfaceDeclarationFromClass(modelDecl, enums, models, checker),
     );
   }
 
@@ -265,6 +268,63 @@ function handleClassDeclaration(
     node.members.map((member) =>
       handleClassElement(member, enums, models, checker),
     ),
+  );
+}
+
+function createInterfaceDeclarationFromClass(
+  node: ts.ClassDeclaration,
+  enums: Map<string, EnumState>,
+  models: Map<string, ts.ClassDeclaration>,
+  checker: ts.TypeChecker,
+): ts.InterfaceDeclaration {
+  if (!node.name) {
+    throw new Error("class name is undefined");
+  }
+
+  return ts.factory.createInterfaceDeclaration(
+    [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
+    node.name,
+    node.typeParameters,
+    undefined,
+    node.members.map((member) =>
+      createTypeElementFromClassElement(member, enums, models, checker),
+    ),
+  );
+}
+
+function createTypeElementFromClassElement(
+  node: ts.ClassElement,
+  enums: Map<string, EnumState>,
+  models: Map<string, ts.ClassDeclaration>,
+  checker: ts.TypeChecker,
+): ts.TypeElement {
+  if (ts.isPropertyDeclaration(node)) {
+    return createPropertySignatureFromPropertyDeclaration(
+      node,
+      enums,
+      models,
+      checker,
+    );
+  }
+
+  throw new Error(`unsupported class member: ${ts.SyntaxKind[node.kind]}`);
+}
+
+function createPropertySignatureFromPropertyDeclaration(
+  node: ts.PropertyDeclaration,
+  enums: Map<string, EnumState>,
+  models: Map<string, ts.ClassDeclaration>,
+  checker: ts.TypeChecker,
+): ts.PropertySignature {
+  if (!node.type) {
+    throw new Error("property type is undefined");
+  }
+
+  return ts.factory.createPropertySignature(
+    undefined,
+    node.name,
+    node.questionToken,
+    handleTypeNode(node.type, enums, models, checker),
   );
 }
 

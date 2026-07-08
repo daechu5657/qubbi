@@ -1,55 +1,55 @@
 import type { Properties } from "csstype";
 
 export namespace Models {
-  export class ComponentManifestStyleModel {
-    variantKey!: string;
-    cssProperty!: keyof Properties;
-    rawValue!: string;
+  export interface ComponentManifestStyleModel {
+    variantKey: string;
+    cssProperty: keyof Properties;
+    rawValue: string;
   }
-  export class ComponentManifestPartModel {
-    tagName!: string;
-    kind!: Enums.ComponentPartKind;
-    order!: number;
-    styles!: Models.ComponentManifestStyleModel[];
-    children!: Models.ComponentManifestPartModel[];
+  export interface ComponentManifestPartModel {
+    tagName: string;
+    kind: Enums.ComponentPartKind;
+    order: number;
+    styles: Models.ComponentManifestStyleModel[];
+    children: Models.ComponentManifestPartModel[];
   }
-  export class ComponentManifestStringPropValueModel {
-    type!: Enums.ComponentPropType.String;
+  export interface ComponentManifestStringPropValueModel {
+    type: Enums.ComponentPropType.String;
     defaultValue?: string;
   }
-  export class ComponentManifestNumberPropValueModel {
-    type!: Enums.ComponentPropType.Number;
+  export interface ComponentManifestNumberPropValueModel {
+    type: Enums.ComponentPropType.Number;
     defaultValue?: number;
   }
-  export class ComponentManifestBooleanPropValueModel {
-    type!: Enums.ComponentPropType.Boolean;
+  export interface ComponentManifestBooleanPropValueModel {
+    type: Enums.ComponentPropType.Boolean;
     defaultValue?: boolean;
   }
-  export class ComponentManifestStringEnumPropValueModel {
-    type!: Enums.ComponentPropType.StringEnum;
-    values!: string[];
+  export interface ComponentManifestStringEnumPropValueModel {
+    type: Enums.ComponentPropType.StringEnum;
+    values: string[];
     defaultValue?: string;
   }
-  export class ComponentManifestNumberEnumPropValueModel {
-    type!: Enums.ComponentPropType.NumberEnum;
-    values!: number[];
+  export interface ComponentManifestNumberEnumPropValueModel {
+    type: Enums.ComponentPropType.NumberEnum;
+    values: number[];
     defaultValue?: number;
   }
-  export class ComponentManifestObjectPropValueModel {
-    type!: Enums.ComponentPropType.Object;
-    properties!: Models.ComponentManifestPropModel[];
+  export interface ComponentManifestObjectPropValueModel {
+    type: Enums.ComponentPropType.Object;
+    properties: Models.ComponentManifestPropModel[];
   }
-  export class ComponentManifestStylePropertiesPropValueModel {
-    type!: Enums.ComponentPropType.StyleProperties;
+  export interface ComponentManifestStylePropertiesPropValueModel {
+    type: Enums.ComponentPropType.StyleProperties;
     defaultValue?: Properties;
   }
-  export class ComponentManifestUnknownPropValueModel {
-    type!: Enums.ComponentPropType.Unknown;
+  export interface ComponentManifestUnknownPropValueModel {
+    type: Enums.ComponentPropType.Unknown;
     rawType?: string;
   }
-  export class ComponentManifestArrayPropValueModel {
-    type!: Enums.ComponentPropType.Array;
-    item!:
+  export interface ComponentManifestArrayPropValueModel {
+    type: Enums.ComponentPropType.Array;
+    item:
       | Models.ComponentManifestStringPropValueModel
       | Models.ComponentManifestNumberPropValueModel
       | Models.ComponentManifestBooleanPropValueModel
@@ -61,10 +61,10 @@ export namespace Models {
       | Models.ComponentManifestUnknownPropValueModel;
     defaultValue?: unknown[];
   }
-  export class ComponentManifestPropModel {
-    key!: string;
-    required!: boolean;
-    value!:
+  export interface ComponentManifestPropModel {
+    key: string;
+    required: boolean;
+    value:
       | Models.ComponentManifestStringPropValueModel
       | Models.ComponentManifestNumberPropValueModel
       | Models.ComponentManifestBooleanPropValueModel
@@ -75,16 +75,16 @@ export namespace Models {
       | Models.ComponentManifestStylePropertiesPropValueModel
       | Models.ComponentManifestUnknownPropValueModel;
   }
-  export class ComponentManifestVariantModel {
-    key!: string;
-    order!: number;
+  export interface ComponentManifestVariantModel {
+    key: string;
+    order: number;
   }
-  export class ComponentManifestModel {
-    name!: string;
-    placementType!: Enums.ComponentPlacementType;
-    variants!: Models.ComponentManifestVariantModel[];
-    props!: Models.ComponentManifestPropModel[];
-    parts!: Models.ComponentManifestPartModel[];
+  export interface ComponentManifestModel {
+    name: string;
+    placementType: Enums.ComponentPlacementType;
+    variants: Models.ComponentManifestVariantModel[];
+    props: Models.ComponentManifestPropModel[];
+    parts: Models.ComponentManifestPartModel[];
   }
 }
 
