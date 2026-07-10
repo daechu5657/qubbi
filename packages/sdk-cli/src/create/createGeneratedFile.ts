@@ -2,16 +2,17 @@ import { OpenApiV3_1 } from "@typia/interface";
 import path from "node:path";
 import ts from "typescript";
 import * as prettier from "prettier";
-import { createAxiosImport } from "../create/createAxiosImport.js";
+import { createAxiosImport } from "./createAxiosImport.js";
+import { createApisFunction } from "./createApisFunction.js";
 
 const IGNORE_MODEL_NAMES = ["Properties0(string)string"];
 
-interface EnumState {
+export interface EnumState {
   isUsed: boolean;
   declaration: ts.EnumDeclaration;
 }
 
-export async function build({
+export async function createGeneratedFile({
   document,
   serverRoot = process.cwd(),
   tsconfig = "./tsconfig.json",
@@ -27,11 +28,10 @@ export async function build({
 
   filterModels({ document, models, ignore: IGNORE_MODEL_NAMES });
 
+  const apisFunction = createApisFunction({ models, enums, document });
+
   const modelStatements: ts.Statement[] = [];
   for (const [_, modelDecl] of models) {
-    // modelStatements.push(
-    //   handleClassDeclaration(modelDecl, enums, models, checker),
-    // );
     modelStatements.push(
       createInterfaceDeclarationFromClass(modelDecl, enums, models, checker),
     );
@@ -44,26 +44,13 @@ export async function build({
     }
   }
 
-  const modelsNamespace = ts.factory.createModuleDeclaration(
-    [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
-    ts.factory.createIdentifier("Models"),
-    ts.factory.createModuleBlock(modelStatements),
-    ts.NodeFlags.Namespace,
-  );
-
-  const enumsNamespace = ts.factory.createModuleDeclaration(
-    [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
-    ts.factory.createIdentifier("Enums"),
-    ts.factory.createModuleBlock(enumStatements),
-    ts.NodeFlags.Namespace,
-  );
-
   const sourceFile = createSourceFile(
     interleaveNewLines([
       createAxiosImport(),
       createCssTypeImport(),
-      modelsNamespace,
-      enumsNamespace,
+      createModelsNamespace({ modelStatements }),
+      createEnumsNamespace({ enumStatements }),
+      apisFunction,
     ]),
   );
 
@@ -102,6 +89,32 @@ function createCssTypeImport(): ts.ImportDeclaration {
     ),
     ts.factory.createStringLiteral("csstype"),
     undefined,
+  );
+}
+
+function createModelsNamespace({
+  modelStatements,
+}: {
+  modelStatements: ts.Statement[];
+}) {
+  return ts.factory.createModuleDeclaration(
+    [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
+    ts.factory.createIdentifier("Models"),
+    ts.factory.createModuleBlock(modelStatements),
+    ts.NodeFlags.Namespace,
+  );
+}
+
+function createEnumsNamespace({
+  enumStatements,
+}: {
+  enumStatements: ts.Statement[];
+}) {
+  return ts.factory.createModuleDeclaration(
+    [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
+    ts.factory.createIdentifier("Enums"),
+    ts.factory.createModuleBlock(enumStatements),
+    ts.NodeFlags.Namespace,
   );
 }
 
@@ -391,6 +404,12 @@ function handleTypeNode(
     return node;
   }
 
+  if (ts.isLiteralTypeNode(node)) {
+    return ts.factory.createLiteralTypeNode(
+      cloneLiteralTypeValue(node.literal),
+    );
+  }
+
   if (ts.isTypeReferenceNode(node)) {
     return handleTypeReferenceNode(node, enums, models, checker);
   }
@@ -428,9 +447,46 @@ function isSkippableNode(node: ts.TypeNode) {
       (node.kind === ts.SyntaxKind.StringKeyword ||
         node.kind === ts.SyntaxKind.NumberKeyword ||
         node.kind === ts.SyntaxKind.BooleanKeyword ||
+        node.kind === ts.SyntaxKind.BigIntKeyword ||
         node.kind === ts.SyntaxKind.UnknownKeyword)) ||
     ts.isTypeOperatorNode(node)
   );
+}
+
+function cloneLiteralTypeValue(
+  literal: ts.LiteralTypeNode["literal"],
+): ts.LiteralTypeNode["literal"] {
+  if (ts.isStringLiteral(literal)) {
+    return ts.factory.createStringLiteral(literal.text);
+  }
+
+  if (ts.isNumericLiteral(literal)) {
+    return ts.factory.createNumericLiteral(literal.text);
+  }
+
+  if (literal.kind === ts.SyntaxKind.TrueKeyword) {
+    return ts.factory.createTrue();
+  }
+
+  if (literal.kind === ts.SyntaxKind.FalseKeyword) {
+    return ts.factory.createFalse();
+  }
+
+  if (literal.kind === ts.SyntaxKind.NullKeyword) {
+    return ts.factory.createNull();
+  }
+
+  if (
+    ts.isPrefixUnaryExpression(literal) &&
+    ts.isNumericLiteral(literal.operand)
+  ) {
+    return ts.factory.createPrefixUnaryExpression(
+      literal.operator,
+      ts.factory.createNumericLiteral(literal.operand.text),
+    );
+  }
+
+  throw new Error(`unsupported literal type: ${ts.SyntaxKind[literal.kind]}`);
 }
 
 function isEnum(

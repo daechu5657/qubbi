@@ -1,4 +1,4 @@
-import type { AxiosInstance, AxiosRequestConfig } from "axios";
+import type { AxiosInstance } from "axios";
 
 import type { Properties } from "csstype";
 
@@ -91,6 +91,37 @@ export namespace Models {
   export interface ComponentManifestUploadForm {
     "bundle.zip": File;
   }
+  export interface ComponentManifestListQuery {
+    keyword?: string[];
+    page?: number;
+    limit?: number;
+  }
+  export interface ComponentManifestQueryCases {
+    requiredString: string;
+    optionalString?: string;
+    nullableString: string | null;
+    optionalNullableString?: string | null;
+    requiredNumber: number;
+    optionalNumber?: number;
+    requiredBoolean: boolean;
+    optionalBoolean?: boolean;
+    requiredStringArray: string[];
+    optionalStringArray?: string[];
+    requiredNumberArray: number[];
+    optionalNumberArray?: number[];
+    requiredBooleanArray: boolean[];
+    optionalBooleanArray?: boolean[];
+    literalUnion?: "summary" | "detail";
+    enumValue?: Enums.ComponentManifestParameterStatus;
+    enumValues?: Enums.ComponentManifestParameterStatus[];
+  }
+  export interface ComponentManifestUpdateBody {
+    manifest: Models.ComponentManifestModel;
+  }
+  export interface ComponentManifestResponse {
+    id: string;
+    manifest: Models.ComponentManifestModel;
+  }
 }
 
 export namespace Enums {
@@ -113,4 +144,195 @@ export namespace Enums {
     StyleProperties = "StyleProperties",
     Unknown = "Unknown",
   }
+  export enum ComponentManifestParameterStatus {
+    Draft = "Draft",
+    Published = "Published",
+    Archived = "Archived",
+  }
+}
+
+export function createApis(instance: AxiosInstance) {
+  return {
+    component_lab: {
+      component_manifest: {
+        list: ({
+          query,
+        }: {
+          query?: {
+            keyword?: string[];
+            page?: number;
+            limit?: number;
+          };
+        } = {}) =>
+          instance.get<Models.ComponentManifestResponse[]>(
+            "/component-lab/component-manifest",
+            {
+              params: {
+                ...query,
+              },
+            },
+          ),
+        create: ({ body }: { body: Models.ComponentManifestModel }) =>
+          instance.post<Models.ComponentManifestResponse>(
+            "/component-lab/component-manifest",
+            body,
+          ),
+        getOne: ({
+          path,
+        }: {
+          path: {
+            componentId: string;
+          };
+        }) =>
+          instance.get<Models.ComponentManifestResponse>(
+            `/component-lab/component-manifest/${encodeURIComponent(String(path["componentId"]))}`,
+          ),
+        replace: ({
+          path,
+          body,
+        }: {
+          path: {
+            componentId: string;
+          };
+          body: Models.ComponentManifestModel;
+        }) =>
+          instance.put<Models.ComponentManifestResponse>(
+            `/component-lab/component-manifest/${encodeURIComponent(String(path["componentId"]))}`,
+            body,
+          ),
+        update: ({
+          path,
+          body,
+        }: {
+          path: {
+            componentId: string;
+          };
+          body: Models.ComponentManifestUpdateBody;
+        }) =>
+          instance.patch<Models.ComponentManifestResponse>(
+            `/component-lab/component-manifest/${encodeURIComponent(String(path["componentId"]))}`,
+            body,
+          ),
+        remove: ({
+          path,
+          query,
+        }: {
+          path: {
+            componentId: string;
+          };
+          query?: {
+            keyword?: string[];
+            page?: number;
+            limit?: number;
+          };
+        }) =>
+          instance.delete(
+            `/component-lab/component-manifest/${encodeURIComponent(String(path["componentId"]))}`,
+            {
+              params: {
+                ...query,
+              },
+            },
+          ),
+        path_cases: {
+          pathCases: ({
+            path,
+          }: {
+            path: {
+              stringId: string;
+              numberId: number;
+              booleanId: boolean;
+              bigintId: number;
+              nullableBoolean: null | boolean;
+            };
+          }) =>
+            instance.get(
+              `/component-lab/component-manifest/path-cases/${encodeURIComponent(String(path["stringId"]))}/${encodeURIComponent(String(path["numberId"]))}/${encodeURIComponent(String(path["booleanId"]))}/${encodeURIComponent(String(path["bigintId"]))}/${encodeURIComponent(String(path["nullableBoolean"]))}`,
+            ),
+        },
+        path_enum: {
+          pathEnum: ({
+            path,
+          }: {
+            path: {
+              status: Enums.ComponentManifestParameterStatus;
+            };
+          }) =>
+            instance.get(
+              `/component-lab/component-manifest/path-enum/${encodeURIComponent(String(path["status"]))}`,
+            ),
+        },
+        query_cases: {
+          queryCases: ({
+            query,
+          }: {
+            query: {
+              requiredString: string;
+              optionalString?: string;
+              nullableString: null | string;
+              optionalNullableString?: null | string;
+              requiredNumber: number;
+              optionalNumber?: number;
+              requiredBoolean: boolean;
+              optionalBoolean?: boolean;
+              requiredStringArray: string[];
+              optionalStringArray?: string[];
+              requiredNumberArray: number[];
+              optionalNumberArray?: number[];
+              requiredBooleanArray: boolean[];
+              optionalBooleanArray?: boolean[];
+              literalUnion?: "summary" | "detail";
+              enumValue?: Enums.ComponentManifestParameterStatus;
+              enumValues?: Enums.ComponentManifestParameterStatus[];
+            };
+          }) =>
+            instance.get("/component-lab/component-manifest/query-cases", {
+              params: {
+                ...query,
+              },
+            }),
+        },
+        parameter_cases: {
+          parameterCases: ({
+            path,
+            query,
+          }: {
+            path: {
+              componentId: string;
+              version: number;
+            };
+            query: {
+              requiredString: string;
+              optionalString?: string;
+              nullableString: null | string;
+              optionalNullableString?: null | string;
+              requiredNumber: number;
+              optionalNumber?: number;
+              requiredBoolean: boolean;
+              optionalBoolean?: boolean;
+              requiredStringArray: string[];
+              optionalStringArray?: string[];
+              requiredNumberArray: number[];
+              optionalNumberArray?: number[];
+              requiredBooleanArray: boolean[];
+              optionalBooleanArray?: boolean[];
+              literalUnion?: "summary" | "detail";
+              enumValue?: Enums.ComponentManifestParameterStatus;
+              enumValues?: Enums.ComponentManifestParameterStatus[];
+            };
+          }) =>
+            instance.get(
+              `/component-lab/component-manifest/parameter-cases/${encodeURIComponent(String(path["componentId"]))}/${encodeURIComponent(String(path["version"]))}`,
+              {
+                params: {
+                  ...query,
+                },
+              },
+            ),
+        },
+        upload: ({ body }: { body: Models.ComponentManifestUploadForm }) =>
+          instance.post("/component-lab/component-manifest/upload", body),
+      },
+    },
+  };
 }

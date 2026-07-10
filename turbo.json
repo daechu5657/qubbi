@@ -14,17 +14,17 @@
     },
 
     "server#build": {
-      "dependsOn": ["@qubbi/sdk-builder#build"],
+      "dependsOn": ["@qubbi/sdk-cli#build"],
       "outputs": ["dist/**"]
     },
 
-    "server#sdk-builder": {
+    "server#sdk-cli": {
       "dependsOn": ["server#build"],
       "outputs": ["../../packages/sdk/src/generated.ts"]
     },
 
     "@qubbi/sdk#build": {
-      "dependsOn": ["server#sdk-builder"],
+      "dependsOn": ["server#sdk-cli"],
       "outputs": ["dist/**"]
     },
 

@@ -1,7 +1,7 @@
 import { SwaggerModule } from "@nestjs/swagger";
 import { INestApplication } from "@nestjs/common";
 import { NestiaSwaggerComposer } from "@nestia/sdk";
-import { loadSwaggerConfig } from "@qubbi/sdk-builder";
+import { loadSwaggerConfig } from "@qubbi/sdk-cli";
 
 export async function setupSwagger(app: INestApplication) {
   const document = await NestiaSwaggerComposer.document(app, {

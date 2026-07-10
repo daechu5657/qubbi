@@ -12,11 +12,6 @@ export function createAxiosImport(): ts.ImportDeclaration {
           undefined,
           ts.factory.createIdentifier("AxiosInstance"),
         ),
-        ts.factory.createImportSpecifier(
-          false,
-          undefined,
-          ts.factory.createIdentifier("AxiosRequestConfig"),
-        ),
       ]),
     ),
     ts.factory.createStringLiteral("axios"),

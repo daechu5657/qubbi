@@ -8,11 +8,6 @@
   },
   "packageManager": "pnpm@8.15.6",
   "name": "qubbi",
-  "pnpm": {
-    "patchedDependencies": {
-      "openapi-fetch@0.17.0": "patches/openapi-fetch@0.17.0.patch"
-    }
-  },
   "dependencies": {
     "css-tree": "^3.2.1",
     "csstype": "^3.2.3"

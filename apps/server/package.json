@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "sdk-builder": "sdk-builder",
+    "sdk-cli": "sdk-cli",
     "dev": "nest start --watch",
     "dev:watch": "nest start --watch",
     "build": "nest build",
@@ -34,7 +34,7 @@
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "typia": "^12.1.1",
-    "@qubbi/sdk-builder": "workspace:*"
+    "@qubbi/sdk-cli": "workspace:*"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

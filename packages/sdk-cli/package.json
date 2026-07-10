@@ -1,5 +1,5 @@
 {
-  "name": "@qubbi/sdk-builder",
+  "name": "@qubbi/sdk-cli",
   "private": true,
   "version": "0.0.0",
   "main": "dist/index.js",
@@ -23,7 +23,7 @@
     "@nestjs/core": "^11.0.1"
   },
   "bin": {
-    "sdk-builder": "dist/cli.js"
+    "sdk-cli": "dist/cli.js"
   },
   "exports": {
     ".": "./dist/index.js"

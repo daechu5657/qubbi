@@ -1,5 +1,5 @@
 {
-  "$schema": "./node_modules/@qubbi/sdk-builder/schema/cli.json",
+  "$schema": "./node_modules/@qubbi/sdk-cli/schema/cli.json",
   "appModule": "./dist/app.module.js",
   "appModuleExport": "AppModule",
   "exportPackageName": "@qubbi/sdk",
