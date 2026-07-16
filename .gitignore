@@ -7,8 +7,4 @@ dist-ssr
 *.local
 .env
 .cache
-server/dist
-public/dist
-apps/component-lab/components/dist/
-apps/component-lab/components/*.zip
-apps/component-lab/public/*.zip
+
