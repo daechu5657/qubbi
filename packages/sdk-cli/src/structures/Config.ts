@@ -1,6 +1,6 @@
-import { INestiaConfig } from "@nestia/sdk";
+import type { INestiaConfig } from "@nestia/sdk";
 
-export interface IConfig {
+export interface Config {
   appModule: string;
   appModuleExport: string;
   exportPackageName: string;

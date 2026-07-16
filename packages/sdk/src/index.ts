@@ -1,8 +1,8 @@
 import axios, { type AxiosInstance, type CreateAxiosDefaults } from "axios";
-import { createApis } from "./generated.js";
+import { createApis } from "./sdk.js";
 
-export { Enums } from "./generated.js";
-export type { Models } from "./generated.js";
+export { Enums } from "./sdk.js";
+export type { Models } from "./sdk.js";
 
 export function createApiClient(options?: {
   config?: CreateAxiosDefaults;
